@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   resources :questions
-  resources :codes
   get 'static_page/home'
 
   resources :users
