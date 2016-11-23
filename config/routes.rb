@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :codes
   resources :questions
   resources :users
   root 'static_page#home'
