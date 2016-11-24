@@ -1,7 +1,7 @@
 class User < ApplicationRecord
 	has_many :codes
 	has_secure_password
-
+  validates :account, presence: true, uniqueness: { case_sensitive: false }
 
  # 与えられた文字列のハッシュ値を返す
  def User.digest(string)
@@ -30,4 +30,4 @@ class User < ApplicationRecord
    def forget
    	update_attribute(:remember_digest, nil)
    end
-end
+ end

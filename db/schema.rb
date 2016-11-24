@@ -10,14 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161123132817) do
+ActiveRecord::Schema.define(version: 20161124150853) do
 
   create_table "codes", force: :cascade do |t|
+    t.integer  "user_id",     null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "question_id"
     t.text     "content"
     t.string   "title"
+    t.index ["user_id"], name: "index_codes_on_user_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -25,10 +27,15 @@ ActiveRecord::Schema.define(version: 20161123132817) do
     t.datetime "updated_at",  null: false
     t.string   "title"
     t.text     "content"
-    t.text     "test_case1"
-    t.text     "test_case2"
-    t.text     "test_case3"
     t.integer  "question_id"
+  end
+
+  create_table "test_cases", force: :cascade do |t|
+    t.text     "case"
+    t.integer  "question_id", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["question_id"], name: "index_test_cases_on_question_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -37,6 +44,7 @@ ActiveRecord::Schema.define(version: 20161123132817) do
     t.string   "name"
     t.string   "account"
     t.string   "password_digest"
+    t.index ["account"], name: "index_users_on_account", unique: true
   end
 
 end
