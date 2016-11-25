@@ -71,4 +71,4 @@ class QuestionsController < ApplicationController
     def question_params
       params.require(:question).permit(:title, :content,:question_id, :test_case1, :test_case2, :test_case3)
     end
-end
+  end
