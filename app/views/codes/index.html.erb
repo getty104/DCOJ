@@ -6,7 +6,7 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:question_id) %></th>
+      <th><%= model_class.human_attribute_name(:question_number) %></th>
       <th><%= model_class.human_attribute_name(:content) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
@@ -17,7 +17,7 @@
     <% @codes.each do |code| %>
       <tr>
         <td><%= link_to code.id, code_path(code) %></td>
-        <td><%= code.question_id %></td>
+        <td><%= code.question_number %></td>
         <td><%= code.content %></td>
         <td><%= code.title %></td>
         <td><%=l code.created_at %></td>

@@ -12,39 +12,29 @@ class JudgeSystemsController < ApplicationController
 
 
   def create
-    @judge_system = JudgeSystem.new(judge_system_params)
+    #@judge_system = JudgeSystem.new(judge_system_params)
     @question = Question.find(params[:judge_system][:question_id])
     #answer = File.open("#{params[:judge_system][:file].read}","r").read
+    
+    answer = params[:judge_system][:ans]
+    output = File.open("app/assets/questions/output/#{@question.id}_output.txt","r").read
+    if answer == output
+      current_user.codes << Code.create(:question_number => @question.id) 
+      redirect_to :action => :AC 
+    else
+     redirect_to :action => :WA
+   end
+ end
 
-    respond_to do |format|
-      if @judge_system.save
-        answer = params[:judge_system][:ans]
-        output = File.open("app/assets/questions/output/#{@question.id}_output.txt","r").read
-        if answer == output
-          current_user.codes << Code.create(:question_number => @question.id) 
-          format.html { redirect_to :action => :AC, notice: 'AC' }
-          format.json { render :show, status: :created, location: :AC }
-        else
-          format.html { redirect_to :action => :WA, notice: 'WA' }
-          format.json { render :show, status: :created, location: :WA }
-        end
+ def AC
+ end
 
-      else
-        format.html { render :new }
-        format.json { render json: @judge_system.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+ def WA
+ end
 
-  def AC
-  end
 
-  def WA
-  end
 
-  
-
-  private
+ private
     # Use callbacks to share common setup or constraints between actions.
     def set_judge_system
       @judge_system = JudgeSystem.find(params[:id])
