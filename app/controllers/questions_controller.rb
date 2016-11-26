@@ -1,11 +1,16 @@
 class QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :submission]
 
   # GET /questions
   # GET /questions.json
-  def index
-    @questions = Question.all
-  end
+
+
+
+
+
+def index
+  @questions = Question.all
+end
 
   # GET /questions/1
   # GET /questions/1.json
@@ -28,6 +33,10 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
+        input = File.open("app/assets/questions/input/#{@question.id}.txt","w")
+        input.puts(params[:question][:input])
+        output = File.open("app/assets/questions/output/#{@question.id}.txt","w")
+        output.puts(params[:question][:output])
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
@@ -42,6 +51,12 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
+
+        input = File.open("app/assets/questions/input/#{@question.id}_input.txt","w")
+        input.puts(params[:question][:input])    
+        output = File.open("app/assets/questions/output/#{@question.id}_output.txt","w")
+        output.puts(params[:question][:output])
+
         format.html { redirect_to @question, notice: 'Question was successfully updated.' }
         format.json { render :show, status: :ok, location: @question }
       else
@@ -69,6 +84,6 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:title, :content,:question_id, :test_case1, :test_case2, :test_case3)
+      params.require(:question).permit(:title, :content,:question_id, :input, :output)
     end
   end

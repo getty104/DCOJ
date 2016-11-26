@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161125140550) do
+ActiveRecord::Schema.define(version: 20161126090033) do
 
   create_table "codes", force: :cascade do |t|
     t.integer  "user_id",         null: false
@@ -22,12 +22,22 @@ ActiveRecord::Schema.define(version: 20161125140550) do
     t.index ["user_id"], name: "index_codes_on_user_id"
   end
 
+  create_table "judge_systems", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "questions", force: :cascade do |t|
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.string   "title"
-    t.text     "content"
     t.integer  "question_number"
+    t.text     "content"
+  end
+
+  create_table "static_pages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "test_cases", force: :cascade do |t|
@@ -43,6 +53,7 @@ ActiveRecord::Schema.define(version: 20161125140550) do
     t.string   "name"
     t.string   "account"
     t.string   "password_digest"
+    t.string   "remember_digest"
     t.index ["account"], name: "index_users_on_account", unique: true
   end
 

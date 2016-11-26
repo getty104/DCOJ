@@ -1,0 +1,28 @@
+<%= form_for @judge_system, :html => { :class => "form-horizontal question" } do |f| %>
+
+
+
+<div class="form-group">
+  <%= f.label "問題を選択", :class => 'control-label col-lg-2' %>
+  <div class="col-lg-4">
+   <%= f.collection_select :question_id, Question.all, :id, :title,:prompt => "問題を選択してください", :tabindex => true,:class =>"btn btn-default dropdown-toggle form-control" %>
+ </div>
+</div>
+
+<div class="form-group">
+  <%= f.label "出力を提出", :class => 'control-label col-lg-2' %>
+  <div class="col-lg-10">
+    <%= f.text_area :ans, :class => 'form-control' %>
+  </div>
+  <%=f.error_span(:ans) %>
+</div>
+
+<div class="form-group">
+  <div class="col-lg-offset-2 col-lg-10">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+     questions_path, :class => 'btn btn-default' %>
+  </div>
+</div>
+
+<% end %>
