@@ -13,7 +13,7 @@ class JudgeSystemsController < ApplicationController
 
   def create
     @question = Question.find(params[:judge_system][:question_id])
-    
+
     ans_data = params[:judge_system][:ans].read
     File.open("app/assets/questions/answer/answer.txt","wb") do |ans|
       ans.write ans_data
@@ -25,10 +25,10 @@ class JudgeSystemsController < ApplicationController
       output.write output_data
       output.close
     end
+
     answer =  File.open("app/assets/questions/answer/answer.txt","r")
     output = File.open("app/assets/questions/output/output.txt","r")
-    if FileUtils.cmp(answer, output) 
-      current_user.codes << Code.create(:question_number => @question.id) 
+    if FileUtils.cmp(answer, output)
       redirect_to :action => :AC 
     else
      redirect_to :action => :WA
@@ -52,6 +52,6 @@ class JudgeSystemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def judge_system_params
-      params.require(:judge_system).permit(:new, :create)
+      params.require(:judge_system).permit()
     end
   end

@@ -12,16 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20161127072306) do
 
-  create_table "codes", force: :cascade do |t|
-    t.integer  "user_id",         null: false
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-    t.text     "content"
-    t.string   "title"
-    t.integer  "question_number"
-    t.index ["user_id"], name: "index_codes_on_user_id"
-  end
-
   create_table "judge_systems", force: :cascade do |t|
   end
 
@@ -34,13 +24,6 @@ ActiveRecord::Schema.define(version: 20161127072306) do
     t.integer  "user_id"
     t.binary   "input"
     t.binary   "output"
-  end
-
-  create_table "test_cases", force: :cascade do |t|
-    t.integer  "question_id", null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["question_id"], name: "index_test_cases_on_question_id"
   end
 
   create_table "users", force: :cascade do |t|
