@@ -7,8 +7,10 @@
   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
   <dd><%= @question.title %></dd>
   <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
-  <dd><%= @question.content %></dd>
+  <dd><%= simple_format(@question.content) %></dd>
+  <dd><%= link_to 'input download', download_question_path(@question) %></dd>
 </dl>
+
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               questions_path, :class => 'btn btn-default'  %>
