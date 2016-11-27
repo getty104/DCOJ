@@ -73,7 +73,7 @@ class QuestionsController < ApplicationController
      send_file(@filepath,
        :type => 'text/txt',
        :disposition => 'attachment',
-       :filename => "input.txt",
+       :filename => "#{@question.id}_input.txt",
        :status => 200)
   end
 

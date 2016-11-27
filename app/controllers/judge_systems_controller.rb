@@ -12,13 +12,16 @@ class JudgeSystemsController < ApplicationController
 
 
   def create
-    #@judge_system = JudgeSystem.new(judge_system_params)
     @question = Question.find(params[:judge_system][:question_id])
-    #answer = File.open("#{params[:judge_system][:file].read}","r").read
-    
-    answer = params[:judge_system][:ans]
-    output = File.open("app/assets/questions/output/#{@question.id}_output.txt","r").read
-    if answer == output
+    ans_name = "#{current_user.id}_ans.txt"
+    ans_data = params[:judge_system][:ans].read
+    File.open("app/assets/questions/answer/#{ans_name}","wb") do |ans|
+      ans.write ans_data
+      ans.close
+    end
+    answer =  File.open("app/assets/questions/answer/#{ans_name}","r")
+    output = File.open("app/assets/questions/output/#{@question.id}_output.txt","r")
+    if FileUtils.cmp(answer, output) 
       current_user.codes << Code.create(:question_number => @question.id) 
       redirect_to :action => :AC 
     else

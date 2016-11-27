@@ -12,7 +12,7 @@
 <div class="form-group">
   <%= f.label "出力を提出", :class => 'control-label col-lg-2' %>
   <div class="col-lg-10">
-    <%= f.text_area :ans, :class => 'form-control' %>
+    <%= f.file_field :ans, :class => 'form-control' %>
   </div>
   <%=f.error_span(:ans) %>
 </div>
