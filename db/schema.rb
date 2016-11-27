@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161127064224) do
+ActiveRecord::Schema.define(version: 20161127072306) do
 
   create_table "codes", force: :cascade do |t|
     t.integer  "user_id",         null: false
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20161127064224) do
     t.integer  "question_number"
     t.text     "content"
     t.integer  "user_id"
+    t.binary   "input"
+    t.binary   "output"
   end
 
   create_table "test_cases", force: :cascade do |t|

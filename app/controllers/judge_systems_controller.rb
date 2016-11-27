@@ -19,8 +19,14 @@ class JudgeSystemsController < ApplicationController
       ans.write ans_data
       ans.close
     end
+    output_name = "#{current_user.id}_output.txt"
+    output_data =@question.output
+     File.open("app/assets/questions/output/#{output_name}","wb") do |output|
+      output.write output_data
+      output.close
+    end
     answer =  File.open("app/assets/questions/answer/#{ans_name}","r")
-    output = File.open("app/assets/questions/output/#{@question.id}_output.txt","r")
+    output = File.open("app/assets/questions/output/#{output_name}","r")
     if FileUtils.cmp(answer, output) 
       current_user.codes << Code.create(:question_number => @question.id) 
       redirect_to :action => :AC 

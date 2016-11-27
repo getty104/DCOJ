@@ -37,13 +37,13 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.save
         
-        input = File.open("app/assets/questions/input/#{@question.id}_input.txt","w")
-        input.puts(params[:question][:input].chomp)
-        input.close
+        #input = File.open("app/assets/questions/input/#{@question.id}_input.txt","w")
+        #input.puts(params[:question][:input].chomp)
+        #input.close
 
-        output = File.open("app/assets/questions/output/#{@question.id}_output.txt","w")
-        output.puts(params[:question][:output].chomp)
-        output.close
+        #output = File.open("app/assets/questions/output/#{@question.id}_output.txt","w")
+        #output.puts(params[:question][:output].chomp)
+        #output.close
 
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
@@ -59,12 +59,12 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        input = File.open("app/assets/questions/input/#{@question.id}_input.txt","w")
-        input.puts(params[:question][:input].chomp) 
-        input.close   
-        output = File.open("app/assets/questions/output/#{@question.id}_output.txt","w")
-        output.puts(params[:question][:output].chomp)
-        output.close
+        #input = File.open("app/assets/questions/input/#{@question.id}_input.txt","w")
+        #input.puts(params[:question][:input].chomp) 
+        #input.close   
+        #output = File.open("app/assets/questions/output/#{@question.id}_output.txt","w")
+        #output.puts(params[:question][:output].chomp)
+        #output.close
         format.html { redirect_to @question, notice: 'Question was successfully updated.' }
         format.json { render :show, status: :ok, location: @question }
       else
@@ -75,13 +75,12 @@ class QuestionsController < ApplicationController
   end
 
   def download
-     @filepath = "app/assets/questions/input/#{@question.id}_input.txt"
-     send_file(@filepath,
+     #@filepath = "app/assets/questions/input/#{@question.id}_input.txt"
+     send_file(@question.input,
        :type => 'text/txt',
        :disposition => 'attachment',
        :filename => "#{@question.id}_input.txt",
        :status => 200)
-   
   end
 
   # DELETE /questions/1
