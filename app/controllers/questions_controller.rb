@@ -24,13 +24,16 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1/edit
   def edit
+    if current_user.id != @question.user_id
+      redirect_to @question
+    end
   end
 
   # POST /questions
   # POST /questions.json
   def create
     @question = Question.new(question_params)
-
+    @question.user_id = current_user.id
     respond_to do |format|
       if @question.save
         
