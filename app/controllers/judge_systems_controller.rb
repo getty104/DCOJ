@@ -13,20 +13,20 @@ class JudgeSystemsController < ApplicationController
 
   def create
     @question = Question.find(params[:judge_system][:question_id])
-    ans_name = "#{current_user.id}_ans.txt"
+    
     ans_data = params[:judge_system][:ans].read
-    File.open("app/assets/questions/answer/#{ans_name}","wb") do |ans|
+    File.open("app/assets/questions/answer/answer.txt","wb") do |ans|
       ans.write ans_data
       ans.close
     end
-    output_name = "#{current_user.id}_output.txt"
+   
     output_data =@question.output
-     File.open("app/assets/questions/output/#{output_name}","wb") do |output|
+     File.open("app/assets/questions/output/output.txt","wb") do |output|
       output.write output_data
       output.close
     end
-    answer =  File.open("app/assets/questions/answer/#{ans_name}","r")
-    output = File.open("app/assets/questions/output/#{output_name}","r")
+    answer =  File.open("app/assets/questions/answer/answer.txt","r")
+    output = File.open("app/assets/questions/output/output.txt","r")
     if FileUtils.cmp(answer, output) 
       current_user.codes << Code.create(:question_number => @question.id) 
       redirect_to :action => :AC 

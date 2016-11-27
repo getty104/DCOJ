@@ -75,11 +75,11 @@ class QuestionsController < ApplicationController
   end
 
   def download
-    File.open("app/assets/questions/input/#{@question.id}_input.txt","wb") do |file|
+    File.open("app/assets/questions/input/input.txt","wb") do |file|
       file.write(@question.input)
       file.close
     end
-     @filepath = "app/assets/questions/input/#{@question.id}_input.txt"
+     @filepath = "app/assets/questions/input/input.txt"
      send_file(@filepath,
        :type => 'text/txt',
        :disposition => 'attachment',
