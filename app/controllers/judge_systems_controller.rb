@@ -20,7 +20,7 @@ class JudgeSystemsController < ApplicationController
       ans.close
     end
    
-    output_data =@question.output
+    output_data =@question.output.read
      File.open("app/assets/questions/output/output.txt","wb") do |output|
       output.write output_data
       output.close

@@ -34,8 +34,6 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     @question.user_id = current_user.id
-    @question.input = params[:question][:input].read
-    @question.output = params[:question][:output].read
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
@@ -51,8 +49,6 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1.json
   def update
     respond_to do |format|
-       @question.input = params[:question][:input].read
-       @question.output = params[:question][:output].read
       if @question.update(question_params)
        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
        format.json { render :show, status: :ok, location: @question }
@@ -65,7 +61,7 @@ end
 
 def download
   File.open("app/assets/questions/input/input.txt","wb") do |file|
-    file.write(@question.input)
+    file.write(@question.input.read)
     file.close
   end
   @filepath = "app/assets/questions/input/input.txt"
