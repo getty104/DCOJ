@@ -33,12 +33,15 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
+        
         input = File.open("app/assets/questions/input/#{@question.id}_input.txt","w")
         input.puts(params[:question][:input].chomp)
         input.close
+
         output = File.open("app/assets/questions/output/#{@question.id}_output.txt","w")
         output.puts(params[:question][:output].chomp)
         output.close
+
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
@@ -75,6 +78,7 @@ class QuestionsController < ApplicationController
        :disposition => 'attachment',
        :filename => "#{@question.id}_input.txt",
        :status => 200)
+   
   end
 
   # DELETE /questions/1
