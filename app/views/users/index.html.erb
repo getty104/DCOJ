@@ -13,7 +13,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.id, user_path(user) %></td>
+        <td><%=  user.id %></td>
         <td><%= user.name %></td>
         <td><%=l user.created_at %></td>
       </tr>
