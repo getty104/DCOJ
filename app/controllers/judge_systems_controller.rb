@@ -13,14 +13,13 @@ class JudgeSystemsController < ApplicationController
 
   def create
     @question = Question.find(params[:judge_system][:question_id])
-
     ans_data = params[:judge_system][:ans].read
     File.open("app/assets/questions/answer/answer.txt","wb") do |ans|
       ans.write ans_data
       ans.close
     end
    
-    output_data =@question.output.read
+    output_data =@question.output
      File.open("app/assets/questions/output/output.txt","wb") do |output|
       output.write output_data
       output.close

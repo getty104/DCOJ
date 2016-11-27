@@ -34,6 +34,12 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     @question.user_id = current_user.id
+    if params[:question][:i_data]
+      @question.input = params[:question][:i_data].read
+    end
+    if params[:question][:o_data]
+      @question.output = params[:question][:o_data].read
+    end
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
@@ -48,20 +54,27 @@ class QuestionsController < ApplicationController
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
-    respond_to do |format|
-      if @question.update(question_params)
-       format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-       format.json { render :show, status: :ok, location: @question }
-     else
-      format.html { render :edit }
-      format.json { render json: @question.errors, status: :unprocessable_entity }
-    end
+   if params[:question][:i_data]
+    @question.input = params[:question][:i_data].read
   end
+  
+  if params[:question][:o_data]
+    @question.output = params[:question][:o_data].read
+  end
+  respond_to do |format|
+    if @question.update(question_params)
+     format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+     format.json { render :show, status: :ok, location: @question }
+   else
+    format.html { render :edit }
+    format.json { render json: @question.errors, status: :unprocessable_entity }
+  end
+end
 end
 
 def download
   File.open("app/assets/questions/input/input.txt","wb") do |file|
-    file.write(@question.input.read)
+    file.write(@question.input)
     file.close
   end
   @filepath = "app/assets/questions/input/input.txt"
@@ -90,6 +103,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:title, :content,:question_id, :input, :output)
+      params.require(:question).permit(:title, :content,:question_id, :input, :output,:i_data, :o_data)
     end
   end

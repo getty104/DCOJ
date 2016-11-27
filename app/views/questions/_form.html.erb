@@ -34,17 +34,17 @@
 <div class="form-group">
   <%= f.label "インプット", :class => 'control-label col-lg-2' %>
   <div class="col-lg-10">
-  <%= f.file_field:input, :class => 'form-control' %>
+  <%= f.file_field :i_data, :class => 'form-control' %>
   </div>
-  <%=f.error_span(:input) %>
+  <%=f.error_span(:i_data) %>
 </div>
 
 <div class="form-group">
   <%= f.label "アウトプット", :class => 'control-label col-lg-2' %>
   <div class="col-lg-10">
-    <%= f.file_field :output, :class => 'form-control' %>
+    <%= f.file_field :o_data, :class => 'form-control' %>
   </div>
-  <%=f.error_span(:output) %>
+  <%=f.error_span(:o_data) %>
 </div>
 
 <div class="form-group">
