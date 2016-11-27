@@ -34,17 +34,10 @@ class QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     @question.user_id = current_user.id
+    @question.input = params[:question][:input].read
+    @question.output = params[:question][:output].read
     respond_to do |format|
       if @question.save
-        
-        #input = File.open("app/assets/questions/input/#{@question.id}_input.txt","w")
-        #input.puts(params[:question][:input].chomp)
-        #input.close
-
-        #output = File.open("app/assets/questions/output/#{@question.id}_output.txt","w")
-        #output.puts(params[:question][:output].chomp)
-        #output.close
-
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
@@ -59,33 +52,29 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        #input = File.open("app/assets/questions/input/#{@question.id}_input.txt","w")
-        #input.puts(params[:question][:input].chomp) 
-        #input.close   
-        #output = File.open("app/assets/questions/output/#{@question.id}_output.txt","w")
-        #output.puts(params[:question][:output].chomp)
-        #output.close
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-        format.json { render :show, status: :ok, location: @question }
-      else
-        format.html { render :edit }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
-      end
+       @question.input = params[:question][:input].read
+       @question.output = params[:question][:output].read
+       format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+       format.json { render :show, status: :ok, location: @question }
+     else
+      format.html { render :edit }
+      format.json { render json: @question.errors, status: :unprocessable_entity }
     end
   end
+end
 
-  def download
-    File.open("app/assets/questions/input/input.txt","wb") do |file|
-      file.write(@question.input)
-      file.close
-    end
-     @filepath = "app/assets/questions/input/input.txt"
-     send_file(@filepath,
-       :type => 'text/txt',
-       :disposition => 'attachment',
-       :filename => "#{@question.id}_input.txt",
-       :status => 200)
+def download
+  File.open("app/assets/questions/input/input.txt","wb") do |file|
+    file.write(@question.input)
+    file.close
   end
+  @filepath = "app/assets/questions/input/input.txt"
+  send_file(@filepath,
+   :type => 'text/txt',
+   :disposition => 'attachment',
+   :filename => "#{@question.id}_input.txt",
+   :status => 200)
+end
 
   # DELETE /questions/1
   # DELETE /questions/1.json

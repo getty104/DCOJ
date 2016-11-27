@@ -8,6 +8,9 @@ class StaticPagesController < ApplicationController
   end
 
   def main_menu
+    if !logged_in?
+      redirect_to :home
+    end
   end
   
 end
