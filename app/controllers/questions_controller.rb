@@ -73,12 +73,7 @@ end
 end
 
 def download
-  File.open("app/assets/questions/input/input.txt","wb") do |file|
-    file.write(@question.input)
-    file.close
-  end
-  @filepath = "app/assets/questions/input/input.txt"
-  send_file(@filepath,
+  send_data(@question.input,
    :type => 'text/txt',
    :disposition => 'attachment',
    :filename => "#{@question.id}_input.txt",
