@@ -7,7 +7,7 @@
   <dd><%= @question.title %></dd>
   <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
   <dd><%= simple_format(hbr(@question.content)) %></dd>
-  <dd><%= link_to 'input download', download_question_path(@question) %></dd>
+  <dd><%= link_to 'input download', download_input_question_path(@question) %></dd>
 </dl>
 
 

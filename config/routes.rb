@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 	
 	resources :questions do
 		member do 
-			get   'download' 
+			get   'download_input' 
 		end
 	end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
