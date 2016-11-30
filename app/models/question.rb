@@ -3,6 +3,6 @@ class Question < ApplicationRecord
   attr_accessor :i_data, :o_data
   validates :title, presence: true
   validates :content, presence: true
-  validates :i_data, presence: true
-  validates :o_data, presence: true
+  validates :input, presence: true
+  validates :output, presence: true
 end
