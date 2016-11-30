@@ -22,6 +22,7 @@ class JudgeSystemsController < ApplicationController
       ans_data = params[:judge_system][:ans].read
 
       if ans_data == @question.output
+        current_user.solve_questions << @question
         redirect_to :action => :AC 
       else
        redirect_to :action => :WA

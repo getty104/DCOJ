@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161127072306) do
+ActiveRecord::Schema.define(version: 20161130130627) do
 
   create_table "judge_systems", force: :cascade do |t|
   end
@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 20161127072306) do
     t.integer  "user_id"
     t.binary   "input"
     t.binary   "output"
+  end
+
+  create_table "questions_users", force: :cascade do |t|
+    t.integer "question_id"
+    t.integer "user_id"
+    t.index ["question_id"], name: "index_questions_users_on_question_id"
+    t.index ["user_id"], name: "index_questions_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

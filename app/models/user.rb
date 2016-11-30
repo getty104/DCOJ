@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 	has_many :questions, dependent: :destroy
-
+  has_and_belongs_to_many :solve_questions, class_name: "Question"
 	has_secure_password
   validates :account, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
