@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 	
-
+	mathjax 'mathjax'
 	resources :codes
 	resources :questions
 	resources :users
