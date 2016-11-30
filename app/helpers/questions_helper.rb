@@ -1,8 +1,5 @@
 module QuestionsHelper
-   def format(text)
-    return text if text.nil?
-    text = h text
-    text.gsub(/\r\n|\r|\n/, "
-      ").html_safe
+  def created_user(question)
+    User.find(question.user_id)
   end
 end

@@ -7,7 +7,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:number) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:created_by) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -16,7 +16,7 @@
       <tr>
         <td><%= link_to question.id, question_path(question) %></td>
         <td><%= question.title %></td>
-        <td><%=l question.created_at %></td>
+        <td><%=created_user(question).name %></td>
         <%if current_user.id == question.user_id%>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
