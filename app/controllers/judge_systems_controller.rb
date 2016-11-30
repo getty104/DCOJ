@@ -8,11 +8,12 @@ class JudgeSystemsController < ApplicationController
   # GET /judge_systems/new
   def new
     @judge_system = JudgeSystem.new
+    @question = Question.find(params[:question_id])
   end
 
 
   def create
-    if params[:judge_system][:question_id] == "" || !params[:judge_system][:ans]
+    if !params[:judge_system][:ans]
       flash.now[:danger] = '正しく提出されていません'
       render :new
     else

@@ -1,13 +1,7 @@
 <%= form_for :judge_system, url: submission_path, :html => { :class => "form-horizontal question" } do |f| %>
 
-
-<div class="form-group">
-  <%= f.label "問題を選択", :class => 'control-label col-lg-2' %>
-  <div class="col-lg-4">
-   <%= f.collection_select :question_id, Question.all, :id, :title,:prompt => "問題を選択してください", :tabindex => true,:class =>"btn btn-default dropdown-toggle form-control" %>
- </div>
-</div>
-
+<p>問題: <%= @question.title %></p>
+<%= f.hidden_field :question_id, :value => @question.id %>
 <div class="form-group">
   <%= f.label "出力を提出", :class => 'control-label col-lg-2' %>
   <div class="col-lg-10">
