@@ -12,12 +12,19 @@ class JudgeSystemsController < ApplicationController
 
 
   def create
-    @question = Question.find(params[:judge_system][:question_id])
-    ans_data = params[:judge_system][:ans].read
-    if ans_data == @question.output
-      redirect_to :action => :AC 
+    if params[:judge_system][:question_id] == "" || !params[:judge_system][:ans]
+      flash.now[:danger] = '正しく提出されていません'
+      render :new
     else
-     redirect_to :action => :WA
+      
+      @question = Question.find(params[:judge_system][:question_id])
+      ans_data = params[:judge_system][:ans].read
+
+      if ans_data == @question.output
+        redirect_to :action => :AC 
+      else
+       redirect_to :action => :WA
+     end
    end
  end
 
