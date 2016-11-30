@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 	
 	mathjax 'mathjax'
 	resources :questions
-	resources :users
+	resources :users, param: :account
 	root 'static_pages#home'
 	get 'AC' => 'judge_systems#AC'
 	get 'WA' => 'judge_systems#WA'

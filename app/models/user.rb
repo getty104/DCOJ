@@ -5,6 +5,11 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :password, presence: true, length: { minimum: 6 }
   attr_accessor :remember_token
+#to_paramを名前にオーバーライド
+def to_param
+  account
+end
+
  # 与えられた文字列のハッシュ値を返す
  def User.digest(string)
  	cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
