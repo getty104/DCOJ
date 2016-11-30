@@ -16,12 +16,10 @@ ActiveRecord::Schema.define(version: 20161130130627) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "title"
-    t.integer  "question_number"
     t.text     "content"
-    t.integer  "user_id"
     t.binary   "input"
     t.binary   "output"
   end
