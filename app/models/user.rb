@@ -2,6 +2,8 @@ class User < ApplicationRecord
 	has_many :codes
 	has_secure_password
   validates :account, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, presence: true
+  validates :password, presence: true, length: { minimum: 6 }
   attr_accessor :remember_token
  # 与えられた文字列のハッシュ値を返す
  def User.digest(string)
