@@ -2,8 +2,7 @@
 <html>
 <head>
   <title>OnlineJudgeApp</title>
-  <%= csrf_meta_tags %>
-  <script type="text/x-mathjax-config">
+   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
      tex2jax: {
        inlineMath: [ ['$','$'] ],
@@ -12,8 +11,9 @@
     });
 </script>
   <%= mathjax_tag %>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
 <body>
@@ -23,6 +23,9 @@
     <%= msg %>
   </div>
 <% end %>
+<script>
+      MathJax.Hub.Typeset();
+</script>
   <%= yield %>
 </body>
 </html>
