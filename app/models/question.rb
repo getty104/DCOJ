@@ -1,5 +1,5 @@
 class Question < ApplicationRecord
-	has_many :test_cases
+	belongs_to :user
   attr_accessor :i_data, :o_data
   validates :title, presence: true
   validates :content, presence: true
