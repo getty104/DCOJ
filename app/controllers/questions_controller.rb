@@ -32,7 +32,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = current_user.questions.build(question_params)
+    @question = current_user.create_questions.build(question_params)
     
     if params[:question][:i_data]
       @question.input = params[:question][:i_data].read

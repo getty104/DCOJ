@@ -1,6 +1,6 @@
 class Question < ApplicationRecord
-	belongs_to :user
-  has_and_belongs_to_many :solved_users, class_name: "User"
+	belongs_to :created_user, class_name: "User", :foreign_key => 'created_user_id'
+  has_and_belongs_to_many :users
   attr_accessor :i_data, :o_data
   validates :title, presence: true
   validates :content, presence: true
