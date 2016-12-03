@@ -1,38 +1,36 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Daisuki Club Online Judge</title>
-        <script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-     tex2jax: {
-       inlineMath: [ ['$','$'] ],
-       processEscapes: true
-     }
-    });
-        </script>
-        <%= mathjax_tag %>
-        <%= csrf_meta_tags %>
-        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-        <%= render 'layouts/shim' %>
-    </head>
-    <body>
-        <%= render 'layouts/header' %>
+<head>
+    <title>Daisuki Club Online Judge</title>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+        tex2jax: {
+        inlineMath: [ ['$','$'] ],
+        processEscapes: true
+    }
+});
+</script>
+<%= mathjax_tag %>
+<%= csrf_meta_tags %>
+<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+<%= render 'layouts/shim' %>
+</head>
+<body>
+  <script>
+    MathJax.Hub.Typeset();
+</script>
+<%= render 'layouts/header' %>
 
-
-        <div class="container">
-        <% flash.each do |name, msg| %>
-            <div class="alert alert-<%= name == "notice" ? "success" : "error" %>">
-                <a class="close" data-dismiss="alert">×</a> <!-- アラートダイアログに×ボタンをつける -->
-                <%= msg %>
-            </div>
+<div class="container">
+    <% flash.each do |name, msg| %>
+    <div class="alert alert-<%= name == "notice" ? "success" : "error" %>">
+        <a class="close" data-dismiss="alert">×</a> <!-- アラートダイアログに×ボタンをつける -->
+        <%= msg %>
         <% end %>
+    </div>
+    <%= yield %>
+    <%= render 'layouts/footer' %>
 
-        <script>
-MathJax.Hub.Typeset();
-        </script>
-        <%= yield %>
-        <%= render 'layouts/footer' %>
-        
-    </body>
+</body>
 </html>
