@@ -1,6 +1,7 @@
-<header class="navbar navbar-fixed-top navbar-inverse">
-    <div class="container">
-        <% if logged_in? %>
+<nav class="navbar navbar-fixed-top navbar-inverse">
+    <div class="navbar-header">
+        <div class="container">
+            <% if logged_in? %>
             <%= link_to "Daisuki Club Online Judge", main_menu_path, class: "navbar-brand" %>
             <nav>
                 <ul class="nav navbar-nav navbar-right">
@@ -16,13 +17,14 @@
                     </li> 
                 </ul>
             </nav>
-        <% else %>
+            <% else %>
             <%= link_to "Daisuki Club Online Judge", root_path, class: "navbar-brand" %>
             <nav>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><%= link_to "Sign in", login_path, class: 'navbar-brand' %></li>
+                <%= link_to "Sign in", login_path, class: 'navbar-brand' %>
                 </ul>
             </nav>
-        <% end %>
+            <% end %>
+        </div>
     </div>
-</header>
+</nav>
