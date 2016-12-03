@@ -22,8 +22,8 @@ class JudgeSystemsController < ApplicationController
       ans_data = params[:judge_system][:ans].read
 
       if ans_data == @question.output
-        if current_user != @question.user && !current_user.solve_questions.include?(@question)
-          current_user.solve_questions << @question
+        if current_user != @question.created_user && !current_user.questions.include?(@question)
+          current_user.questions << @question
         end
         redirect_to :action => :AC 
       else
