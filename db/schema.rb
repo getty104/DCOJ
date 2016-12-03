@@ -23,7 +23,6 @@ ActiveRecord::Schema.define(version: 20161202134408) do
     t.text     "content"
     t.binary   "input"
     t.binary   "output"
-    t.index ["created_user_id"], name: "index_questions_on_created_user_id"
   end
 
   create_table "questions_users", id: false, force: :cascade do |t|
