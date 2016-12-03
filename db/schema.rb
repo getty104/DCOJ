@@ -18,16 +18,17 @@ ActiveRecord::Schema.define(version: 20161202134408) do
   create_table "questions", force: :cascade do |t|
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "created_user_id"
+    t.integer  "created_user_id", null: false
     t.string   "title"
     t.text     "content"
     t.binary   "input"
     t.binary   "output"
+    t.index ["created_user_id"], name: "index_questions_on_created_user_id"
   end
 
   create_table "questions_users", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "question_id"
+    t.integer "user_id",     null: false
+    t.integer "question_id", null: false
     t.index ["question_id"], name: "index_questions_users_on_question_id"
     t.index ["user_id"], name: "index_questions_users_on_user_id"
   end
