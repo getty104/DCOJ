@@ -26,10 +26,8 @@ ActiveRecord::Schema.define(version: 20161202134408) do
   end
 
   create_table "questions_users", id: false, force: :cascade do |t|
-    t.integer "question_id"
     t.integer "user_id"
-    t.index ["question_id"], name: "index_questions_users_on_question_id"
-    t.index ["user_id"], name: "index_questions_users_on_user_id"
+    t.integer "question_id"
   end
 
   create_table "users", force: :cascade do |t|
