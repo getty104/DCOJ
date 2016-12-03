@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161202134408) do
+ActiveRecord::Schema.define(version: 20161203082216) do
 
   create_table "judge_systems", force: :cascade do |t|
   end
@@ -18,19 +18,19 @@ ActiveRecord::Schema.define(version: 20161202134408) do
   create_table "questions", force: :cascade do |t|
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "created_user_id", null: false
     t.string   "title"
     t.text     "content"
     t.binary   "input"
     t.binary   "output"
-    t.index ["created_user_id"], :name => "index_questions_on_created_user_id"
+    t.integer  "created_user_id"
+    t.index ["created_user_id"], name: "index_questions_on_created_user_id"
   end
 
   create_table "questions_users", id: false, force: :cascade do |t|
     t.integer "user_id",     null: false
     t.integer "question_id", null: false
-    t.index ["question_id"], :name => "index_questions_users_on_question_id"
-    t.index ["user_id"], :name => "index_questions_users_on_user_id"
+    t.index ["question_id"], name: "index_questions_users_on_question_id"
+    t.index ["user_id"], name: "index_questions_users_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
