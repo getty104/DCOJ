@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
 
   # GET /questions/1/edit
   def edit
-    if current_user.id != @question.user_id
+    if current_user != @question.created_user
       redirect_to @question
     end
   end
