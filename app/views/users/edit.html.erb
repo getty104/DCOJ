@@ -1,5 +1,3 @@
 <%- model_class = User -%>
 <% provide(:title, "User Edit") %>
-<%= render :partial => 'layouts/header', locals: {page_name: 'User Edit'} %>
-
 <%= render :partial => 'form', locals: {set_path: @user} %>

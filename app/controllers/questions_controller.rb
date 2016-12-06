@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
 
 
   def index
-    @questions = Question.all
+    @questions = Question.all.order(:id)
   end
 
   # GET /questions/1
@@ -75,7 +75,7 @@ end
 
 def download_input
   send_data(@question.input,
-   :type => 'text/txt',
+   :type => 'text/txt; charset=utf-8;',
    :disposition => 'attachment',
    :filename => "#{@question.id}_input.txt",
    :status => 200)
