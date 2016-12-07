@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 	
+  get 'records/new'
+  get 'records/edit'
+  get 'records/update'
+
 	mathjax 'mathjax'
 	resources :questions
 	resources :users, param: :account

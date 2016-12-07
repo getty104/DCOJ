@@ -17,25 +17,32 @@ class JudgeSystemsController < ApplicationController
       flash.now[:danger] = '正しく提出されていません'
       render :new
     else
-      
       @question = Question.find(params[:judge_system][:question_id])
       ans_data = params[:judge_system][:ans].read
-
       if ans_data == @question.output
         if current_user != @question.created_user && !current_user.questions.include?(@question)
           current_user.questions << @question
         end
-        redirect_to :action => :AC 
+        record = current_user.records.build(result: "AC")
+        @question.records << record
+        current_user.save
+        redirect_to :action => :AC , :question_id => @question.id
       else
-       redirect_to :action => :WA
+       record = current_user.records.build(result: "WA")
+       @question.records << record
+       current_user.save
+       redirect_to :action => :WA, :question_id => @question.id
      end
    end
  end
 
  def AC
+   @question = Question.find(params[:question_id])
+  
  end
 
  def WA
+   @question = Question.find(params[:question_id])
  end
 
 

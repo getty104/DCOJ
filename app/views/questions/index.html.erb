@@ -14,10 +14,11 @@
   <tbody>
     <% @questions.each do |question| %>
       <tr>
-        <td><%= link_to question.id, question_path(question) %></td>
+        <td><%=  question.id %></td>
         <td><%= question.title %></td>
         <td><%= question.created_user.name %></td>
         <td><%= question.users.length %></td>
+        <td><%=link_to "詳細",question, :class => 'btn btn-primary'  %></td>
       </tr>
     <% end %>
   </tbody>
