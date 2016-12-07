@@ -1,68 +1,68 @@
 <%= form_for @question, :html => { :class => "form-horizontal question" } do |f| %>
 
-    <% if @question.errors.any? %>
-        <div id="error_expl" class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title"><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h3>
-            </div>
-            <div class="panel-body">
-                <ul>
-                    <% @question.errors.full_messages.each do |msg| %>
-                        <li><%= msg %></li>
-                    <% end %>
-                </ul>
-            </div>
-        </div>
-    <% end %>
-    <p>記号は$$の間に書き込んでください <%= link_to "記号一覧はこちら","http://www002.upp.so-net.ne.jp/latex/kigou_all.html", :target=>["_blank"] %></p>
-    <div class="form-group">
-        <%= f.label "タイトル", :class => 'control-label col-lg-2' %>
-        <div class="col-lg-10">
-            <%= f.text_field :title, :class => 'form-control' %>
-        </div>
-        <%=f.error_span(:title) %>
+<% if @question.errors.any? %>
+<div id="error_expl" class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title"><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h3>
     </div>
+    <div class="panel-body">
+        <ul>
+            <% @question.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+            <% end %>
+        </ul>
+    </div>
+</div>
+<% end %>
+<p>記号は$$の間に書き込んでください <%= link_to "記号一覧はこちら","http://www002.upp.so-net.ne.jp/latex/kigou_all.html", :target=>["_blank"] %></p>
+<div class="form-group">
+    <%= f.label "タイトル", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+        <%= f.text_field :title, :class => 'form-control' %>
+    </div>
+    <%=f.error_span(:title) %>
+</div>
 
-    <div class="form-group">
-        <%= f.label "問題文", :class => 'control-label col-lg-2' %>
-        <div class="col-lg-10">
-            <%= f.text_area :content, :class => 'form-control' %>
-        </div>
-        <%=f.error_span(:content) %>
+<div class="form-group">
+    <%= f.label "問題文", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+        <%= f.text_area :content, :class => 'form-control' %>
     </div>
+    <%=f.error_span(:content) %>
+</div>
 
 <% if current_page?(:controller => 'questions', :action => 'new') %>
-    <div class="form-group">
-        <%= f.label "問題レベル", :class => 'control-label col-lg-2' %>
-        <div class="col-lg-10">
-            <%= f.number_field :question_level,in: 1.0..5.0, step: 1.0, :class => 'form-control' %>
-        </div>
-        <%=f.error_span(:question_level) %>
+<div class="form-group">
+    <%= f.label "問題レベル", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+        <%= f.number_field :question_level,in: 1.0..5.0, step: 1.0, :class => 'form-control' %>
     </div>
+    <%=f.error_span(:question_level) %>
+</div>
 <% end %>
 
-    <div class="form-group">
-        <%= f.label "インプット", :class => 'control-label col-lg-2' %>
-        <div class="col-lg-10">
-            <%= f.file_field :i_data, :class => 'form-control' %>
-        </div>
-        <%=f.error_span(:i_data) %>
+<div class="form-group">
+    <%= f.label "インプット", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+        <%= f.file_field :i_data, :class => 'form-control' %>
     </div>
+    <%=f.error_span(:i_data) %>
+</div>
 
-    <div class="form-group">
-        <%= f.label "アウトプット", :class => 'control-label col-lg-2' %>
-        <div class="col-lg-10">
-            <%= f.file_field :o_data, :class => 'form-control' %>
-        </div>
-        <%=f.error_span(:o_data) %>
+<div class="form-group">
+    <%= f.label "アウトプット", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+        <%= f.file_field :o_data, :class => 'form-control' %>
     </div>
+    <%=f.error_span(:o_data) %>
+</div>
 
-    <div class="form-group">
-        <div class="col-lg-offset-2 col-lg-10">
-            <%= f.submit nil, :class => 'btn btn-primary' %>
-            <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                questions_path, :class => 'btn btn-default' %>
+<div class="form-group">
+    <div class="col-lg-offset-2 col-lg-10">
+        <%= f.submit nil, :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+        questions_path, :class => 'btn btn-default' %>
     </div>
-    </div>
+</div>
 
 <% end %>
