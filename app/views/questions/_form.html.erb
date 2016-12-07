@@ -31,7 +31,7 @@
         <%=f.error_span(:content) %>
     </div>
 
-<% if !current_page?(:controller => 'questions', :action => 'edit') %>
+<% if current_page?(:controller => 'questions', :action => 'new') %>
     <div class="form-group">
         <%= f.label "問題レベル", :class => 'control-label col-lg-2' %>
         <div class="col-lg-10">
