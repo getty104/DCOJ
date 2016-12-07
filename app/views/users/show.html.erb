@@ -8,7 +8,7 @@
   <dt><strong><%= model_class.human_attribute_name("作成した問題数") %>:</strong></dt>
   <dd><%= @user.create_questions.length%></dd>
   <dt><strong><%= model_class.human_attribute_name("正答した問題数") %>:</strong></dt>
-  <dd><%= @user.questions.length %></dd>
+  <dd><%= @user.solved_question_number %></dd>
 
 
 </dl>
