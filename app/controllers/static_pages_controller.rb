@@ -11,6 +11,7 @@ class StaticPagesController < ApplicationController
     if !logged_in?
       redirect_to :home
     end
+    @questions = Question.all.order(:id)
   end
   
 end

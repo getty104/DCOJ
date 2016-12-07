@@ -8,3 +8,31 @@
 <br>
 <%= link_to "user list", users_path %>
 <br>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= :number %></th>
+      <th><%=:title %></th>
+      <th><%= :created_by %></th>
+      <th><%= :accepted_by %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr>
+        <td><%=  question.id %></td>
+        <td><%= question.title %></td>
+        <td><%= question.created_user.name %></td>
+        <td><%= question.users.length %></td>
+        <td><%=link_to "詳細",question, :class => 'btn btn-primary'  %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_question_path,
+            :class => 'btn btn-primary' %>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              main_menu_path, :class => 'btn btn-default'  %>
