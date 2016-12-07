@@ -7,4 +7,5 @@ class Question < ApplicationRecord
   validates :content, presence: true
   validates :input, presence: true
   validates :output, presence: true
+  validates :question_level, presence: true
 end

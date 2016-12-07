@@ -40,9 +40,10 @@ class QuestionsController < ApplicationController
     if params[:question][:o_data]
       @question.output = params[:question][:o_data].read
     end
+
+    
     respond_to do |format|
       if @question.save
-       
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
@@ -99,6 +100,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:title, :content,:question_id, :input, :output,:i_data, :o_data)
+      params.require(:question).permit(:title, :content,:question_id, :input, :output,:i_data, :o_data,:question_level)
     end
   end

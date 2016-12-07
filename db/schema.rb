@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207063959) do
+ActiveRecord::Schema.define(version: 20161207080805) do
 
   create_table "judge_systems", force: :cascade do |t|
   end
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20161207063959) do
     t.binary   "input"
     t.binary   "output"
     t.integer  "created_user_id"
+    t.integer  "question_level"
     t.index ["created_user_id"], name: "index_questions_on_created_user_id"
   end
 
