@@ -25,6 +25,7 @@ class JudgeSystemsController < ApplicationController
         end
         record = current_user.records.build(result: "AC")
         @question.records << record
+        current_user.solved_question_number += 1
         current_user.save
         redirect_to :action => :AC , :question_id => @question.id
       else

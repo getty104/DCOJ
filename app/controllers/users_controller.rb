@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
+    @user.solved_question_number = 0
     respond_to do |format|
       if @user.save
          log_in @user

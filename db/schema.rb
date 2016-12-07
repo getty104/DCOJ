@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161207021804) do
+ActiveRecord::Schema.define(version: 20161207063959) do
 
   create_table "judge_systems", force: :cascade do |t|
   end
@@ -44,12 +44,13 @@ ActiveRecord::Schema.define(version: 20161207021804) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
     t.string   "name"
     t.string   "account"
     t.string   "password_digest"
     t.string   "remember_digest"
+    t.integer  "solved_question_number"
     t.index ["account"], name: "index_users_on_account", unique: true
   end
 
