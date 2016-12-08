@@ -35,7 +35,11 @@
 <div class="form-group">
     <%= f.label "問題レベル", :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-        <%= f.number_field :question_level,in: 1.0..5.0, step: 1.0, :class => 'form-control' %>
+      <label><%= f.radio_button :question_level, 1 %>1</label>
+  <label><%= f.radio_button :question_level, 2 %>2</label>
+  <label><%= f.radio_button :question_level, 3 %>3</label>
+  <label><%= f.radio_button :question_level, 4 %>4</label>
+  <label><%= f.radio_button :question_level, 5 %>5</label>
     </div>
     <%=f.error_span(:question_level) %>
 </div>

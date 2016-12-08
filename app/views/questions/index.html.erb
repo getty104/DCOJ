@@ -9,6 +9,7 @@
       <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:created_by) %></th>
       <th><%= model_class.human_attribute_name(:accepted_by) %></th>
+      <th>level</th>
     </tr>
   </thead>
   <tbody>
@@ -18,6 +19,7 @@
         <td><%= question.title %></td>
         <td><%= question.created_user.name %></td>
         <td><%= question.users.length %></td>
+         <td><%= question.question_level.to_i %></td>
         <td><%=link_to "詳細",question, :class => 'btn btn-primary'  %></td>
       </tr>
     <% end %>

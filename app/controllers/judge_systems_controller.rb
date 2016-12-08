@@ -22,34 +22,49 @@ class JudgeSystemsController < ApplicationController
       if ans_data == @question.output
         if current_user != @question.created_user && !current_user.questions.include?(@question)
           current_user.questions << @question
+          current_user.solved_question_number += 1
+          @first_time = true
         end
         record = current_user.records.build(result: "AC")
         @question.records << record
-        current_user.solved_question_number += 1
         current_user.save
-        redirect_to :action => :AC , :question_id => @question.id
+        redirect_to :action => :ac , :question_id => @question.id, :first_time => @first_time
       else
        record = current_user.records.build(result: "WA")
        @question.records << record
        current_user.save
-       redirect_to :action => :WA, :question_id => @question.id
+       redirect_to :action => :wa, :question_id => @question.id
      end
    end
  end
 
- def AC
+ 
+
+ def ac
    @question = Question.find(params[:question_id])
-  
+   @first_time = params[:first_time]
  end
 
- def WA
-   @question = Question.find(params[:question_id])
- end
+ def evaluate
+  @question = Question.find(params[:judge_system][:question_id])
+  if params[:judge_system][:first_time] && params[:judge_system][:evaluation]
+    mass = @question.users.length
+    data = @question.question_level*mass + params[:judge_system][:evaluation].to_i
+    @question.question_level = data/mass
+    @question.save
+  end
+  redirect_to questions_path
+end
+
+
+def wa
+ @question = Question.find(params[:question_id])
+end
 
 
 
 
- private
+private
     # Use callbacks to share common setup or constraints between actions.
     def set_judge_system
       @judge_system = JudgeSystem.find(params[:id])

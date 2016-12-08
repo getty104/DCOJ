@@ -8,8 +8,9 @@ Rails.application.routes.draw do
 	resources :questions
 	resources :users, param: :account
 	root 'static_pages#home'
-	get 'AC' => 'judge_systems#AC'
-	get 'WA' => 'judge_systems#WA'
+	get 'ac' => 'judge_systems#ac'
+	post 'ac' => 'judge_systems#evaluate'
+	get 'wa' => 'judge_systems#wa'
 	get 'submission' => 'judge_systems#new'
 	post 'submission' => 'judge_systems#create'
 	get    'login'   => 'sessions#new'
