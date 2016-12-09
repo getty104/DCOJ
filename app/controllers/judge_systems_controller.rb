@@ -49,7 +49,7 @@ class JudgeSystemsController < ApplicationController
   @question = Question.find(params[:judge_system][:question_id])
   if params[:judge_system][:first_time] && params[:judge_system][:evaluation]
     mass = @question.users.length
-    data = @question.question_level*mass + params[:judge_system][:evaluation].to_i
+    data = @question.question_level*(mass-1) + params[:judge_system][:evaluation].to_i
     @question.question_level = data/mass
     @question.save
   end
