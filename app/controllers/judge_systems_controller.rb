@@ -28,19 +28,19 @@ class JudgeSystemsController < ApplicationController
         record = current_user.records.build(result: "AC")
         @question.records << record
         current_user.save
-         render :ac , :question_id => @question.id, :first_time => @first_time
+         render :accept , :question_id => @question.id, :first_time => @first_time
       else
        record = current_user.records.build(result: "WA")
        @question.records << record
        current_user.save
-       render :action => :wa, :question_id => @question.id
+       render :action => :wrong_answer, :question_id => @question.id
      end
    end
  end
 
  
 
- def ac
+ def accept
    @question = Question.find(params[:question_id])
    @first_time = params[:first_time]
  end
@@ -57,7 +57,7 @@ class JudgeSystemsController < ApplicationController
 end
 
 
-def wa
+def wrong_answer
  @question = Question.find(params[:question_id])
 end
 
