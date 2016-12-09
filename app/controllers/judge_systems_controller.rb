@@ -28,12 +28,12 @@ class JudgeSystemsController < ApplicationController
         record = current_user.records.build(result: "AC")
         @question.records << record
         current_user.save
-        redirect_to :action => :ac , :question_id => @question.id, :first_time => @first_time
+         render :ac , :question_id => @question.id, :first_time => @first_time
       else
        record = current_user.records.build(result: "WA")
        @question.records << record
        current_user.save
-       redirect_to :action => :wa, :question_id => @question.id
+       render :action => :wa, :question_id => @question.id
      end
    end
  end
