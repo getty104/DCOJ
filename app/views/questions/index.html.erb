@@ -1,27 +1,38 @@
-<%- model_class = Question -%>
 <% provide(:title, "Question List") %>
 
-
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= model_class.human_attribute_name(:number) %></th>
-      <th><%= model_class.human_attribute_name(:title) %></th>
-      <th><%= model_class.human_attribute_name(:created_by) %></th>
-      <th><%= model_class.human_attribute_name(:accepted_by) %></th>
-      <th>level</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @questions.each do |question| %>
-      <tr>
-        <td><%=  question.id %></td>
-        <td><%= question.title %></td>
-        <td><%= question.created_user.name %></td>
-        <td><%= question.users.length %></td>
-         <td><%= question.question_level.to_i %></td>
-        <td><%=link_to "詳細",question, :class => 'btn btn-primary' %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div>
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="active" role="presentation">
+      <a aria-controls="tab_1" data-toggle="tab" href="#tab_1" role="tab">level 1</a>
+    </li>
+    <li role="presentation">
+      <a aria-controls="tab_2" data-toggle="tab" href="#tab_2" role="tab">level 2</a>
+    </li>
+    <li role="presentation">
+      <a aria-controls="tab_3" data-toggle="tab" href="#tab_3" role="tab">level 3</a>
+    </li>
+    <li role="presentation">
+      <a aria-controls="tab_4" data-toggle="tab" href="#tab_4" role="tab">level 4</a>
+    </li>
+    <li role="presentation">
+      <a aria-controls="tab_5" data-toggle="tab" href="#tab_5" role="tab">level 5</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab_1" role="tabpanel">
+      <%= render partial: 'list', locals: { questions: @level1_questions, level_page: :level1_page } %>
+    </div>
+    <div class="tab-pane" id="tab_2" role="tabpanel">
+      <%= render partial: 'list', locals: { questions: @level2_questions, level_page: :level2_page } %>
+   </div>
+   <div class="tab-pane" id="tab_3" role="tabpanel">
+      <%= render partial: 'list', locals: { questions: @level3_questions, level_page: :level3_page } %>
+  </div>
+  <div class="tab-pane" id="tab_4" role="tabpanel">
+      <%= render partial: 'list', locals: { questions: @level4_questions, level_page: :level4_page } %>
+  </div>
+  <div class="tab-pane" id="tab_5" role="tabpanel">
+      <%= render partial: 'list', locals: { questions: @level5_questions, level_page: :level5_page } %>
+  </div>
+</div>
+</div>

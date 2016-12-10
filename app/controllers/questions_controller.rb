@@ -9,7 +9,11 @@ class QuestionsController < ApplicationController
 
 
   def index
-    @questions = Question.all.order(:id)
+    @level1_questions = Question.where(question_level: 1...2).page(params[:level1_page]).per(10).order(:id)
+    @level2_questions = Question.where(question_level: 2...3).page(params[:level2_page]).per(10).order(:id)
+    @level3_questions = Question.where(question_level: 3...4).page(params[:level3_page]).per(10).order(:id)
+    @level4_questions = Question.where(question_level: 4...5).page(params[:level4_page]).per(10).order(:id)
+    @level5_questions = Question.where(question_level: 5).page(params[:level5_page]).per(10).order(:id)
   end
 
   # GET /questions/1
@@ -41,7 +45,6 @@ class QuestionsController < ApplicationController
       @question.output = params[:question][:o_data].read
     end
 
-    
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
@@ -63,6 +66,7 @@ class QuestionsController < ApplicationController
   if params[:question][:o_data]
     @question.output = params[:question][:o_data].read
   end
+  
   respond_to do |format|
     if @question.update(question_params)
      format.html { redirect_to @question, notice: 'Question was successfully updated.' }
