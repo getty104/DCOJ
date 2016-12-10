@@ -10,18 +10,24 @@
                         <ul class="dropdown-menu">
                             <li><%= link_to "Profile", current_user %></li>
                             <li class="divider"></li>
-                            <li>
-                                <%= link_to "Log out", logout_path, method: "delete" %>
-                            </li>
+                            <li><%= link_to "Log out", logout_path, method: "delete" %></li>
                         </ul>
                     </li> 
+                </ul>
+
+                <ul class="nav navbar-nav pull-left">
+                    <li> <%= link_to "create question", new_question_path %></li>
+                </ul>
+
+                 <ul class="nav navbar-nav pull-left">
+                    <li><%= link_to "question list", questions_path %></li>
                 </ul>
             </nav>
             <% else %>
             <%= link_to "Daisuki Club Online Judge", root_path, class: "navbar-brand" %>
             <nav>
                 <ul class="nav navbar-nav navbar-right">
-                <%= link_to "Sign in", login_path, class: 'navbar-brand' %>
+                    <%= link_to "Sign in", login_path, class: 'navbar-brand' %>
                 </ul>
             </nav>
             <% end %>

@@ -10,7 +10,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @records = @user.records.order("created_at DESC").page(params[:page]).per(10)
+    @records = @user.records.page(params[:records_page]).per(5).order("created_at DESC")
+    @create_questions = @user.create_questions.page(params[:create_questions_page]).per(5).order(:id)
+    @solve_questions = @user.questions.page(params[:solve_questions_page]).per(5).order(:id)
   end
 
   # GET /users/new

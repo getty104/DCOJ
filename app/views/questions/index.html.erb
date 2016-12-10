@@ -20,14 +20,8 @@
         <td><%= question.created_user.name %></td>
         <td><%= question.users.length %></td>
          <td><%= question.question_level.to_i %></td>
-        <td><%=link_to "詳細",question, :class => 'btn btn-primary'  %></td>
+        <td><%=link_to "詳細",question, :class => 'btn btn-primary' %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<%= link_to t('.new', :default => t("helpers.links.new")),
-            new_question_path,
-            :class => 'btn btn-primary' %>
-<%= link_to t('.back', :default => t("helpers.links.back")),
-              main_menu_path, :class => 'btn btn-default'  %>

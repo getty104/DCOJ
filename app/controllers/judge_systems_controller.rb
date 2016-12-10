@@ -28,7 +28,7 @@ class JudgeSystemsController < ApplicationController
         record = current_user.records.build(result: "AC")
         @question.records << record
         current_user.save
-         render :accept , :question_id => @question.id, :first_time => @first_time
+        render :accept , :question_id => @question.id, :first_time => @first_time
       else
        record = current_user.records.build(result: "WA")
        @question.records << record

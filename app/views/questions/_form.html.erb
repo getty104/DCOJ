@@ -26,24 +26,10 @@
 <div class="form-group">
     <%= f.label "問題文", :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-        <%= f.text_area :content, :class => 'form-control' %>
+        <%= f.text_area :content, :class => 'form-control', size: '60x15' %>
     </div>
     <%=f.error_span(:content) %>
 </div>
-
-<% if current_page?(:controller => 'questions', :action => 'new') %>
-<div class="form-group">
-    <%= f.label "問題レベル", :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <label><%= f.radio_button :question_level, 1 %>1</label>
-  <label><%= f.radio_button :question_level, 2 %>2</label>
-  <label><%= f.radio_button :question_level, 3 %>3</label>
-  <label><%= f.radio_button :question_level, 4 %>4</label>
-  <label><%= f.radio_button :question_level, 5 %>5</label>
-    </div>
-    <%=f.error_span(:question_level) %>
-</div>
-<% end %>
 
 <div class="form-group">
     <%= f.label "インプット", :class => 'control-label col-lg-2' %>
@@ -61,12 +47,22 @@
     <%=f.error_span(:o_data) %>
 </div>
 
+<% if current_page?(:controller => 'questions', :action => 'new') %>
+<div class="form-group">
+    <%= f.label "問題レベル", :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+  <label><%= f.radio_button :question_level, 1 %>1
+  <%= f.radio_button :question_level, 2 %>2
+ <%= f.radio_button :question_level, 3 %>3
+  <%= f.radio_button :question_level, 4 %>4
+ <%= f.radio_button :question_level, 5 %>5
+    </div>
+    <%=f.error_span(:question_level) %>
+</div>
+<% end %>
 <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
         <%= f.submit nil, :class => 'btn btn-primary' %>
-        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-        questions_path, :class => 'btn btn-default' %>
     </div>
 </div>
-
 <% end %>

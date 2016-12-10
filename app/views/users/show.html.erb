@@ -16,45 +16,47 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:number) %></th>
-      <th><%= model_class.human_attribute_name(:title) %></th>
-      <th><%= model_class.human_attribute_name(:created_by) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th><%= :number %></th>
+      <th><%= :title %></th>
+      <th><%= :created_by %></th>
+      <th><%= "詳細" %></th>
     </tr>
   </thead>
-  <tbody>
 
-    <% @user.create_questions.order(:id).each do |question| %>
+  <tbody>
+    <% @create_questions.each do |question| %>
     <tr>
       <td><%= question.id %></td>
       <td><%= question.title %></td>
       <td><%= question.created_user.name %></td>
-      <td><%=link_to "詳細",question, :class => 'btn btn-primary'  %></td>
+      <td><%=link_to "詳細",question, :class => 'btn btn-primary' %></td>
     </tr>
     <% end %>
   </tbody>
+  <%= paginate @create_questions, param_name: :create_questions_page %>
 </table>
 
 <p>解いた問題</p>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:number) %></th>
-      <th><%= model_class.human_attribute_name(:title) %></th>
-      <th><%= model_class.human_attribute_name(:created_by) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th><%= :number %></th>
+      <th><%= :title %></th>
+      <th><%= :created_by %></th>
+      <th><%= "詳細"%></th>
     </tr>
   </thead>
   <tbody>
-    <% @user.questions.order(:id).each do |question| %>
+    <% @solve_questions.each do |question| %>
     <tr>
       <td><%=  question.id %></td>
       <td><%= question.title %></td>
       <td><%= question.created_user.name %></td>
-      <td><%=link_to "詳細",question, :class => 'btn btn-primary'  %></td>
+      <td><%=link_to "詳細",question, :class => 'btn btn-primary' %></td>
     </tr>
     <% end %>
   </tbody>
+  <%= paginate @solve_questions, param_name: :solve_questions_page %>
 </table>
 
 <p>今までの記録</p>
@@ -66,25 +68,20 @@
       <th><%= :result %></th>
     </tr>
   </thead>
+
   <tbody>
-    <% @records.order("created_at DESC").each do |record| %>
-      <tr>
-        <td><%=link_to record.question.title, record.question  %></td>
-        <td><%= record.created_at %></td>
-        <td><%= record.result %></td>
-      </tr>
+    <% @records.each do |record| %>
+    <tr>
+      <td><%=link_to record.question.title, record.question  %></td>
+      <td><%= record.created_at %></td>
+      <td><%= record.result %></td>
+    </tr>
     <% end %>
   </tbody>
-  <%= paginate(@records) %>
+  <%= paginate @records , param_name: :records_page %>
 </table>
 
-
-
-<%= link_to t('.back', :default => t("helpers.links.back")),
-main_menu_path, :class => 'btn btn-default'  %>
 <% if current_user == @user %>
-<%= link_to "Log out", logout_path,:method => 'delete',:class => 'btn btn-default'%>
-
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
 edit_user_path(@user), :class => 'btn btn-default' %>
 
