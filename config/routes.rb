@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 	delete 'logout'  => 'sessions#destroy'
 	get    'home'    => 'static_pages#home'
 	get    'main_menu' => 'static_pages#main_menu'
-
+	get 'search_result' => 'questions#search_result'
 	resources :questions do
 		member do 
 			get   'download_input' 

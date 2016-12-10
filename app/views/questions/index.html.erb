@@ -1,5 +1,13 @@
 <% provide(:title, "Question List") %>
 
+<%= form_tag search_result_path, :method => 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :title => nil, :class => 'btn btn-primary' %>
+  </p>
+<% end %>
+
+
 <div>
   <ul class="nav nav-tabs" role="tablist">
     <li class="active" role="presentation">

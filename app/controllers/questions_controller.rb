@@ -6,7 +6,9 @@ class QuestionsController < ApplicationController
 
 
 
-
+def search_result
+   @questions = Question.search(params[:search]).page(params[:page]).per(10).order(:id)
+end
 
   def index
     @level1_questions = Question.where(question_level: 1...2).page(params[:level1_page]).per(10).order(:id)
