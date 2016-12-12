@@ -1,4 +1,4 @@
-<%= form_for @question, :html => { :class => "form-horizontal question" } do |f| %>
+<%= form_for @question, html: { class: "form-horizontal question" } do |f| %>
 
 <% if @question.errors.any? %>
 <div id="error_expl" class="panel panel-danger">
@@ -14,42 +14,42 @@
     </div>
 </div>
 <% end %>
-<p>記号は$$の間に書き込んでください <%= link_to "記号一覧はこちら","http://www002.upp.so-net.ne.jp/latex/kigou_all.html", :target=>["_blank"] %></p>
+<p>記号は$$の間に書き込んでください <%= link_to "記号一覧はこちら","http://www002.upp.so-net.ne.jp/latex/kigou_all.html", target: ["_blank"] %></p>
 <div class="form-group">
-    <%= f.label "タイトル", :class => 'control-label col-lg-2' %>
+    <%= f.label "タイトル", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
-        <%= f.text_field :title, :class => 'form-control' %>
+        <%= f.text_field :title, class: 'form-control' %>
     </div>
     <%=f.error_span(:title) %>
 </div>
 
 <div class="form-group">
-    <%= f.label "問題文", :class => 'control-label col-lg-2' %>
+    <%= f.label "問題文", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
-        <%= f.text_area :content, :class => 'form-control', size: '60x15' %>
+        <%= f.text_area :content, class: 'form-control', size: '60x15' %>
     </div>
     <%=f.error_span(:content) %>
 </div>
 
 <div class="form-group">
-    <%= f.label "インプット", :class => 'control-label col-lg-2' %>
+    <%= f.label "インプット", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
-        <%= f.file_field :i_data, :class => 'form-control' %>
+        <%= f.file_field :i_data, class: 'form-control' %>
     </div>
     <%=f.error_span(:i_data) %>
 </div>
 
 <div class="form-group">
-    <%= f.label "アウトプット", :class => 'control-label col-lg-2' %>
+    <%= f.label "アウトプット", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
-        <%= f.file_field :o_data, :class => 'form-control' %>
+        <%= f.file_field :o_data, class: 'form-control' %>
     </div>
     <%=f.error_span(:o_data) %>
 </div>
 
-<% if current_page?(:controller => 'questions', :action => 'new') %>
+<% if current_page?(controller: 'questions', action: 'new') %>
 <div class="form-group">
-    <%= f.label "問題レベル", :class => 'control-label col-lg-2' %>
+    <%= f.label "問題レベル", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
   <label><%= f.radio_button :question_level, 1 %>1
   <%= f.radio_button :question_level, 2 %>2
@@ -62,7 +62,7 @@
 <% end %>
 <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">
-        <%= f.submit nil, :class => 'btn btn-primary' %>
+        <%= f.submit nil, class: 'btn btn-primary' %>
     </div>
 </div>
 <% end %>

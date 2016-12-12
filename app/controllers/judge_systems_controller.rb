@@ -28,12 +28,12 @@ class JudgeSystemsController < ApplicationController
         record = current_user.records.build(result: "AC")
         @question.records << record
         current_user.save
-        redirect_to action: :accept, :question_id => @question.id, :first_time => @first_time
+        redirect_to action: :accept, question_id: @question.id, first_time: @first_time
       else
        record = current_user.records.build(result: "WA")
        @question.records << record
        current_user.save
-       redirect_to :action => :wrong_answer, :question_id => @question.id
+       redirect_to action: :wrong_answer, question_id: @question.id
      end
    end
  end
@@ -44,7 +44,7 @@ class JudgeSystemsController < ApplicationController
   @question = Question.find(params[:question_id])
   @records = @question.records.page(params[:page]).per(10).order("created_at DESC")
   @first_time = params[:first_time]
-   respond_to do |format|
+  respond_to do |format|
     format.html
     format.js
   end
@@ -63,11 +63,11 @@ end
 
 def wrong_answer
  @question = Question.find(params[:question_id])
-  @records = @question.records.page(params[:page]).per(10).order("created_at DESC")
+ @records = @question.records.page(params[:page]).per(10).order("created_at DESC")
  respond_to do |format|
   format.html
   format.js
-   end
+end
 end
 
 

@@ -16,10 +16,10 @@
         <td><%= question.created_user.name %></td>
         <td><%= question.users.length %></td>
          <td><%= question.question_level.to_i %></td>
-        <td><%=link_to "詳細",question, :class => 'btn btn-primary' %></td>
+        <td><%=link_to "詳細",question, class: 'btn btn-primary' %></td>
       </tr>
     <% end %>
-    <%= paginate questions, param_name: level_page, :remote => true %>
+    <%= paginate questions, param_name: level_page, remote: true %>
   </tbody>
   
 </table>

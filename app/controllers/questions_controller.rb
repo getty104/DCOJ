@@ -86,11 +86,13 @@ end
 end
 
 def download_input
-  send_data(@question.input,
-   :type => 'text/txt; charset=utf-8;',
-   :disposition => 'attachment',
-   :filename => "#{@question.id}_input.txt",
-   :status => 200)
+  send_data(
+    @question.input,
+    type: 'text/txt; charset=utf-8;',
+    disposition: 'attachment',
+    filename: "#{@question.id}_input.txt",
+    status: 200
+    )
 end
 
   # DELETE /questions/1

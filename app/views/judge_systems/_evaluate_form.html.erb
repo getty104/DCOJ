@@ -1,10 +1,10 @@
-<%= form_for  :judge_system, url: accept_path, :html => { :class => "form-horizontal user" } do |f| %>
+<%= form_for  :judge_system, url: accept_path, html: { class: "form-horizontal user" } do |f| %>
 
-<%= f.hidden_field :question_id, :value => @question.id %>
-<%= f.hidden_field :first_time, :value => @first_time %>
+<%= f.hidden_field :question_id, value: @question.id %>
+<%= f.hidden_field :first_time, value: @first_time %>
 <% if @first_time %>
 <div class="form-group">
-  <%= f.label "問題レベルを評価してください", :class => 'control-label col-lg-2' %>
+  <%= f.label "問題レベルを評価してください", class: 'control-label col-lg-2' %>
   <div class="col-lg-10">
   <label><%= f.radio_button :evaluation, 1 %>1</label>
   <label><%= f.radio_button :evaluation, 2 %>2</label>
@@ -17,7 +17,7 @@
 
 <div class="form-group">
   <div class="col-lg-offset-2 col-lg-4">
-    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= f.submit nil, class: 'btn btn-primary' %>
   </div>
 </div>
 <% end %>
