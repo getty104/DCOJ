@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @question.records.order("created_at DESC").each do |record| %>
+    <% @records.each do |record| %>
       <tr>
         <td><%= link_to record.user.name, user_path(record.user) %></td>
         <td><%= record.created_at %></td>
@@ -15,4 +15,5 @@
       </tr>
     <% end %>
   </tbody>
+  <%= paginate @records, remote: true %>
 </table>

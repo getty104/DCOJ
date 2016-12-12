@@ -13,5 +13,4 @@ class StaticPagesController < ApplicationController
     end
     @questions = Question.all.order(:id)
   end
-  
 end

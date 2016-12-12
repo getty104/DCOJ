@@ -28,12 +28,12 @@ class JudgeSystemsController < ApplicationController
         record = current_user.records.build(result: "AC")
         @question.records << record
         current_user.save
-        render :accept , :question_id => @question.id, :first_time => @first_time
+        redirect_to action: :accept, :question_id => @question.id, :first_time => @first_time
       else
        record = current_user.records.build(result: "WA")
        @question.records << record
        current_user.save
-       render :action => :wrong_answer, :question_id => @question.id
+       redirect_to :action => :wrong_answer, :question_id => @question.id
      end
    end
  end
@@ -41,11 +41,16 @@ class JudgeSystemsController < ApplicationController
  
 
  def accept
-   @question = Question.find(params[:question_id])
-   @first_time = params[:first_time]
- end
+  @question = Question.find(params[:question_id])
+  @records = @question.records.page(params[:page]).per(10).order("created_at DESC")
+  @first_time = params[:first_time]
+   respond_to do |format|
+    format.html
+    format.js
+  end
+end
 
- def evaluate
+def evaluate
   @question = Question.find(params[:judge_system][:question_id])
   if params[:judge_system][:first_time] && params[:judge_system][:evaluation]
     mass = @question.users.length
@@ -56,9 +61,13 @@ class JudgeSystemsController < ApplicationController
   redirect_to questions_path
 end
 
-
 def wrong_answer
  @question = Question.find(params[:question_id])
+  @records = @question.records.page(params[:page]).per(10).order("created_at DESC")
+ respond_to do |format|
+  format.html
+  format.js
+   end
 end
 
 
