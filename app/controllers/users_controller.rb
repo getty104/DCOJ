@@ -13,6 +13,10 @@ class UsersController < ApplicationController
     @records = @user.records.page(params[:records_page]).per(5).order("created_at DESC")
     @create_questions = @user.create_questions.page(params[:create_questions_page]).per(5).order(:id)
     @solve_questions = @user.questions.page(params[:solve_questions_page]).per(5).order(:id)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /users/new
@@ -34,15 +38,15 @@ class UsersController < ApplicationController
     @user.solved_question_number = 0
     respond_to do |format|
       if @user.save
-         log_in @user
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+       log_in @user
+       format.html { redirect_to @user, notice: 'User was successfully created.' }
+       format.json { render :show, status: :created, location: @user }
+     else
+      format.html { render :new }
+      format.json { render json: @user.errors, status: :unprocessable_entity }
     end
   end
+end
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json

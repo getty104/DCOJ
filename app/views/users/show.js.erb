@@ -1,0 +1,3 @@
+$("#create_questions").html("<%= j(render partial: 'questions/list', locals: { questions: @create_questions, level_page: :create_questions_page }) %>");
+$("#solve_questions").html("<%= j(render partial: 'questions/list', locals: { questions: @solve_questions, level_page: :solve_questions_page }) %>");
+$("#records").html("<%= j(render partial: 'log_list') %>");

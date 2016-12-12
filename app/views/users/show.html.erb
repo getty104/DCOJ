@@ -9,85 +9,32 @@
   <dd><%= @user.create_questions.length%></dd>
   <dt><strong><%= model_class.human_attribute_name("正答した問題数") %>:</strong></dt>
   <dd><%= @user.solved_question_number %></dd>
-
-
 </dl>
+
 <p>作成した問題</p>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= :number %></th>
-      <th><%= :title %></th>
-      <th><%= :created_by %></th>
-      <th><%= "詳細" %></th>
-    </tr>
-  </thead>
+<div id="create_questions">
+  <%= render partial: 'questions/list', locals: { questions: @create_questions, level_page:  
+    :create_questions_page } %>
+  </div>
 
-  <tbody>
-    <% @create_questions.each do |question| %>
-    <tr>
-      <td><%= question.id %></td>
-      <td><%= question.title %></td>
-      <td><%= question.created_user.name %></td>
-      <td><%=link_to "詳細",question, :class => 'btn btn-primary' %></td>
-    </tr>
+  <p>解いた問題</p>
+  <div id="solve_questions">
+    <%= render partial: 'questions/list', locals: { questions: @solve_questions, level_page:  
+      :solve_questions_page } %>
+    </div>
+
+    <p>今までの記録</p>
+    <div id="records">
+      <%= render partial: 'log_list' %>
+    </div>
+
+    <% if current_user == @user %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+    edit_user_path(@user), :class => 'btn btn-default' %>
+
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+    user_path(@user),
+    :method => 'delete',
+    :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+    :class => 'btn btn-danger' %>
     <% end %>
-  </tbody>
-  <%= paginate @create_questions, param_name: :create_questions_page %>
-</table>
-
-<p>解いた問題</p>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= :number %></th>
-      <th><%= :title %></th>
-      <th><%= :created_by %></th>
-      <th><%= "詳細"%></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @solve_questions.each do |question| %>
-    <tr>
-      <td><%=  question.id %></td>
-      <td><%= question.title %></td>
-      <td><%= question.created_user.name %></td>
-      <td><%=link_to "詳細",question, :class => 'btn btn-primary' %></td>
-    </tr>
-    <% end %>
-  </tbody>
-  <%= paginate @solve_questions, param_name: :solve_questions_page %>
-</table>
-
-<p>今までの記録</p>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= :title%></th>
-      <th><%= :submitted_at%></th>
-      <th><%= :result %></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @records.each do |record| %>
-    <tr>
-      <td><%=link_to record.question.title, record.question  %></td>
-      <td><%= record.created_at %></td>
-      <td><%= record.result %></td>
-    </tr>
-    <% end %>
-  </tbody>
-  <%= paginate @records , param_name: :records_page %>
-</table>
-
-<% if current_user == @user %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-edit_user_path(@user), :class => 'btn btn-default' %>
-
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-user_path(@user),
-:method => 'delete',
-:data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-:class => 'btn btn-danger' %>
-<% end %>

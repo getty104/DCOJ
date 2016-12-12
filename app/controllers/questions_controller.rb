@@ -6,17 +6,22 @@ class QuestionsController < ApplicationController
 
 
 
-def search_result
+  def search_result
    @questions = Question.search(params[:search]).page(params[:page]).per(10).order(:id)
-end
+ end
 
-  def index
-    @level1_questions = Question.where(question_level: 1...2).page(params[:level1_page]).per(10).order(:id)
-    @level2_questions = Question.where(question_level: 2...3).page(params[:level2_page]).per(10).order(:id)
-    @level3_questions = Question.where(question_level: 3...4).page(params[:level3_page]).per(10).order(:id)
-    @level4_questions = Question.where(question_level: 4...5).page(params[:level4_page]).per(10).order(:id)
-    @level5_questions = Question.where(question_level: 5).page(params[:level5_page]).per(10).order(:id)
+ def index
+  @level1_questions = Question.where(question_level: 1...2).page(params[:level1_page]).per(8).order(:id)
+  @level2_questions = Question.where(question_level: 2...3).page(params[:level2_page]).per(8).order(:id)
+  @level3_questions = Question.where(question_level: 3...4).page(params[:level3_page]).per(8).order(:id)
+  @level4_questions = Question.where(question_level: 4...5).page(params[:level4_page]).per(8).order(:id)
+  @level5_questions = Question.where(question_level: 5).page(params[:level5_page]).per(8).order(:id)
+
+  respond_to do |format|
+    format.html
+    format.js
   end
+end
 
   # GET /questions/1
   # GET /questions/1.json

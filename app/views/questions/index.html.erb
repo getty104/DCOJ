@@ -1,10 +1,10 @@
 <% provide(:title, "Question List") %>
 
 <%= form_tag search_result_path, :method => 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
-  <p>
-    <%= text_field_tag :search, params[:search] %>
-    <%= submit_tag "Search", :title => nil, :class => 'btn btn-primary' %>
-  </p>
+<p>
+  <%= text_field_tag :search, params[:search] %>
+  <%= submit_tag "Search", :title => nil, :class => 'btn btn-primary' %>
+</p>
 <% end %>
 
 
@@ -32,15 +32,21 @@
     </div>
     <div class="tab-pane" id="tab_2" role="tabpanel">
       <%= render partial: 'list', locals: { questions: @level2_questions, level_page: :level2_page } %>
-   </div>
-   <div class="tab-pane" id="tab_3" role="tabpanel">
+    </div>
+    
+    <div class="tab-pane" id="tab_3" role="tabpanel">
       <%= render partial: 'list', locals: { questions: @level3_questions, level_page: :level3_page } %>
-  </div>
-  <div class="tab-pane" id="tab_4" role="tabpanel">
+    </div>
+
+
+    <div class="tab-pane" id="tab_4" role="tabpanel">
       <%= render partial: 'list', locals: { questions: @level4_questions, level_page: :level4_page } %>
-  </div>
-  <div class="tab-pane" id="tab_5" role="tabpanel">
+    </div>
+
+
+    <div class="tab-pane" id="tab_5" role="tabpanel">
       <%= render partial: 'list', locals: { questions: @level5_questions, level_page: :level5_page } %>
+    </div>
+
   </div>
-</div>
 </div>

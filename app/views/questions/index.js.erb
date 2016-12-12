@@ -1,0 +1,5 @@
+$("#tab_1").html("<%= j(render partial: 'list', locals: { questions: @level1_questions, level_page: :level1_page }) %>");
+$("#tab_2").html("<%= j(render partial: 'list', locals: { questions: @level2_questions, level_page: :level2_page }) %>");
+$("#tab_3").html("<%= j(render partial: 'list', locals: { questions: @level3_questions, level_page: :level3_page }) %>");
+$("#tab_4").html("<%= j(render partial: 'list', locals: { questions: @level4_questions, level_page: :level4_page }) %>");
+$("#tab_5").html("<%= j(render partial: 'list', locals: { questions: @level5_questions, level_page: :level5_page }) %>");

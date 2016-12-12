@@ -1,0 +1,21 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= :title%></th>
+      <th><%= :submitted_at%></th>
+      <th><%= :result %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @records.each do |record| %>
+    <tr>
+      <td><%=link_to record.question.title, record.question  %></td>
+      <td><%= record.created_at %></td>
+      <td><%= record.result %></td>
+    </tr>
+    <% end %>
+    <%= paginate @records , param_name: :records_page, remote: true %>
+  </tbody>
+  
+</table>

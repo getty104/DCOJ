@@ -19,6 +19,7 @@
         <td><%=link_to "詳細",question, :class => 'btn btn-primary' %></td>
       </tr>
     <% end %>
+    <%= paginate questions, param_name: level_page, :remote => true %>
   </tbody>
-  <%= paginate questions, param_name: level_page %>
+  
 </table>
