@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :follower_list, :following_list]
 
   # GET /users
   # GET /users.json
@@ -31,6 +31,25 @@ class UsersController < ApplicationController
     end
   end
 
+  def do_follow
+    @user = User.find_by(account: params[:id])
+    current_user.follow @user
+    redirect_to @user
+  end
+
+  def do_unfollow
+    @user = User.find_by(account: params[:id])
+    current_user.unfollow @user
+    redirect_to @user
+  end
+
+  def follower_list
+    @users = @user.followers.order(:id)
+  end
+
+  def following_list
+    @users = @user.following.order(:id)
+  end
   # POST /users
   # POST /users.json
   def create

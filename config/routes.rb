@@ -24,5 +24,14 @@ Rails.application.routes.draw do
 			get   'download_input' 
 		end
 	end
+	resources :users, param: :account do 
+		member do
+			post 'do_unfollow'
+			post 'do_follow'
+			get 'follower_list'
+			get 'following_list'
+		end
+		
+	end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

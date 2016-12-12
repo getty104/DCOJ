@@ -1,0 +1,20 @@
+<% provide(:title, "Followers") %>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= :id %></th>
+      <th><%= :name %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%=  user.id %></td>
+        <td><%= user.name %></td>
+         <td><%=link_to "詳細",user, class: 'btn btn-primary' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= link_to t('.back', default: t("helpers.links.back")),
+main_menu_path, class: 'btn btn-default'  %>

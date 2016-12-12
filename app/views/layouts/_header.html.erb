@@ -10,6 +10,10 @@
                         <ul class="dropdown-menu">
                             <li><%= link_to "Profile", current_user %></li>
                             <li class="divider"></li>
+                            <li><%= link_to "Follower", follower_list_user_path(current_user) %></li>
+                            <li class="divider"></li>
+                            <li><%= link_to "Following", following_list_user_path(current_user) %></li>
+                            <li class="divider"></li>
                             <li><%= link_to "Log out", logout_path, method: "delete" %></li>
                         </ul>
                     </li> 
