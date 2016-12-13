@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     <% @posts.each do |post| %>
-    <% if current_user.following.include?(post.user) %>
+    <% if current_user.following.include?(post.user) || current_user == post.user %>
       <tr>
         <td><%= simple_format(hbr(post.content)) %></td>
         <td><%= post.created_at %></td>
