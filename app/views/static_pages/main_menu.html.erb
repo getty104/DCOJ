@@ -11,7 +11,7 @@
     <% @posts.each do |post| %>
     <% if current_user.following.include?(post.user) %>
       <tr>
-        <td><%= post.content %></td>
+        <td><%= simple_format(hbr(post.content)) %></td>
         <td><%= post.created_at %></td>
       </tr>
       <% end %>
