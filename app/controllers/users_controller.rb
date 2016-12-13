@@ -32,13 +32,13 @@ class UsersController < ApplicationController
   end
 
   def do_follow
-    @user = User.find_by(account: params[:id])
-    current_user.follow @user
+    @user = User.find_by(account: params[:follow_account])
+    current_user.follow @user 
     redirect_to @user
   end
 
   def do_unfollow
-    @user = User.find_by(account: params[:id])
+    @user = User.find_by(account: params[:follow_account])
     current_user.unfollow @user
     redirect_to @user
   end
