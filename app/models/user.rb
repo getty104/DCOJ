@@ -1,8 +1,9 @@
 class User < ApplicationRecord
   include Resonatable
-	has_many :create_questions, class_name: "Question", :foreign_key => 'created_user_id'
+	has_many :create_questions, class_name: "Question", :foreign_key => 'created_user_id', dependent: :destroy
   has_and_belongs_to_many :questions
   has_many :records, dependent: :destroy
+  has_many :posts, dependent: :destroy
   has_secure_password
   validates :account, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true

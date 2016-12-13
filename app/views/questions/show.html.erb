@@ -13,9 +13,9 @@
 <% if request.referer.include?('/questions') %>
  <%= link_to t('.back', default: t("helpers.links.back")),
      questions_path, class: 'btn btn-default'  %>
-<% elsif %>
- <%= link_to t('.back', default: t("helpers.links.back")),
-     current_user, class: 'btn btn-default'  %>
+<% else %>
+ <%= link_to '作成したユーザー',
+     @question.created_user, class: 'btn btn-default'  %>
 <% end %>
 
 <% if current_user == @question.created_user %>

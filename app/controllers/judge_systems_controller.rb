@@ -32,7 +32,6 @@ class JudgeSystemsController < ApplicationController
       else
        record = current_user.records.build(result: "WA")
        @question.records << record
-       current_user.save
        redirect_to action: :wrong_answer, question_id: @question.id
      end
    end
