@@ -17,9 +17,7 @@ MathJax.Hub.Config({
         <%= render 'layouts/shim' %>
     </head>
     <body>
-        <script>
-MathJax.Hub.Typeset();
-        </script>
+       
         <%= render 'layouts/header' %>
 
         <div class="wrap">
@@ -32,7 +30,8 @@ MathJax.Hub.Typeset();
                     </div>
                     <%= yield %>
             </div>
-        </div>
-        <%= render 'layouts/footer' %>
+            <div class="footer">
+         <%= render 'layouts/footer' %>
+         </div>
     </body>
 </html>

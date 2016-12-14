@@ -50,13 +50,13 @@
 <% if current_page?(controller: 'questions', action: 'new') %>
 <div class="form-group">
     <%= f.label "問題レベル", class: 'control-label col-lg-2' %>
-  <label><%= f.radio_button :question_level, 1 %>1
-         <%= f.radio_button :question_level, 2 %>2
-         <%= f.radio_button :question_level, 3 %>3
-         <%= f.radio_button :question_level, 4 %>4
-         <%= f.radio_button :question_level, 5 %>5
- </label>
-    <%=f.error_span(:question_level) %>
+    <label><%= f.radio_button :question_level, 1 %>1
+       <%= f.radio_button :question_level, 2 %>2
+       <%= f.radio_button :question_level, 3 %>3
+       <%= f.radio_button :question_level, 4 %>4
+       <%= f.radio_button :question_level, 5 %>5
+   </label>
+   <%=f.error_span(:question_level) %>
 </div>
 <% end %>
 <div class="form-group">

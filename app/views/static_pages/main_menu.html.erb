@@ -1,24 +1,5 @@
 <% provide(:title, "Main Menu") %>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= :content %></th>
-      <th><%= :created_at %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @posts.each do |post| %>
-    <% if current_user.following.include?(post.user) || current_user == post.user %>
-    <tr>
-      <td><%="#{post.user.name}さんが"%>
-        <br>
-        <%= link_to("問題:#{post.question.title}", post.question) %>
-        <br>
-        <%="を作りました" %></td>
-        <td><%= post.created_at %></td>
-      </tr>
-      <% end %>
-      <% end %>
-    </tbody>
-  </table>
+   <%= render partial: 'time_line' %>
+
+
