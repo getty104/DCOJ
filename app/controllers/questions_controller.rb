@@ -54,9 +54,8 @@ end
 
     respond_to do |format|
       if @question.save
-        post = current_user.posts.build(
-          content: "#{current_user.name}さんが\n問題：#{@question.title}\nを作成しました"
-          )
+        post = current_user.posts.build
+        @question.posts << post
         post.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }

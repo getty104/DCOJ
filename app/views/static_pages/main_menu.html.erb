@@ -10,11 +10,15 @@
   <tbody>
     <% @posts.each do |post| %>
     <% if current_user.following.include?(post.user) || current_user == post.user %>
-      <tr>
-        <td><%= simple_format(hbr(post.content)) %></td>
+    <tr>
+      <td><%="#{post.user.name}さんが"%>
+        <br>
+        <%= link_to("問題:#{post.question.title}", post.question) %>
+        <br>
+        <%="を作りました" %></td>
         <td><%= post.created_at %></td>
       </tr>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
+      <% end %>
+    </tbody>
+  </table>
