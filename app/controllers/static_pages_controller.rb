@@ -11,6 +11,6 @@ class StaticPagesController < ApplicationController
     if !logged_in?
       redirect_to :home
     end
-    @posts = Post.order("created_at DESC")
+    @posts = Post.order("created_at DESC").page(params[:page]).per(10)
   end
 end

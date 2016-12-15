@@ -1,20 +1,14 @@
-<div class="pull-right">
-   <div class="box_title">
-      Time Line   
-   </div>
 
-   <div class="box_scrollbar">
-      <% @posts.each do |post| %>
-      <% if current_user.following.include?(post.user) || current_user == post.user %>
-      <li><%= post.created_at %>
-        <br>
-        <%="#{post.user.name}さんが"%>
-        <br>
-        <%= link_to("問題:#{post.question.title}", post.question) %>
-        <br>
-        <%="を作りました" %>
-     </li>
-     <% end %>
-     <% end %>
-  </div> 
-</div>
+
+   <% @posts.each do |post| %>
+   <% if current_user.following.include?(post.user) || current_user == post.user %>
+   <li class="list-group-item"><%= post.created_at %>
+    <br>
+    <%="#{post.user.name}さんが"%>
+    <br>
+    <%= link_to("問題:#{post.question.title}", post.question) %>
+    <br>
+    <%="を作りました" %>
+ </li>
+ <% end %>
+ <% end %>
