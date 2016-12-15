@@ -1,16 +1,17 @@
 <% provide(:title, "Main Menu") %>
-<ul class="pull-right">
-  <li class="list-group-item">
-   Time Line 
- </li>
- <ul class="list-group box_scrollbar">
-   <div id="lists">
-     <%= render partial: 'time_line' %>
-   </div>
-   <%= link_to_next_page( @posts, 'more', remote: true, id: 'view_more', class: "btn btn-info center-block") %> 
- </ul>
+<div class="pull-right">
+    <h2>Time Line</h2>
+  <div style="height:300px; width:300px; overflow-y:scroll;">
+    <table class="table table-bordered " id="lists"> 
+      <tbody>
+       <%= render partial: 'time_line' %>
+     </tbody>
+   </table>
+   <%= link_to_next_page( @posts, 'more', remote: true, id: 'view_more', class: "btn btn-info center-block") %>
+ </div>
 
-</ul> 
+</div>
+
 
 
 
