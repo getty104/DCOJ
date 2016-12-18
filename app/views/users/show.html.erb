@@ -19,20 +19,20 @@
 </div>
 <% end %>
 
-<p>作成した問題</p>
+<h2 class="text-center">作成した問題</h2>
 <div id="create_questions">
-  <%= render partial: 'questions/list', locals: { questions: @create_questions, level_page:  
+  <%= render partial: 'question_list', locals: { questions: @create_questions, level_page:  
     :create_questions_page } %>
   </div>
 
-  <p>解いた問題</p>
-  <div id="solve_questions">
-    <%= render partial: 'questions/list', locals: { questions: @solve_questions, level_page:  
+  <h2 class="text-center">解いた問題</h2>
+  <div  id="solve_questions" style="table-layout:fixed;">
+    <%= render partial: 'question_list', locals: { questions: @solve_questions, level_page:  
       :solve_questions_page } %>
     </div>
 
-    <p>今までの記録</p>
-    <div id="records">
+    <h2 class="text-center">今までの記録</h2>
+    <div  id="records">
       <%= render partial: 'log_list' %>
     </div>
 

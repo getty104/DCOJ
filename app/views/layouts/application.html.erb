@@ -1,37 +1,38 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Daisuki Club Online Judge</title>
-        <script type="text/x-mathjax-config">
-MathJax.Hub.Config({
+<head>
+    <title>Daisuki Club Online Judge</title>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
         tex2jax: {
         inlineMath: [ ['$','$'] ],
         processEscapes: true
     }
 });
-        </script>
-        <%= mathjax_tag %>
-        <%= csrf_meta_tags %>
-        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-        <%= render 'layouts/shim' %>
-    </head>
-    <body>
-       
-        <%= render 'layouts/header' %>
+</script>
+<%= mathjax_tag %>
+<%= csrf_meta_tags %>
+<%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+<%= render 'layouts/shim' %>
+</head>
+<body>
 
-        <div class="wrap">
-            <div class="container">
-                <% flash.each do |name, msg| %>
-                    <div class="alert alert-<%= name == "notice" ? "success" : "danger" %>">
-                        <a class="close" data-dismiss="alert">×</a> <!-- アラートダイアログに×ボタンをつける -->
-                        <%= msg %>
-                    <% end %>
-                    </div>
-                    <%= yield %>
+    <%= render 'layouts/header' %>
+
+    <div class="wrapper">
+        <div class="container">
+            <% flash.each do |name, msg| %>
+            <div class="alert alert-<%= name == "notice" ? "success" : "danger" %>">
+                <a class="close" data-dismiss="alert">×</a> <!-- アラートダイアログに×ボタンをつける -->
+                <%= msg %>
+                <% end %>
             </div>
-            <div class="footer">
-         <%= render 'layouts/footer' %>
-         </div>
-    </body>
-</html>
+            <%= yield %>
+            <div class="push"></div>
+        </div>
+        <div class="footer">
+           <%= render 'layouts/footer' %>
+       </div>
+   </body>
+   </html>

@@ -44,13 +44,9 @@ end
   # POST /questions.json
   def create
     @question = current_user.create_questions.build(question_params)
+    @question.input = params[:question][:i_data].read if params[:question][:i_data]
+    @question.output = params[:question][:o_data].read if params[:question][:o_data]
     
-    if params[:question][:i_data]
-      @question.input = params[:question][:i_data].read
-    end
-    if params[:question][:o_data]
-      @question.output = params[:question][:o_data].read
-    end
 
     respond_to do |format|
       if @question.save

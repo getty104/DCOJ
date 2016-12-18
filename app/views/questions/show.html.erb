@@ -1,13 +1,12 @@
-<%- model_class = Question -%>
 <% provide(:title, "Show Question") %>
 
 <dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dt><strong><%= :title %>:</strong></dt>
   <dd><%= @question.title %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:content) %>:</strong></dt>
+  <dt><strong><%= :content %>:</strong></dt>
   <dd><%= simple_format(hbr(@question.content)) %></dd>
-  <dd><%= link_to 'input download', download_input_question_path(@question) %></dd>
-  <dd><%= link_to 'submission', controller: 'judge_systems', action: 'new', question_id: @question.id %></dd>
+  <dd><%= link_to 'input download', download_input_question_path(@question),class: "btn btn-primary" %></dd>
+  <dd class="btn btn-warning"><%= link_to 'submission', controller: 'judge_systems', action: 'new', question_id: @question.id %></dd>
 </dl>
 
 <% if request.referer.include?('/questions') %>

@@ -1,16 +1,30 @@
 <% provide(:title, "Main Menu") %>
-<div class="pull-right">
-    <h2>Time Line</h2>
-  <div style="height:300px; width:300px; overflow-y:scroll;">
-    <table class="table table-bordered " id="lists"> 
-      <tbody>
-       <%= render partial: 'time_line' %>
-     </tbody>
-   </table>
-   <%= link_to_next_page( @posts, 'more', remote: true, id: 'view_more', class: "btn btn-info center-block") %>
+
+
+<div class="pull-right" style="margin-right: 30px; margin-top: 10px;">
+  <div style="border: 1px solid #c0c0c0;">
+    <h2 class="text-center" >Time Line</h2>
+    <div style="height:300px; width:300px; overflow-y:scroll;">
+      <table class="table table-bordered" id="lists"> 
+        <tbody>
+         <%= render partial: 'time_line' %>
+       </tbody>
+     </table>
+     <%= link_to_next_page( @posts, 'more', remote: true, id: 'view_more', class: "btn btn-info center-block") %>
+   </div>
  </div>
 
+ <div  style="margin-top: 30px; border: 1px solid #c0c0c0;">
+   <h2 class="text-center" >Update Info</h2>
+   <div style="height:200px; width:300px; overflow-y:scroll;">
+     <%= render partial: 'update_info' %>
+   </div>
+ </div>
 </div>
+
+
+
+
 
 
 

@@ -47,15 +47,28 @@
     <%=f.error_span(:o_data) %>
 </div>
 
-<% if current_page?(controller: 'questions', action: 'new') %>
+<% unless @question.question_level %>
 <div class="form-group">
     <%= f.label "問題レベル", class: 'control-label col-lg-2' %>
-    <label><%= f.radio_button :question_level, 1 %>1
-       <%= f.radio_button :question_level, 2 %>2
-       <%= f.radio_button :question_level, 3 %>3
-       <%= f.radio_button :question_level, 4 %>4
-       <%= f.radio_button :question_level, 5 %>5
+    <div class="btn-group" data-toggle="buttons">
+    <label class="btn btn-warning active">
+       <%= f.radio_button :question_level, 1, autocomplete: "off" %>1
    </label>
+   <label class="btn btn-warning">
+       <%= f.radio_button :question_level, 2, autocomplete: "off" %>2
+   </label>
+   <label class="btn btn-warning">
+       <%= f.radio_button :question_level, 3, autocomplete: "off" %>3
+   </label>
+   <label class="btn btn-warning">
+       <%= f.radio_button :question_level, 4, autocomplete: "off" %>4
+   </label>
+   <label class="btn btn-warning">
+       <%= f.radio_button :question_level, 5, autocomplete: "off" %>5
+   </label>
+       
+   </label>
+   </div>
    <%=f.error_span(:question_level) %>
 </div>
 <% end %>
