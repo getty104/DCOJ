@@ -6,16 +6,14 @@
   <dt><strong><%= :content %>:</strong></dt>
   <dd><%= simple_format(hbr(@question.content)) %></dd>
   <dd><%= link_to 'input download', download_input_question_path(@question),class: "btn btn-primary" %></dd>
-  <dd class="btn btn-warning"><%= link_to 'submission', controller: 'judge_systems', action: 'new', question_id: @question.id %></dd>
+  <dd><%= link_to('submission', {controller: 'judge_systems', action: 'new', question_id: @question.id}, class: "btn btn-warning") %></dd>
 </dl>
 
-<% if request.referer.include?('/questions') %>
+
  <%= link_to t('.back', default: t("helpers.links.back")),
-     questions_path, class: 'btn btn-default'  %>
-<% else %>
- <%= link_to '作成したユーザー',
-     @question.created_user, class: 'btn btn-default'  %>
-<% end %>
+     :back, class: 'btn btn-default'  %>
+
+
 
 <% if current_user == @question.created_user %>
 <%= link_to t('.edit', default: t("helpers.links.edit")),
