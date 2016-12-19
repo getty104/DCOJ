@@ -38,6 +38,10 @@ gem 'resonance'
 gem 'jquery-turbolinks'
 gem 'sprockets-rails', '2.3.3'
 gem 'puma', '~> 3.0'
+
+#画像スクロール
+gem "jquery-slick-rails"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
