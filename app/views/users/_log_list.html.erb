@@ -15,7 +15,6 @@
       <td><%= record.result %></td>
     </tr>
     <% end %>
-    <%= paginate @records , param_name: :records_page, remote: true %>
   </tbody>
-  
-</table>
+</table> 
+<%= paginate @records , param_name: :records_page, remote: true %>
