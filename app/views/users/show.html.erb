@@ -10,7 +10,7 @@
   <dd><%= @user.solved_question_number %></dd>
 </dl>
 <% unless current_user == @user %>
-<div id="follow_form" style="margin-left: 20%; ">
+<div id="follow_form" style="margin-left: 10%; ">
   <% if current_user.following?(@user) %>
   <%= render partial: 'unfollow' %>
   <% else %>
@@ -18,33 +18,35 @@
   <% end %>
 </div>
 <% else %>
-<div style="margin-left:20%">
-<%= link_to "Edit", edit_user_path(@user), class: 'btn btn-default btn-lg' %>
+<div style="margin-left:10%">
+  <%= link_to "Edit", edit_user_path(@user), class: 'btn btn-default btn-lg' %>
 
-    <%= link_to "Destroy", user_path(@user), method: 'delete', data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
-    class: 'btn btn-danger btn-lg' %>
-    </div>
+  <%= link_to "Destroy", user_path(@user), method: 'delete', data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
+  class: 'btn btn-danger btn-lg' %>
+</div>
 <% end %>
-
-  <div class="pull-left">
+<div class="container center-block">
+  <div class="row col-lg-6">
     <h2 class="text-center">Created Questions</h2>
-    <div id="create_questions" class="list center-block">
+    <div id="create_questions">
       <%= render partial: 'question_list', locals: { questions: @create_questions, level_page:  
         :create_questions_page } %>
       </div>
     </div>
 
-    <div class="pull-left">
+    <div class="row col-lg-6">
       <h2 class="text-center">Solved Questions</h2>
-      <div  id="solve_questions" class="list center-block">
+      <div  id="solve_questions">
         <%= render partial: 'question_list', locals: { questions: @solve_questions, level_page:  
           :solve_questions_page } %>
         </div>
       </div>
-
-    <div style="margin-top: 400px;">
-      <h2 class="text-center">Logs</h2>
-      <div  id="records" class="center-block" style="width: 800px;">
-        <%= render partial: 'log_list' %>
+    </div>
+    <div class="container">
+      <div class="col-lg-12">
+        <h2 class="text-center">Logs</h2>
+        <div  id="records">
+          <%= render partial: 'log_list' %>
+        </div>
       </div>
     </div>
