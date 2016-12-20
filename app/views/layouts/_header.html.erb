@@ -3,10 +3,10 @@
         <div class="container">
             <% if logged_in? %>
             <nav>
-               <%= link_to "Daisuki Club Online Judge", main_menu_path, class: "navbar-brand" %>
-               <%= link_to "create question", new_question_path, class: "navbar-brand" %>
-               <%= link_to "question list", questions_path, class: "navbar-brand" %>
-               <ul class="nav navbar-nav pull-right">
+             <%= link_to "Daisuki Club Online Judge", main_menu_path, class: "navbar-brand" %>
+             <%= link_to "create question", new_question_path, class: "navbar-brand" %>
+             <%= link_to "question list", questions_path, class: "navbar-brand" %>
+             <ul class="nav navbar-nav pull-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown"><%= current_user.account %><b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -24,7 +24,9 @@
         <% else %>
         <nav>
             <%= link_to "Daisuki Club Online Judge", root_path, class: "navbar-brand" %>
+            <div class="pull-right">
                 <%= link_to "Sign in", login_path, class: 'navbar-brand' %>
+            </div>
         </nav>
         <% end %>
     </div>
