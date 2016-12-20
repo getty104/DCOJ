@@ -1,27 +1,29 @@
 <% provide(:title, "Main Menu") %>
+<div class="row">
+  <div class=" col-lg-6" style="margin: 10%; margin-top: 70px; border: 1px solid #c0c0c0; ">
+    <%= render partial: 'auto_slide' %>
+  </div>
 
-<div class="row col-lg-6" style="margin: 10%; margin-top: 70px; border: 1px solid #c0c0c0; ">
-  <%= render partial: 'auto_slide' %>
-</div>
-
-<div class="row col-lg-3">
-  <div style="border: 1px solid #c0c0c0; background-color: white; ">
-    <h2 class="text-center" >Time Line</h2>
-    <div style="height:300px; overflow-y:scroll;">
-      <table class="table table-bordered" id="lists"> 
-        <tbody>
-         <%= render partial: 'time_line' %>
-       </tbody>
-     </table>
-     <%= link_to_next_page( @posts, 'more', remote: true, id: 'view_more', class: "btn btn-info center-block") %>
+  <div class=" col-lg-3">
+    <div style="border: 1px solid #c0c0c0; background-color: white; ">
+      <h2 class="text-center" >Time Line</h2>
+      <div style="height:300px; overflow-y:scroll;">
+        <table class="table table-bordered" id="lists"> 
+          <tbody>
+           <%= render partial: 'time_line' %>
+         </tbody>
+       </table>
+       <%= link_to_next_page( @posts, 'more', remote: true, id: 'view_more', class: "btn btn-info center-block") %>
+     </div>
    </div>
- </div>
+
    <h2 class="text-center" >Update Info</h2>
    <div style="height:200px; overflow-y:scroll;">
      <%= render partial: 'update_info' %>
    </div>
  </div>
 </div>
+
 
 
 
