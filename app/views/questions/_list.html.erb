@@ -9,9 +9,10 @@
     </tr>
   </thead>
   <tbody>
+  <% number = 1 %>
     <% questions.each do |question| %>
     <tr>
-      <td><%=  question.id %></td>
+      <td><%=  number %></td>
       <td><%= link_to question.title, question, style: "color:green;"  %></td>
       <td><%= link_to question.created_user.name,question.created_user, style: "color:green;"  %></td>
       <td><%= question.users.length %></td>
@@ -20,8 +21,8 @@
       <% else %>
       <td style="color: gray;" ><strong>---------</strong></td>
       <%end%>
-
     </tr>
+    <% number += 1 %>
     <% end %>
   </tbody>
 </table>  
