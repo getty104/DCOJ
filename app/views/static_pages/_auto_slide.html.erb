@@ -10,14 +10,13 @@
   <!-- 実際の画像の表示処理 -->
   <div class="carousel-inner">
     <div class="item active">    <!-- activeをつけたものがページ表示時に表示される -->
-      <%= image_tag asset_path("main_menu/info.jpg"), class: "center-block" %>
+      <%= image_tag asset_path("main_menu/1.jpg"), class: "center-block" %>
     </div>
+    <%# 2.upto 3 do |i| %>
     <div class="item">
-      <%= image_tag asset_path("main_menu/info.jpg"), class: "center-block" %>
+      <%= image_tag asset_path("main_menu/3.jpg"), class: "center-block" %>
     </div>
-    <div class="item">
-      <%= image_tag asset_path("main_menu/info.jpg"), class: "center-block" %>
-    </div>
+    <%# end %>
   </div>
 
   <!-- 前の画像へ戻るための矢印ポインタ -->
