@@ -1,18 +1,29 @@
 <% provide(:title, "Following") %>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= :name %></th>
-    <th><%= :action %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-         <td><%=link_to "詳細",user, class: 'btn btn-primary' %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-md-3 col-md-offset-3">
+    <h1>
+    <%= fa_icon "twitter" %>
+    Following List</h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><%= :name %></th>
+          <th><%= :action %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%=link_to "詳細",user, class: 'btn btn-primary' %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
