@@ -5,11 +5,9 @@
   <dd><%= @question.title %></dd>
   <dt><strong><%= :content %>:</strong></dt>
   <dd><%= simple_format(hbr(@question.content)) %></dd>
-  <dd><%= link_to 'input download', download_input_question_path(@question),class: "btn btn-primary" %></dd>
-  <dd><%= link_to('submission', {controller: 'judge_systems', action: 'new', question_id: @question.id}, class: "btn btn-warning") %></dd>
+  <dd><%= link_to 'input download', download_input_question_path(@question),class: "btn btn-default" %></dd>
+  <dd><%= link_to('submission', {controller: 'judge_systems', action: 'new', question_id: @question.id}, class: "btn btn-primary") %></dd>
 </dl>
-
-
  <%= link_to t('.back', default: t("helpers.links.back")),
      :back, class: 'btn btn-default'  %>
 
