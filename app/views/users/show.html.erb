@@ -14,12 +14,22 @@
 <div class="row">
   <div class="col-md-4 col-md-offset-2">
     <% unless current_user == @user %>
-    <div id="follow_form">
-      <% if current_user.following?(@user) %>
-      <%= render partial: 'unfollow' %>
-      <% else %>
-      <%= render partial: 'follow' %>
-      <% end %>
+    <div class="row">
+      <div id="follow_form" class="pull-left">
+        <% if current_user.following?(@user) %>
+        <%= render partial: 'unfollow' %>
+        <% else %>
+        <%= render partial: 'follow' %>
+        <% end %>
+      </div>
+
+      <div id="block_form" class="pull-left">
+        <% if current_user.blocking?(@user) %>
+        <%= render partial: 'unblock' %>
+        <% else %>
+        <%= render partial: 'block' %>
+        <% end %>
+      </div>
     </div>
     <% else %>
     <%= link_to "Edit", edit_user_path(@user), class: 'btn btn-default btn-lg' %>

@@ -36,6 +36,8 @@ Rails.application.routes.draw do
 			post 'do_follow'
 			get 'follower_list'
 			get 'following_list'
+			post 'do_unblock'
+			post 'do_block'
 		end
 		
 	end

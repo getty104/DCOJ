@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    redirect_to main_menu_path if @user.blocking?(current_user)
     @records = @user.records.page(params[:records_page]).per(5).order("created_at DESC")
     @create_questions = @user.create_questions.page(params[:create_questions_page]).per(5).order(:id)
     @solve_questions = @user.questions.page(params[:solve_questions_page]).per(5).order(:id)
@@ -40,6 +41,18 @@ class UsersController < ApplicationController
   def do_unfollow
     @user = User.find_by(account: params[:follow_account])
     current_user.unfollow @user
+    redirect_to @user
+  end
+
+  def do_block
+    @user = User.find_by(account: params[:block_account])
+    current_user.block @user 
+    redirect_to @user
+  end
+
+  def do_unblock
+    @user = User.find_by(account: params[:block_account])
+    current_user.unblock @user
     redirect_to @user
   end
 
