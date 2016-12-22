@@ -1,8 +1,12 @@
 <% provide(:title, "Wrong Answer") %>
 <h1>Wrong Answer</h1>
-
-<div id="records">
-  <%= render 'record_list' %>
+<div class="row">
+  <div id="records" class="col-md-6 col-md-offset-3">
+    <%= render 'record_list' %>
+  </div>
 </div>
-
-<%= link_to "Back", :back, class: "btn btn-default" %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= link_to "Back", :back, class: "btn btn-default" %>
+  </div>
+</div>

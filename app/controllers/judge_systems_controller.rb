@@ -44,7 +44,7 @@ class JudgeSystemsController < ApplicationController
 
  def accept
   @question = Question.find(params[:question_id])
-  @records = @question.records.page(params[:page]).per(10).order("created_at DESC")
+  @records = current_user.records.where(question_id: @question.id).page(params[:page]).per(10).order("created_at DESC")
   @first_time = params[:first_time]
   respond_to do |format|
     format.html
@@ -65,7 +65,7 @@ end
 
 def wrong_answer
  @question = Question.find(params[:question_id])
- @records = @question.records.page(params[:page]).per(10).order("created_at DESC")
+ @records = current_user.records.where(question_id: @question.id).page(params[:page]).per(10).order("created_at DESC")
  respond_to do |format|
   format.html
   format.js

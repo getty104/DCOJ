@@ -1,9 +1,18 @@
 <% provide(:title, "Accept") %>
 <h1>Accept!!!!!</h1>
-<%= render 'evaluate_form' %>
-<div id="records">
-  <%= render 'record_list' %>
+<div class="row">
+<div class="col-md-6 col-md-offset-3">
+    <%= render 'evaluate_form' %>
+  </div>
+</div>
+<div class="row">
+  <div id="records" class="col-md-6 col-md-offset-3">
+    <%= render 'record_list' %>
+  </div>
 </div>
 
-
-<%= link_to "Back", main_menu_path, class: "btn btn-default" %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= link_to "Back", questions_path, class: "btn btn-default" %>
+  </div>
+</div>
