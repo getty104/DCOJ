@@ -26,6 +26,9 @@ class JudgeSystemsController < ApplicationController
           @first_time = true
         end
         record = current_user.records.build(result: "AC")
+        post = current_user.posts.build(category: 1)
+        @question.posts << post
+        post.save
         @question.records << record
         current_user.save
         redirect_to action: :accept, question_id: @question.id, first_time: @first_time

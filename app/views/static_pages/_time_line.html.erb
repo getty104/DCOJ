@@ -8,7 +8,11 @@
     <br>
     <%= link_to "問題:#{post.question.title}", post.question, style: "color:green;" %>
     <br>
+    <% if post.category == 0 %>
     <%="を作りました" %>
+    <% else %>
+    <%="でAcceptされました" %>
+    <% end %>
  </td>
 </tr>
 <% end %>

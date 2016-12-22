@@ -38,7 +38,6 @@ gem 'resonance'
 gem 'jquery-turbolinks'
 gem 'sprockets-rails', '2.3.3'
 gem 'puma', '~> 3.0'
-
 #画像スクロール
 gem "font-awesome-rails"
 group :development, :test do

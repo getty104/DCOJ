@@ -50,7 +50,7 @@ end
 
     respond_to do |format|
       if @question.save
-        post = current_user.posts.build
+        post = current_user.posts.build(category: 0)
         @question.posts << post
         post.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
