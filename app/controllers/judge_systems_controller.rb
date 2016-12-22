@@ -13,11 +13,11 @@ class JudgeSystemsController < ApplicationController
 
 
   def create
-    if !params[:judge_system][:ans]
+    @question = Question.find(params[:judge_system][:question_id])
+    unless params[:judge_system][:ans]
       flash.now[:danger] = '正しく提出されていません'
-      render :new
+      render action: :new, question_id: @question.id
     else
-      @question = Question.find(params[:judge_system][:question_id])
       ans_data = params[:judge_system][:ans].read
       if ans_data == @question.output
         if current_user != @question.created_user && !current_user.questions.include?(@question)
