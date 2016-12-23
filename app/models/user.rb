@@ -14,6 +14,12 @@ def to_param
   account
 end
 
+def self.search(search) #self.でクラスメソッドとしている
+    if search # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
+      User.where(name: search)
+    end
+  end
+
  # 与えられた文字列のハッシュ値を返す
  def User.digest(string)
  	cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

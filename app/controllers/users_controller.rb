@@ -63,6 +63,10 @@ class UsersController < ApplicationController
   def following_list
     @users = @user.following.order(:id)
   end
+
+  def search_result
+     @users = User.search(params[:search])
+  end
   # POST /users
   # POST /users.json
   def create

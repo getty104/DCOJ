@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 	get    'home'    => 'static_pages#home'
 	get    'main_menu' => 'static_pages#main_menu'
 	get 'search_result' => 'questions#search_result'
+	get 'user_search_result' => 'users#search_result'
 	resources :questions do
 		member do 
 			get   'download_input' 

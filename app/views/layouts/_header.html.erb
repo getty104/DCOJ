@@ -6,7 +6,17 @@
              <%= link_to fa_icon("diamond")+" Daisuki Club Online Judge", main_menu_path, class: "navbar-brand" %>
              <%= link_to fa_icon("plus")+ " Create Question", new_question_path, class: "navbar-brand" %>
              <%= link_to fa_icon("file-text-o")+" Question List", questions_path, class: "navbar-brand" %>
-             <ul class="nav navbar-nav pull-right">
+             <div class="navbar-form navbar-brand">
+                 <%= form_tag user_search_result_path, method: 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
+                 <div class="form-group">
+                     <%= text_field_tag :search, params[:search], placeholder: "User name" %>
+                 </div>         
+                    <%= submit_tag "Search", name: nil, class: "btn btn-warning" %>
+             
+
+            </div>
+            <% end %>
+            <ul class="nav navbar-nav pull-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown"><%= current_user.account %><b class="caret"></b></a>
                     <ul class="dropdown-menu">

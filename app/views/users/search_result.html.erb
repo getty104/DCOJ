@@ -1,0 +1,31 @@
+<h2 class="text-center">Search Result</h2>
+
+<div class="row">
+<div class="col-md-4 col-md-offset-4">
+   <table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="text-center">name</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @users.each do |user| %>
+    <tr class="text-center">
+     <td><%= link_to user.name, user, style: "color:green;"  %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>  
+<%# paginate questions, param_name: level_page, remote: true %>
+
+
+
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4"> 
+    <%= link_to "Back", main_menu_path, class: "btn btn-default" %>
+  </div>
+</div>
+
