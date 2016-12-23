@@ -1,12 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy, :follower_list, :following_list]
 
-  # GET /users
-  # GET /users.json
-  def index
-    @users = User.all.order(:id)
-  end
-
   # GET /users/1
   # GET /users/1.json
   def show
@@ -72,6 +66,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.solved_question_number = 0
+    @user.solved_question_number = 1
     respond_to do |format|
       if @user.save
        log_in @user

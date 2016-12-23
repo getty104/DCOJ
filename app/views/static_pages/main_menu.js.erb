@@ -1,2 +1,2 @@
-$('#lists').append("<%= escape_javascript(render 'time_line', object: @posts) %>");
+$('#lists').append("<%= escape_javascript(render partial: 'time_line', object: @posts) %>");
 $("#view_more").replaceWith("<%= escape_javascript(link_to_next_page( @posts, 'more', remote: true, id: 'view_more')) %>");

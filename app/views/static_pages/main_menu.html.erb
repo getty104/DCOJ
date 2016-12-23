@@ -14,19 +14,28 @@
          </tbody>
        </table>
        <div class="btn btn-info col-md-12">
-          <%= link_to_next_page( @posts, 'more', remote: true, id: 'view_more') %>
-       </div>
+        <%= link_to_next_page( @posts, 'more', remote: true, id: 'view_more') %>
+      </div>
       
-     </div>
-   </div>
+    </div>
+  </div>
 
-   <div style="border: 1px solid #c0c0c0; background-color: white; margin-top:10px;">
-     <h2 class="text-center" >Update Info</h2>
-     <div style="height:200px; overflow-y:scroll;">
-       <%= render partial: 'update_info' %>
-     </div>
+  <div style="border: 1px solid #c0c0c0; background-color: white; margin-top:10px;">
+   <h2 class="text-center" >Update Info</h2>
+   <div style="height:200px; overflow-y:scroll;">
+     <%= render partial: 'update_info' %>
    </div>
  </div>
+</div>
+</div>
+
+<div class="row">
+  <div class=" col-md-5 col-md-offset-1">
+      <%= render partial: 'ranking_list', locals: { users: @created_users, title: "Best Creaters Ranking" } %>
+  </div>
+  <div class=" col-md-5">
+      <%= render partial: 'ranking_list', locals: { users: @solved_users, title: "Best Answerers Ranking" } %>
+  </div>
 </div>
 
 

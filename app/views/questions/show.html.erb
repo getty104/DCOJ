@@ -8,8 +8,11 @@
   <dd><%= link_to 'input download', download_input_question_path(@question),class: "btn btn-default" %></dd>
   <dd><%= link_to('submission', {controller: 'judge_systems', action: 'new', question_id: @question.id}, class: "btn btn-primary", style: "color: white") %></dd>
 </dl>
- <%= link_to t('.back', default: t("helpers.links.back")),
+<div class="col-md-4 col-md-offset-1">
+   <%= link_to t('.back', default: t("helpers.links.back")),
      :back, class: 'btn btn-default'  %>
+
+</div>
 
 
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221085531) do
+ActiveRecord::Schema.define(version: 20161223080821) do
 
   create_table "blocks", force: :cascade do |t|
     t.integer  "user_id"
@@ -71,13 +71,14 @@ ActiveRecord::Schema.define(version: 20161221085531) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.string   "name"
     t.string   "account"
     t.string   "password_digest"
     t.string   "remember_digest"
     t.integer  "solved_question_number"
+    t.integer  "created_question_number"
     t.index ["account"], name: "index_users_on_account", unique: true
   end
 
