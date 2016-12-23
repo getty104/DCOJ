@@ -13,10 +13,7 @@
            <%= render partial: 'time_line' %>
          </tbody>
        </table>
-       <div class="btn btn-info col-md-12">
-        <%= link_to_next_page( @posts, 'more', remote: true, id: 'view_more') %>
-      </div>
-      
+        <%= link_to_next_page( @posts, 'more', remote: true, id: 'view_more', class: "btn btn-info col-md-12") %>
     </div>
   </div>
 
@@ -31,10 +28,10 @@
 
 <div class="row">
   <div class=" col-md-5 col-md-offset-1">
-      <%= render partial: 'ranking_list', locals: { users: @created_users, title: "Best Creaters Ranking" } %>
+      <%= render partial: 'create_ranking_list' %>
   </div>
   <div class=" col-md-5">
-      <%= render partial: 'ranking_list', locals: { users: @solved_users, title: "Best Answerers Ranking" } %>
+      <%= render partial: 'solve_ranking_list' %>
   </div>
 </div>
 

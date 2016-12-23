@@ -1,11 +1,12 @@
-<h2 class="text-center"><%= title %></h2>
+<h2 class="text-center">Best Creaters Ranking</h2>
 <table class="table table-striped">
   <tbody>
   <% number = 1 %>
-    <% users.each do |user| %>
+    <% @created_users.each do |user| %>
     <tr class="text-center">
     <td><%= number %></td>
-      <td><%= link_to user.name, user, style: "color:green;"  %></td>
+      <td><%= link_to user.name, user %></td>
+      <td><%= user.created_question_number.to_s + "問" %></td>
     </tr>
     <% number += 1 %>
     <% if number == 6 %>

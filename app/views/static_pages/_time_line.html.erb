@@ -6,7 +6,7 @@
     <br>
     <%="#{post.user.name}さんが"%>
     <br>
-    <%= link_to "問題:#{post.question.title}", post.question, style: "color:green;" %>
+    <%= link_to "問題:#{post.question.title}", post.question %>
     <br>
     <% if post.category == 0 %>
     <%="を作りました" %>

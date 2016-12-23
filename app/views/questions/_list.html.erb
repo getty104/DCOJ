@@ -13,8 +13,8 @@
     <% questions.each do |question| %>
     <tr>
       <td><%=  question.id %></td>
-      <td><%= link_to question.title, question, style: "color:green;"  %></td>
-      <td><%= link_to question.created_user.name,question.created_user, style: "color:green;"  %></td>
+      <td><%= link_to question.title, question %></td>
+      <td><%= link_to question.created_user.name, question.created_user  %></td>
       <td><%= question.users.length %></td>
       <% if current_user.questions.include?(question) %>
       <td style="color: red;"><strong>AC</strong></td>

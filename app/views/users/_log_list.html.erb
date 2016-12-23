@@ -10,7 +10,7 @@
   <tbody>
     <% @records.each do |record| %>
     <tr>
-      <td><%=link_to record.question.title, record.question  %></td>
+      <td><%=link_to record.question.title, record.question %></td>
       <td><%= record.created_at %></td>
       <td><%= record.result %></td>
     </tr>

@@ -1,5 +1,5 @@
 body {
-    padding-top: 70px;
+    padding-top: 80px;
     color: #333;
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 13px;
@@ -32,14 +32,12 @@ pre {
 }
 
 a {
-    color: #001;
+    color: #409ecc;
 
-    &:visited {
-        color: #666;
-    }
+   
 
     &:hover {
-        color: #fff;
+        color: #fdd35c;
     }
 }
 
@@ -149,3 +147,6 @@ body {
   border-radius: 8px;
 }
 
+.navbar-brand{
+ color: #666;
+}
