@@ -3,8 +3,10 @@
   <dl class="dl-horizontal">
     <dt><strong><%= :name %>:</strong></dt>
     <dd><%= @user.name %></dd>
+    <% if current_user == @user %>
     <dt><strong><%= :account %>:</strong></dt>
     <dd><%= @user.account %></dd>
+    <% end %>
     <dt><strong><%= "作成した問題数" %>:</strong></dt>
     <dd><%= @user.created_question_number %></dd>
     <dt><strong><%= "正答した問題数" %>:</strong></dt>
