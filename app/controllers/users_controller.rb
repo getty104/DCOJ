@@ -66,7 +66,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.solved_question_number = 0
-    @user.solved_question_number = 1
+    @user.created_question_number = 0
     respond_to do |format|
       if @user.save
        log_in @user
@@ -111,6 +111,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:account, :name, :password, :password_confirmation, :solved_question_number, :create_question_number)
+      params.require(:user).permit(:account, :name, :password, :password_confirmation)
     end
   end

@@ -21,9 +21,9 @@ class JudgeSystemsController < ApplicationController
       ans_data = params[:judge_system][:ans].read
       if ans_data == @question.output
         if current_user != @question.created_user && !current_user.questions.include?(@question)
-          current_user.questions << @question
+         current_user.questions << @question
          num =  current_user.solved_question_number + 1
-          current_user.update_attribute(:solved_question_number, num)
+         current_user.update_attribute(:solved_question_number, num)
           @first_time = true
         end
         record = current_user.records.build(result: "AC")
