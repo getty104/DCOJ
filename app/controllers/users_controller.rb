@@ -59,7 +59,7 @@ class UsersController < ApplicationController
   end
 
   def search_result
-     @users = User.search(params[:search])
+     @users = User.search(params[:search]).page(params[:page]).per(10)
   end
   # POST /users
   # POST /users.json
