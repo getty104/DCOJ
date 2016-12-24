@@ -53,8 +53,8 @@ end
         post = current_user.posts.build(category: 0)
         @question.posts << post
         post.save
-        current_user.created_question_number += 1
-        current_user.save
+        num =  current_user.created_question_number + 1
+        current_user.update_attribute(:created_question_number, num)
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
         format.json { render :show, status: :created, location: @question }
       else
@@ -100,8 +100,8 @@ end
   # DELETE /questions/1.json
   def destroy
     @question.destroy
-    current_user.created_question_number -= 1
-    current_user.save
+     num =  current_user.created_question_number - 1
+        current_user.update_attribute(:created_question_number, num)
     respond_to do |format|
       format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
       format.json { head :no_content }

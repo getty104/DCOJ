@@ -111,6 +111,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:account, :name, :password, :password_confirmation)
+      params.require(:user).permit(:account, :name, :password, :password_confirmation, :solved_question_number, :create_question_number)
     end
   end

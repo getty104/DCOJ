@@ -6,7 +6,7 @@
     <tr class="text-center">
     <td><%= number %></td>
       <td><%= link_to user.name, user %></td>
-      <td><%= user.solved_question_number.to_s + "問"%></td>
+      <td><%= user.solved_question_number%></td>
     </tr>
     <% number += 1 %>
     <% if number == 6 %>
