@@ -1,6 +1,6 @@
 <% provide(:title, "User Profile") %>
 <div class="row">
-  <dl class="dl-horizontal">
+  <dl class="dl-horizontal col-xs-4 col-xs-offset-1">
     <dt><strong><%= :name %>:</strong></dt>
     <dd><%= @user.name %></dd>
     <% if current_user == @user %>

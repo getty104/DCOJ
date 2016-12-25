@@ -1,5 +1,5 @@
 body {
-    padding-top: 80px;
+    padding-top: 90px;
     color: #333;
     font-family: verdana, arial, helvetica, sans-serif;
     font-size: 13px;
@@ -34,7 +34,7 @@ pre {
 a {
     color: #409ecc;
 
-   
+
 
     &:hover {
         color: #fdd35c;
@@ -121,32 +121,34 @@ body {
 
 
 
-.box_scrollbar {
-    overflow:auto;
-    width:300px;
-    height:300px;
-    padding:5px;
-    border:1px solid #000;
-    background-color:#F9F9F9;
-    color:#000;
-    font-size:12px;
-}
-.box_title{
-    border:1px solid #000;
-    padding:5px;
-    width:300px;
-    font-weight:bold;
-    font-size:14px;
-    background-color:#000;
-    color:#fff;
-}
+    .box_scrollbar {
+        
+        width:300px;
+        height:300px;
+        padding:5px;
+        border:1px solid #000;
+        background-color:#F9F9F9;
+        color:#000;
+        font-size:12px;
+        -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+    }
+    .box_title{
+        border:1px solid #000;
+        padding:5px;
+        width:300px;
+        font-weight:bold;
+        font-size:14px;
+        background-color:#000;
+        color:#fff;
+    }
 
-.btn-xxl {
-  padding: 20px 26px;
-  font-size: 35px;
-  border-radius: 8px;
-}
+    .btn-xxl {
+      padding: 20px 26px;
+      font-size: 35px;
+      border-radius: 8px;
+  }
 
-.navbar-brand{
- color: #666;
+  .navbar-brand{
+   color: #666;
 }

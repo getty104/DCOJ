@@ -1,7 +1,6 @@
 <% provide(:title, "Question List") %>
-<h2 class="text-center">Question List</h2>
 <div class="row">
-  <div class="col-md-4 col-md-offset-8">
+  <div class="col-xs-12 col-md-4 col-md-offset-8">
    <%= form_tag search_result_path, method: 'get' do %><%#　projects_pathはモデル名で読みかえること %>
    <div class="form-group">
      <%= text_field_tag :search, params[:search], placeholder: "Question name"  %>                 
@@ -10,9 +9,10 @@
    <% end %>
  </div>
 </div>
+<h2 class="text-center">Question List</h2>
 
 <div class="row">
-  <div class="col-md-10 col-md-offset-1">
+  <div class="col-sm-12  col-md-10 col-md-offset-1">
     <ul class="nav nav-tabs" role="tablist">
       <li class="active" role="presentation">
         <a aria-controls="tab_1" data-toggle="tab" href="#tab_1" role="tab" class="table-list">level 1</a>

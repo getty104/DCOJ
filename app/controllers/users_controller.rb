@@ -51,11 +51,11 @@ class UsersController < ApplicationController
   end
 
   def follower_list
-    @users = @user.followers.order(:id)
+    @users = @user.followers.order(:id).page(params[:page]).per(10)
   end
 
   def following_list
-    @users = @user.following.order(:id)
+    @users = @user.following.order(:id).page(params[:page]).per(10)
   end
 
   def search_result
