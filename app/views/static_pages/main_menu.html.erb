@@ -1,25 +1,21 @@
 <% provide(:title, "Main Menu") %>
 <div class="row">
-  <div class="col-sm-12 col-md-8 col-md-offset-1" style=" border: 1px solid #c0c0c0; ">
+  <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-1" style=" border: 1px solid #c0c0c0; ">
     <%= render partial: 'auto_slide' %>
   </div>
 
-  <div class="col-sm-12 col-md-3">
+  <div class="col-xs-12 col-sm-12 col-md-3">
     <div style="border: 1px solid #c0c0c0; background-color: white; ">
       <h2 class="text-center" >Time Line</h2>
-      <div style="height:300px; overflow-y:scroll;">
-        <table class="table table-bordered" id="lists"> 
-          <tbody>
-           <%= render partial: 'time_line' %>
-         </tbody>
-       </table>
-        <%= link_to_next_page( @posts, 'more', remote: true, id: 'view_more', class: "btn btn-info col-md-12") %>
+      <div style="height:300px; overflow-y:scroll; -webkit-overflow-scrolling: touch;">
+        <%= render partial: 'time_line' %>
+        <%= link_to_next_page( @posts, 'more', remote: true, id: 'view_more', class: "btn btn-info col-xs-12 col-sm-12 col-md-12") %>
     </div>  
   </div>
 
   <div style="border: 1px solid #c0c0c0; background-color: white; margin-top:10px;">
    <h2 class="text-center" >Update Info</h2>
-   <div style="height:200px; overflow-y:scroll;　-webkit-overflow-scrolling: touch;">
+   <div style="height:200px; overflow-y:scroll; -webkit-overflow-scrolling: touch;">
      <%= render partial: 'update_info' %>
    </div>
  </div>
@@ -27,10 +23,10 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-12 col-md-5 col-md-offset-1">
+  <div class="col-xs-12 col-sm-12 col-md-5 col-md-offset-1">
       <%= render partial: 'create_ranking_list' %>
   </div>
-  <div class="col-sm-12 col-md-5">
+  <div class="col-xs-12 col-sm-12 col-md-5">
       <%= render partial: 'solve_ranking_list' %>
   </div>
 </div>

@@ -1,9 +1,9 @@
 <nav class="navbar navbar-fixed-top" style="background-color: #00ada9;">
     <div class="container-fluid">
-        <% if logged_in? %>
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-nav">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-nav">
             <%= fa_icon("list") + " Manu" %>
         </button>
+        <% if logged_in? %>
         <div class="collapse navbar-collapse" id="top-nav">
             <div class="nav navbar-nav">
                 <%= link_to fa_icon("diamond")+" Programing Daisuki Club", main_menu_path, class: "navbar-brand" %>
@@ -33,9 +33,6 @@
         </li> 
     </div>
     <% else %>
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-nav">
-        <%= fa_icon("list") + " Manu" %>
-    </button>
     <div class="collapse navbar-collapse" id="top-nav">
        <div class="nav navbar-nav navbar-right">
         <%= link_to "Sign in", login_path, class: 'navbar-brand' %>
