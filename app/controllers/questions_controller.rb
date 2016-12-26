@@ -67,13 +67,8 @@ end
   # PATCH/PUT /questions/1
   # PATCH/PUT /questions/1.json
   def update
-   if params[:question][:i_data]
-    @question.input = params[:question][:i_data].read
-  end
-  
-  if params[:question][:o_data]
-    @question.output = params[:question][:o_data].read
-  end
+    @question.input = params[:question][:i_data].read if params[:question][:i_data]
+    @question.output = params[:question][:o_data].read if params[:question][:o_data]
   
   respond_to do |format|
     if @question.update(question_params)
@@ -116,6 +111,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:title, :content,:question_id, :input, :output,:i_data, :o_data,:question_level)
+      params.require(:question).permit(:title, :content,:question_id, :input, :output,:i_data, :o_data,:question_level, :input_text, :output_text, :sample_input, :sample_output)
     end
   end

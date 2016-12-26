@@ -9,8 +9,10 @@ class Question < ApplicationRecord
   validates :input, presence: true
   validates :output, presence: true
   validates :question_level, presence: true
-
-
+  validates :input_text, presence: true
+  validates :output_text, presence: true
+  validates :sample_input, presence: true
+  validates :sample_output, presence: true
   def self.search(search) #self.でクラスメソッドとしている
     if search # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
       Question.where(title: search)

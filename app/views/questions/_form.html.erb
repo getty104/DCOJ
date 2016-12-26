@@ -16,7 +16,7 @@
 <% end %>
 <p>記号は$$の間に書き込んでください <%= link_to "記号一覧はこちら","http://www1.kiy.jp/~yoka/LaTeX/latex.html", target: ["_blank"] %></p>
 <div class="form-group">
-    <%= f.label "タイトル", class: 'control-label col-lg-2' %>
+    <%= f.label "title", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
         <%= f.text_field :title, class: 'form-control' %>
     </div>
@@ -24,7 +24,7 @@
 </div>
 
 <div class="form-group">
-    <%= f.label "問題文", class: 'control-label col-lg-2' %>
+    <%= f.label "main", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
         <%= f.text_area :content, class: 'form-control', size: '60x20' %>
     </div>
@@ -32,7 +32,39 @@
 </div>
 
 <div class="form-group">
-    <%= f.label "インプット", class: 'control-label col-lg-2' %>
+    <%= f.label "Input format", class: 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+        <%= f.text_area :input_text, class: 'form-control', size: '60x10' %>
+    </div>
+    <%=f.error_span(:input_text) %>
+</div>
+
+<div class="form-group">
+    <%= f.label "Output format", class: 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+        <%= f.text_area :output_text, class: 'form-control', size: '60x10' %>
+    </div>
+    <%=f.error_span(:output_text) %>
+</div>
+
+<div class="form-group">
+    <%= f.label "Sample input", class: 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+        <%= f.text_area :sample_input, class: 'form-control', size: '60x10' %>
+    </div>
+    <%=f.error_span(:sample_input) %>
+</div>
+
+<div class="form-group">
+    <%= f.label "Sample output", class: 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+        <%= f.text_area :sample_output, class: 'form-control', size: '60x10' %>
+    </div>
+    <%=f.error_span(:sample_output) %>
+</div>
+
+<div class="form-group">
+    <%= f.label "Input file", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
         <%= f.file_field :i_data, class: 'form-control' %>
     </div>
@@ -40,7 +72,7 @@
 </div>
 
 <div class="form-group">
-    <%= f.label "アウトプット", class: 'control-label col-lg-2' %>
+    <%= f.label "Output file", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
         <%= f.file_field :o_data, class: 'form-control' %>
     </div>

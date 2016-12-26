@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223080821) do
+ActiveRecord::Schema.define(version: 20161226065630) do
 
   create_table "blocks", force: :cascade do |t|
     t.integer  "user_id"
@@ -50,6 +50,10 @@ ActiveRecord::Schema.define(version: 20161223080821) do
     t.binary   "output"
     t.integer  "created_user_id"
     t.integer  "question_level"
+    t.text     "input_text"
+    t.text     "output_text"
+    t.text     "sample_input"
+    t.text     "sample_output"
     t.index ["created_user_id"], name: "index_questions_on_created_user_id"
   end
 
