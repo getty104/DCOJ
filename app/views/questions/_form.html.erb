@@ -15,6 +15,7 @@
 </div>
 <% end %>
 <p>記号は$$の間に書き込んでください <%= link_to "記号一覧はこちら","http://www1.kiy.jp/~yoka/LaTeX/latex.html", target: ["_blank"] %></p>
+<p>フォーマットは<%=link_to "Tutorial", question_path(Question.find_by(title: "Tutorial"))%>に従ってください</p>
 <div class="form-group">
     <%= f.label "title", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
@@ -24,7 +25,7 @@
 </div>
 
 <div class="form-group">
-    <%= f.label "main", class: 'control-label col-lg-2' %>
+    <%= f.label "Problem Statement", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
         <%= f.text_area :content, class: 'form-control', size: '60x20' %>
     </div>
@@ -32,7 +33,7 @@
 </div>
 
 <div class="form-group">
-    <%= f.label "Input format", class: 'control-label col-lg-2' %>
+    <%= f.label "Input Format", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
         <%= f.text_area :input_text, class: 'form-control', size: '60x10' %>
     </div>
@@ -40,7 +41,7 @@
 </div>
 
 <div class="form-group">
-    <%= f.label "Output format", class: 'control-label col-lg-2' %>
+    <%= f.label "Output Format", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
         <%= f.text_area :output_text, class: 'form-control', size: '60x10' %>
     </div>
@@ -48,7 +49,7 @@
 </div>
 
 <div class="form-group">
-    <%= f.label "Sample input", class: 'control-label col-lg-2' %>
+    <%= f.label "Sample Input", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
         <%= f.text_area :sample_input, class: 'form-control', size: '60x10' %>
     </div>
@@ -56,7 +57,7 @@
 </div>
 
 <div class="form-group">
-    <%= f.label "Sample output", class: 'control-label col-lg-2' %>
+    <%= f.label "Sample Output", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
         <%= f.text_area :sample_output, class: 'form-control', size: '60x10' %>
     </div>
@@ -64,7 +65,7 @@
 </div>
 
 <div class="form-group">
-    <%= f.label "Input file", class: 'control-label col-lg-2' %>
+    <%= f.label "Input File", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
         <%= f.file_field :i_data, class: 'form-control' %>
     </div>
@@ -72,7 +73,7 @@
 </div>
 
 <div class="form-group">
-    <%= f.label "Output file", class: 'control-label col-lg-2' %>
+    <%= f.label "Output File", class: 'control-label col-lg-2' %>
     <div class="col-lg-10">
         <%= f.file_field :o_data, class: 'form-control' %>
     </div>
@@ -81,7 +82,7 @@
 
 <% unless @question.question_level %>
 <div class="form-group">
-    <%= f.label "問題レベル", class: 'control-label col-lg-2' %>
+    <%= f.label "Problem Level", class: 'control-label col-lg-2' %>
     <div class="btn-group" data-toggle="buttons">
     <label class="btn btn-warning active">
        <%= f.radio_button :question_level, 1, autocomplete: "off" %>1
@@ -104,7 +105,7 @@
 <% end %>
 <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10" style="margin-bottom: 30px">
-        <%= f.submit nil, class: 'btn btn-primary btn-lg' %>
+        <%= f.submit "Create Problem", class: 'btn btn-primary btn-lg' %>
     </div>
 </div>
 <% end %>
