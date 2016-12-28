@@ -15,6 +15,7 @@ class JudgeSystemsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+
   test "should create judge_system" do
     assert_difference('JudgeSystem.count') do
       post judge_systems_url, params: { judge_system: { create: @judge_system.create, new: @judge_system.new } }
