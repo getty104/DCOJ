@@ -40,6 +40,12 @@ gem 'sprockets-rails', '2.3.3'
 gem 'puma', '~> 3.0'
 #フォント
 gem "font-awesome-rails"
+#画像アップロード
+gem "aws-sdk"
+gem 'carrierwave'
+gem 'rmagick'
+# For Carrierwave
+gem 'fog-aws'
 #自動処理
 gem 'whenever', require: false
 group :development, :test do

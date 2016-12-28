@@ -1,17 +1,21 @@
 class User < ApplicationRecord
   include Resonatable
-	has_many :create_questions, class_name: "Question", foreign_key: 'created_user_id', dependent: :destroy
+  mount_uploader :image, ImageUploader
+  has_many :create_questions, class_name: "Question", foreign_key: 'created_user_id', dependent: :destroy
   has_and_belongs_to_many :questions
   has_many :records, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :contests, dependent: :destroy
   has_secure_password
   validates :account, presence: true, uniqueness: { case_sensitive: false }
   validates :name, presence: true
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password,
+  :length => { :minimum => 6, :if => :validate_password? },
+  :confirmation => { :if => :validate_password? }
   attr_accessor :remember_token
 #to_paramを名前にオーバーライド
 def to_param
-  account
+  name
 end
 
 def self.search(search) #self.でクラスメソッドとしている
@@ -47,4 +51,10 @@ def self.search(search) #self.でクラスメソッドとしている
    def forget
    	update_attribute(:remember_digest, nil)
    end
- end
+
+   private
+
+   def validate_password?
+    password.present? || password_confirmation.present?
+  end
+end

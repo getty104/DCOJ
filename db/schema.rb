@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161226065630) do
+ActiveRecord::Schema.define(version: 20161228083601) do
 
   create_table "blocks", force: :cascade do |t|
     t.integer  "user_id"
@@ -18,6 +18,16 @@ ActiveRecord::Schema.define(version: 20161226065630) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["user_id", "target_user_id"], name: "index_blocks_on_user_id_and_target_user_id", unique: true
+  end
+
+  create_table "contests", force: :cascade do |t|
+    t.time     "start_time"
+    t.time     "finish_time"
+    t.integer  "user_id",     null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "title"
+    t.index ["user_id"], name: "index_contests_on_user_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -54,6 +64,9 @@ ActiveRecord::Schema.define(version: 20161226065630) do
     t.text     "output_text"
     t.text     "sample_input"
     t.text     "sample_output"
+    t.integer  "contest_id"
+    t.string   "image"
+    t.index ["contest_id"], name: "index_questions_on_contest_id"
     t.index ["created_user_id"], name: "index_questions_on_created_user_id"
   end
 
@@ -83,6 +96,7 @@ ActiveRecord::Schema.define(version: 20161226065630) do
     t.string   "remember_digest"
     t.integer  "solved_question_number"
     t.integer  "created_question_number"
+    t.string   "image"
     t.index ["account"], name: "index_users_on_account", unique: true
   end
 

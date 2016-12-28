@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 	
+  get 'contests/new'
+
+  get 'contests/create'
+
+  get 'contests/edit'
+
+  get 'contests/update'
+
+  get 'contests/destroy'
+
   get 'posts/new'
 
   get 'posts/edit'
@@ -12,7 +22,8 @@ Rails.application.routes.draw do
 
 	mathjax 'mathjax'
 	resources :questions
-	resources :users, param: :account
+	resources :users, param: :name
+	resources :contests
 	root 'static_pages#home'
 	get 'accept' => 'judge_systems#accept'
 	post 'accept' => 'judge_systems#evaluate'
@@ -31,7 +42,7 @@ Rails.application.routes.draw do
 			get   'download_input' 
 		end
 	end
-	resources :users, param: :account do 
+	resources :users, param: :name do 
 		member do
 			post 'do_unfollow'
 			post 'do_follow'

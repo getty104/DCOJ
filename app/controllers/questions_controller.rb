@@ -46,7 +46,6 @@ end
     @question = current_user.create_questions.build(question_params)
     @question.input = params[:question][:i_data].read if params[:question][:i_data]
     @question.output = params[:question][:o_data].read if params[:question][:o_data]
-    
 
     respond_to do |format|
       if @question.save
@@ -111,6 +110,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:title, :content,:question_id, :input, :output, :i_data, :o_data, :question_level, :input_text, :output_text, :sample_input, :sample_output)
+      params.require(:question).permit(:title, :content,:question_id, :input, :output, :i_data, :o_data, :question_level, :input_text, :output_text, :sample_input, :sample_output, :image)
     end
   end

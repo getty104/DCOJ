@@ -1,5 +1,7 @@
 class Question < ApplicationRecord
-	belongs_to :created_user, class_name: "User", :foreign_key => 'created_user_id'
+  mount_uploader :image, ImageUploader
+  belongs_to :created_user, class_name: "User", :foreign_key => 'created_user_id'
+  
   has_and_belongs_to_many :users 
   has_many :records, dependent: :destroy
   has_many :posts, dependent: :destroy
