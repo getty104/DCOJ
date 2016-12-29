@@ -21,8 +21,10 @@
 
            <li class="dropdown nav navbar-nav pull-right">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-           <% image = current_user.image? ? current_user.image : asset_path("user/1.jpg") %>
-          <%= image_tag image , size: "47x47", class: "img-circle"%></a>
+           <%# image = current_user.image? ? current_user.image : asset_path("user/1.jpg") %>
+           <% image = asset_path("user/1.jpg") %>
+          <%= image_tag image , size: "47x47", class: "img-circle"%>
+          </a>
            
             <ul class="dropdown-menu">
                 <li><%= link_to fa_icon("address-card") + " Profile", current_user %></li>
