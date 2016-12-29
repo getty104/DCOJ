@@ -1,8 +1,9 @@
 <% provide(:title, "User Profile") %>
 
 <div class="row">
-  <%# image = @user.image? ? @user.image : asset_path("user/1.jpg") %>
-  <%# image_tag image , size: "130x130", class: "img-circle col-xs-offset-6 col-sm-offset-6 col-md-offset-2", style: "margin-bottom: 30px;"%>
+
+  <%= image_tag asset_path("user/1.jpg") , size: "130x130", class: "img-circle col-xs-offset-6 col-sm-offset-6 col-md-offset-2", style: "margin-bottom: 30px;"%>
+  <%# image_tag user_icon(@user), size: "130x130", class: "img-circle col-xs-offset-6 col-sm-offset-6 col-md-offset-2", style: "margin-bottom: 30px;"%>
 </div>
   
 
