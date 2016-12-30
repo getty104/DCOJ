@@ -1,46 +1,48 @@
 <nav class="navbar navbar-fixed-top" style="background-color: #00ada9;">
-    <div class="container-fluid">
+  <div class="container-fluid">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-nav">
-            <%= fa_icon("list") + " Manu" %>
-        </button>
-        <% if logged_in? %>
-        <div class="collapse navbar-collapse" id="top-nav">
-            <div class="nav navbar-nav">
-                <%= link_to fa_icon("diamond")+" Programing Daisuki Club", main_menu_path, class: "navbar-brand" %>
-                <%= link_to fa_icon("plus")+ " Create Question", new_question_path, class: "navbar-brand hidden-sm" %>
-                <%= link_to fa_icon("file-text-o")+" Question List", questions_path, class: "navbar-brand" %>
-            </div>
-            <div class="nav navbar-nav navbar-form">
-               <%= form_tag user_search_result_path, method: 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
-               <div class="form-group">
-                   <%= text_field_tag :search, params[:search], placeholder: "User name" %>
-               </div>         
-               <%= submit_tag "Search", name: nil, class: "btn btn-warning" %>
-               <% end %>
-           </div>
-
-           <li class="dropdown nav navbar-nav pull-right">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-          <%# image_tag user_icon(current_user) , size: "47x47", class: "img-circle"%> 
-          <%= image_tag asset_path("user/1.jpg"), size: "47x47", class: "img-circle"%>
-          </a>
-           
-            <ul class="dropdown-menu">
-                <li><%= link_to fa_icon("address-card") + " Profile", current_user %></li>
-                <li class="divider"></li>
-                <li><%= link_to fa_icon("user") + " Follower #{current_user.followers.length}", follower_list_user_path(current_user) %></li>
-                <li class="divider"></li>
-                <li><%= link_to fa_icon("user-o") + " Following #{current_user.following.length}", following_list_user_path(current_user) %></li>
-                <li class="divider"></li>
-                <li><%= link_to fa_icon("sign-out") + " Log out", logout_path, method: "delete" %></li>
-            </ul>
-        </li> 
-    </div>
-    <% else %>
+      <%= fa_icon("list") + " Manu" %>
+    </button>
+    <% if user_signed_in? %>
     <div class="collapse navbar-collapse" id="top-nav">
-       <div class="nav navbar-nav navbar-right">
-        <%= link_to "Sign in", login_path, class: 'navbar-brand' %>
-    </div>
+      <div class="nav navbar-nav">
+        <%= link_to fa_icon("diamond")+" Programing Daisuki Club", main_menu_path, class: "navbar-brand" %>
+        <%= link_to fa_icon("plus")+ " Create Question", new_question_path, class: "navbar-brand hidden-sm" %>
+        <%= link_to fa_icon("file-text-o")+" Question List", questions_path, class: "navbar-brand" %>
+      </div>
+      <div class="nav navbar-nav navbar-form">
+       <%= form_tag user_search_result_path, method: 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
+       <div class="form-group">
+         <%= text_field_tag :search, params[:search], placeholder: "User name" %>
+       </div>         
+       <%= submit_tag "Search", name: nil, class: "btn btn-warning" %>
+       <% end %>
+     </div>
+
+     <li class="dropdown nav navbar-nav pull-right">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <%= image_tag user_icon(current_user) , size: "47x47", class: "img-circle"%> 
+      </a>
+
+      <ul class="dropdown-menu">
+        <li><%= link_to fa_icon("address-card") + " Profile", current_user %></li>
+        <li class="divider"></li>
+        <li><%= link_to fa_icon("user") + " Follower #{current_user.followers.length}", follower_list_user_path(current_user) %></li>
+        <li class="divider"></li>
+        <li><%= link_to fa_icon("user-o") + " Following #{current_user.following.length}", following_list_user_path(current_user) %></li>
+        <li class="divider"></li>
+        <li><%= link_to fa_icon("sign-out") + " Log out", destroy_user_session_path, method: :delete %></li>
+      </ul>
+    </li> 
+  </div>
+  <% else %>
+  <div class="collapse navbar-collapse" id="top-nav">
+   <div class="nav navbar-nav">
+   <%= link_to fa_icon("diamond")+" Programing Daisuki Club", home_path, class: "navbar-brand" %>
+  </div>
+  <div class="nav navbar-nav navbar-right">
+    <%= link_to "Sign in", new_user_session_path, class: 'navbar-brand' %>
+  </div>
 </div>
 <% end %>
 </div>

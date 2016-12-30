@@ -1,0 +1,45 @@
+<%= form_for resource, as: resource_name, url: session_path(resource_name), html: { class: "form-horizontal user" } do |f| %>
+
+
+
+   <%= devise_error_messages! %>
+<%= f.hidden_field :created_question_number, value: 0 %>
+<%= f.hidden_field :solved_question_number, value: 0 %>
+<div class="form-group">
+  <%= f.label "Account or Email", class: 'control-label col-xs-12 col-sm-12 col-lg-2' %>
+  <div class="col-lg-4">
+    <%= f.text_field :login, class: 'form-control' %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :password, class: 'control-label col-xs-12 col-sm-12 col-lg-2' %>
+  <div class="col-lg-4">
+    <%= f.password_field :password, class: 'form-control' %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :password_confirmation, class: 'control-label col-xs-12 col-sm-12 col-lg-2' %>
+  <div class="col-lg-4">
+    <%= f.password_field :password_confirmation, class: 'form-control' %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%# f.label :image, class: 'control-label col-xs-12 col-sm-12 col-lg-2' %>
+  <div class="col-lg-4">
+    <%# f.file_field :image, class: 'form-control' %>
+  </div>
+</div>
+
+
+<div class="form-group">
+  <div class="col-lg-offset-2 col-xs-12 col-sm-12 col-lg-4">
+    <%= f.submit "Log in", class: 'btn btn-primary' %>
+    <%= link_to t('.cancel', default: t("helpers.links.cancel")),
+    home_path, class: 'btn btn-default' %>
+  </div>
+</div>
+
+<% end %>

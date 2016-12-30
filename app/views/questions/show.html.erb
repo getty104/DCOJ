@@ -28,7 +28,7 @@
    <%= link_to "Delete",
    question_path(@question),
    method: 'delete',
-   data: { confirm: t('.confirm', default: t("helpers.links.confirm", default: 'Are you sure?')) },
+   data: { confirm:  "一度削除した問題のデータは復元できません。\n本当に削除しますか？" },
    class: 'btn btn-danger btn-lg' %>
  </div>
  <% end %>
