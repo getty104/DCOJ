@@ -4,7 +4,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :confirmable, :lockable, :timeoutable, :authentication_keys => [:login]
+         :recoverable, :lockable, :timeoutable, :authentication_keys => [:login]
          
   mount_uploader :image, ImageUploader
   has_many :create_questions, class_name: "Question", foreign_key: 'created_user_id', dependent: :destroy
