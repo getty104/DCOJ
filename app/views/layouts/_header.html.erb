@@ -6,7 +6,7 @@
     <% if user_signed_in? %>
     <div class="collapse navbar-collapse" id="top-nav">
       <div class="nav navbar-nav">
-        <%= link_to fa_icon("diamond")+" Programing Daisuki Club", main_menu_path, class: "navbar-brand" %>
+        <%= link_to fa_icon("diamond")+" Daisuki Club Online Judge", main_menu_path, class: "navbar-brand" %>
         <%= link_to fa_icon("plus")+ " Create Question", new_question_path, class: "navbar-brand hidden-sm" %>
         <%= link_to fa_icon("file-text-o")+" Question List", questions_path, class: "navbar-brand" %>
       </div>
@@ -38,7 +38,7 @@
   <% else %>
   <div class="collapse navbar-collapse" id="top-nav">
    <div class="nav navbar-nav">
-   <%= link_to fa_icon("diamond")+" Programing Daisuki Club", home_path, class: "navbar-brand" %>
+   <%= link_to fa_icon("diamond")+" Daisuki Club Online Judge", home_path, class: "navbar-brand" %>
   </div>
   <div class="nav navbar-nav navbar-right">
     <%= link_to "Sign in", new_user_session_path, class: 'navbar-brand' %>
