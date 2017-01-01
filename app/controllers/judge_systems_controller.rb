@@ -1,6 +1,6 @@
 class JudgeSystemsController < ApplicationController
   before_action :set_judge_system, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!
   # GET /judge_systems
   # GET /judge_systems.json
 

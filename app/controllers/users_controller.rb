@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :follower_list, :following_list]
-
+  before_action :authenticate_user!
   # GET /users/1
   # GET /users/1.json
   def show

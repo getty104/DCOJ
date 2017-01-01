@@ -18,9 +18,9 @@
 <p>フォーマットは<%=link_to "Tutorial", question_path(Question.where(title: "Tutorial"))%>に従ってください</p>
 
 <div class="form-group">
-  <%# f.label "image(not must)", class: 'control-label col-xs-12 col-sm-12 col-lg-2' %>
+  <% f.label "image(not must)", class: 'control-label col-xs-12 col-sm-12 col-lg-2' %>
   <div class="col-lg-10">
-    <%# f.file_field :image, class: 'form-control' %>
+    <% f.file_field :image, class: 'form-control' %>
   </div>
 </div>
 <%= f.hidden_field :image_cache %>

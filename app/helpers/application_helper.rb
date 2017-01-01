@@ -6,8 +6,8 @@ module ApplicationHelper
   end
 
   def user_icon(user)
-    #user.image? ? user.image : asset_path("user/1.jpg")
-    asset_path("user/1.jpg")
+    user.image? ? user.image : asset_path("user/1.jpg")
+  
   end
 
 end

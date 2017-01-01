@@ -17,7 +17,7 @@ Devise.setup do |config|
   config.unlock_strategy = :email
   config.maximum_attempts = 5
 
-  config.timeout_in = 2.hours
+  config.timeout_in = 30.minutes
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 

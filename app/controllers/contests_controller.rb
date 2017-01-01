@@ -1,5 +1,5 @@
 class ContestsController < ApplicationController
-
+  before_action :authenticate_user!
   def new
     @contest = Contest.new
   end

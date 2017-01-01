@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
   end
 
   def main_menu
-      redirect_to :home unless user_signed_in?
+   authenticate_user!
     @posts = Post.order("created_at DESC").page(params[:page]).per(10)
     @created_users = User.order("created_question_number DESC")
     @solved_users = User.order("solved_question_number DESC")
