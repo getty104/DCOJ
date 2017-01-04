@@ -15,11 +15,12 @@ class Question < ApplicationRecord
   validates :output_text, presence: true
   validates :sample_input, presence: true
   validates :sample_output, presence: true
+
   def self.search(search) #self.でクラスメソッドとしている
-    if search # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
-      Question.where(title: search)
+    if search && search != "" # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
+      Question.where("title like '%" + search + "%'") 
     else
-      Question.all #全て表示。
+      Question.where(title: search)
     end
   end
 end

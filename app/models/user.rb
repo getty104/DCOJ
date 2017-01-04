@@ -21,9 +21,11 @@ def to_param
 end
 
 def self.search(search) #self.でクラスメソッドとしている
-    if search # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
-      User.where(name: search)
-    end
+    if search && search != "" # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
+      User.where("name like '%" + search + "%'") 
+    else
+    User.where(name: search)
+  end
   end
 
     def self.find_first_by_auth_conditions(warden_conditions)

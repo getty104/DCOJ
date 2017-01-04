@@ -28,7 +28,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'dotenv-rails'
 gem 'kaminari'
-# Use Capistrano for deployment
+#Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'therubyracer' # javascript runtime。lessをコンパイルするために必要
 gem 'less-rails' # Railsでlessを使えるようにする。Bootstrapがlessで書かれているため
@@ -72,6 +72,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 group :production do
 	gem 'pg', '~> 0.18'
 	gem 'rails_12factor'
+  gem 'heroku-deflater'
 end
 
 

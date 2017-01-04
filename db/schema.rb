@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161230124217) do
+ActiveRecord::Schema.define(version: 20170103121619) do
 
   create_table "blocks", force: :cascade do |t|
     t.integer  "user_id"
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20161230124217) do
     t.binary   "input"
     t.binary   "output"
     t.integer  "created_user_id"
-    t.integer  "question_level"
+    t.decimal  "question_level"
     t.text     "input_text"
     t.text     "output_text"
     t.text     "sample_input"

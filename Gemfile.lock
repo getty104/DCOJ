@@ -102,6 +102,8 @@ GEM
     formatador (0.2.5)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    heroku-deflater (0.6.2)
+      rack (>= 1.4.5)
     i18n (0.7.0)
     inflexion (0.1.0)
       verbs
@@ -145,7 +147,7 @@ GEM
     minitest (5.10.1)
     multi_json (1.12.1)
     nio4r (1.2.1)
-    nokogiri (1.7.0)
+    nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
     pg (0.19.0)
@@ -265,6 +267,7 @@ DEPENDENCIES
   fog-aws
   font-awesome-rails
   foreigner
+  heroku-deflater
   jbuilder (~> 2.5)
   jquery-rails
   jquery-turbolinks

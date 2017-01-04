@@ -1,14 +1,36 @@
-<% provide(:title, "Followers") %>
 <div class="row">
   <div class="col-xs-12 col-sm-12 col-md-3 col-md-offset-3">
     <h1> <%= fa_icon "user-o" %> Following List</h1>
   </div>
 </div>
 <div class="row">
- <div class="col-xs-12  col-sm-12 col-md-6 col-md-offset-3">
-  <% @users.each do |user| %>
-    <%= link_to image_tag(user_icon(user), class: "col-xs-4 col-sm-4 col-md-4"), user %>
-  <% end %>
+  <div class="col-xs-12  col-sm-12 col-md-8 col-md-offset-2">
+
+   <div id="lists">
+    <div class="page">
+     <%= render partial: 'user_list' %>
+   </div>
+ </div>
 </div>
-<%= paginate @users %>
 </div>
+
+<div class="row">
+  <div class="col-xs-12  col-sm-12 col-md-8 col-md-offset-2">
+    <%= paginate @users %>
+  </div>
+</div>
+
+
+<%= javascript_include_tag 'jquery.infinitescroll' %>
+<script>
+  $("#lists .page").infinitescroll({
+    loading: {
+      img:     "http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_48.gif",
+      msgText: "loading..."
+    },
+    navSelector: "nav.pagination",
+    nextSelector: "nav.pagination a[rel=next]",
+    itemSelector: "#lists div.lists" /* このDOMに差し掛かった時に、次のページのロードが始まる*/
+  });
+
+</script>

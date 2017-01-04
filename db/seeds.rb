@@ -7,5 +7,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 10.times do |i|
-  User.create(name: "name#{i}",account: "name#{i}", password: "123456", solved_question_number: 0)
+  user = User.new(name: "name#{i}",account: "name#{i}", email: "exp#{i}@exp.com", password: "123456", solved_question_number: 0, created_question_number: 0)
+  user.save!
 end
