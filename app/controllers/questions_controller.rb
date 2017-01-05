@@ -11,7 +11,7 @@ class QuestionsController < ApplicationController
  end
 
  def index
-  @level1_questions = Question.where(question_level: 1.0...1.5).page(params[:level1_page]).per(8).order(:id)
+  @level1_questions = Question.where(question_level: 1.0...1.5).select(:id, :created_user_id, :title).page(params[:level1_page]).per(8).order(:id)
   @level2_questions = Question.where(question_level: 1.5...2.5).page(params[:level2_page]).per(8).order(:id)
   @level3_questions = Question.where(question_level: 2.5...3.5).page(params[:level3_page]).per(8).order(:id)
   @level4_questions = Question.where(question_level: 3.5...4.5).page(params[:level4_page]).per(8).order(:id)
