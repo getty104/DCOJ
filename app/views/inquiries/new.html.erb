@@ -1,15 +1,16 @@
+<div class="row">
 <%= form_for @inquiry, :url => inquiries_confirm_path do |f| %>
   <div class="page-header">
-    <h1>お問い合わせ</h1>
+    <h1 class="text-center">お問い合わせ</h1>
   </div>
  
   <% if @inquiry.errors.any? %>
     <div class="alert alert-danger" role="alert">
-      <strong>入力内容にエラーがあります</strong>
+      <strong class=" col-md-offset-1">入力内容にエラーがあります</strong>
     </div>
   <% end %>
  
-  <table class="table col-xs-12 col-sm-12 col-md-12">
+  <table class="table col-xs-12 col-sm-12 col-md-11 col-md-offset-1">
     <tr>
       <th>名前<span class="text-danger">（必須）</span></th>
       <td><%= f.text_field :name %></td>
@@ -23,5 +24,6 @@
       <td><%= f.text_area :message, size: "100x10" %></td>
     </tr>
   </table>
-  <%= f.submit '確認', class: 'btn btn-primary btn-lg' %>
+  <%= f.submit '確認', class: 'btn btn-primary btn-lg col-xs-12 col-sm-12 col-md-offset-4 col-md-4' %>
 <% end %>
+</div>
