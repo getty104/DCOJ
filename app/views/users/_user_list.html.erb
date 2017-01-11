@@ -1,7 +1,7 @@
 <div class="lists">
   <% @users.each do |user| %>
   <div class="col-xs-4 col-sm-4 col-md-4">
-  <%= link_to image_tag(user_icon(user), class: "img-circle"), user %>
+  <%= link_to image_tag(user_icon(user), class: "img-circle", size: '300x300'), user %>
     <div class="center-block">
      <h3><strong><%= user.name %></strong></h3>
    </div>
