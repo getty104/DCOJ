@@ -6,22 +6,22 @@ class QuestionsController < ApplicationController
 
 
 
-  def search_result
-   @questions = Question.search(params[:search]).select(:id, :created_user_id, :title).page(params[:page]).per(10).order(:id)
+ def search_result
+   @questions = Question.search(params[:search]).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:page]).per(10).order(:id)
  end
 
  def index
-  @level1_questions = Question.where(question_level: 1.0...1.5).select(:id, :created_user_id, :title).page(params[:level1_page]).per(8).order(:id)
-  @level2_questions = Question.where(question_level: 1.5...2.5).select(:id, :created_user_id, :title).page(params[:level2_page]).per(8).order(:id)
-  @level3_questions = Question.where(question_level: 2.5...3.5).select(:id, :created_user_id, :title).page(params[:level3_page]).per(8).order(:id)
-  @level4_questions = Question.where(question_level: 3.5...4.5).select(:id, :created_user_id, :title).page(params[:level4_page]).per(8).order(:id)
-  @level5_questions = Question.where(question_level: 4.5...5.0).select(:id, :created_user_id, :title).page(params[:level5_page]).per(8).order(:id)
+  @level1_questions = Question.where(question_level: 1.0...1.5).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level1_page]).per(8).order(:id)
+  @level2_questions = Question.where(question_level: 1.5...2.5).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level2_page]).per(8).order(:id)
+  @level3_questions = Question.where(question_level: 2.5...3.5).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level3_page]).per(8).order(:id)
+  @level4_questions = Question.where(question_level: 3.5...4.5).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level4_page]).per(8).order(:id)
+  @level5_questions = Question.where(question_level: 4.5...5.0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level5_page]).per(8).order(:id)
 
   respond_to do |format|
     format.html
     format.js
-  end
-end
+    end
+ end
 
   # GET /questions/1
   # GET /questions/1.json
