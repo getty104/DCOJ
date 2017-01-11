@@ -1,28 +1,28 @@
 
 <%= form_for @inquiry, :url => inquiries_confirm_path do |f| %>
-<div class="page-header">
+
   <div class="row">
     <h1 class="text-center">お問い合わせ</h1>
   </div>
-</div>
+
 <% if @inquiry.errors.any? %>
 <div class="alert alert-danger" role="alert">
   <strong class=" col-md-offset-1">入力内容にエラーがあります</strong>
 </div>
 <% end %>
 <div class="row">
-  <table class="table col-xs-12 col-sm-12 col-md-11 col-md-offset-1">
+  <table class="table col-xs-11 col-xs-offset-1 col-sm-11 col-sm-offset-1 col-md-8 col-md-offset-2">
     <tr>
-      <th>名前<span class="text-danger">（必須）</span></th>
-      <td><%= f.text_field :name %></td>
+      <th class="col-xs-3 col-sm-3 col-md-1">名前<span class="text-danger">（必須）</span></th>
+      <td><%= f.text_field :name, class: "col-xs-10 col-sm-10 col-lg-2" %></td>
     </tr>
     <tr>
-      <th>メールアドレス<span class="text-danger">（必須）</span></th>
-      <td><%= f.email_field :email %></td>
+      <th class="col-xs-3 col-sm-3 col-md-1">メールアドレス<span class="text-danger">（必須）</span></th>
+      <td><%= f.email_field :email, class: " col-xs-10 col-sm-10 col-lg-2"  %></td>
     </tr>
     <tr>
-      <th>お問い合わせ内容</th>
-      <td><%= f.text_area :message, class: "col-xs-12 col-sm-12 col-md-7" %></td>
+      <th class="col-xs-1 col-sm-1 col-md-1">お問い合わせ内容</th>
+      <td><%= f.text_area :message, class: "col-xs-10 col-sm-10 col-md-7", size: "100x20" %></td>
     </tr>
   </table>
 </div>
