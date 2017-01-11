@@ -30,15 +30,14 @@ CarrierWave.configure do |config|
   # S3のURLに有効期限を60秒で設定する
    config.fog_authenticated_url_expiration = 60
   case Rails.env
-    when 'production'
-      config.fog_directory = 'dcoj'
-      config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/dcoj'
+   when 'production'
+     config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/dcoj'
 
     when 'development'
       config.fog_directory = 'dcoj-dev'
-      config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/dcoj-dev'
+     config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/dcoj-dev'
 
-    when 'test'
+    #when 'test'
       config.fog_directory = 'test.dummy'
       config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/test.dummy'
   end

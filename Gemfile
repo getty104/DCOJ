@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
+
 gem 'bcrypt', '~> 3.1.7'
 gem 'dotenv-rails'
 gem 'kaminari'
@@ -44,6 +45,7 @@ gem "font-awesome-rails"
 gem "aws-sdk"
 gem 'carrierwave'
 gem 'rmagick'
+gem 'cloudinary'
 # For Carrierwave
 gem 'fog-aws'
 #自動処理
