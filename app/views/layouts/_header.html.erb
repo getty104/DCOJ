@@ -1,13 +1,13 @@
 <nav class="navbar navbar-fixed-top" style="background-color: #00ada9;">
   <div class="container-fluid">
+     <%= link_to fa_icon("diamond"), main_menu_path, class: "navbar-brand" %>
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-nav">
       <%= fa_icon("list") + " Manu" %>
     </button>
     <% if user_signed_in? %>
     <div class="collapse navbar-collapse" id="top-nav">
       <div class="nav navbar-nav">
-        <%= link_to fa_icon("diamond")+" Daisuki Club Online Judge", main_menu_path, class: "navbar-brand" %>
-        <%= link_to fa_icon("plus")+ " Create Question", new_question_path, class: "navbar-brand hidden-sm" %>
+        <%= link_to fa_icon("plus")+ " Create Question", new_question_path, class: "navbar-brand" %>
         <%= link_to fa_icon("file-text-o")+" Question List", questions_path, class: "navbar-brand" %>
       </div>
       <div class="nav navbar-nav navbar-form">
@@ -37,9 +37,6 @@
   </div>
   <% else %>
   <div class="collapse navbar-collapse" id="top-nav">
-   <div class="nav navbar-nav">
-   <%= link_to fa_icon("diamond")+" Daisuki Club Online Judge", home_path, class: "navbar-brand" %>
-  </div>
   <div class="nav navbar-nav navbar-right">
     <%= link_to "Sign in", new_user_session_path, class: 'navbar-brand' %>
   </div>
