@@ -25,7 +25,6 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-
 gem 'bcrypt', '~> 3.1.7'
 gem 'dotenv-rails'
 gem 'kaminari'
@@ -78,6 +77,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :production do
+  gem 'newrelic_rpm'
 	gem 'pg', '~> 0.18'
 	gem 'rails_12factor'
   gem 'heroku-deflater'
