@@ -1,13 +1,13 @@
 <h2 class="text-center">Search Result</h2>
 
 <div class="row">
-<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
-    <%= render partial: 'list', locals: { questions: @questions, level_page: :page} %>
-  </div>
+	<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
+		<%= render partial: 'list', locals: { questions: @questions, level_page: :page} %>
+	</div>
 </div>
 <div class="row">
-  <div class="col-md-10 col-md-offset-1"> 
-    <%= link_to "Back", questions_path, class: "btn btn-default" %>
-  </div>
+	<div class="col-md-10 col-md-offset-1"> 
+		<%= link_to "Back", questions_path, class: "btn btn-default" %>
+	</div>
 </div>
 

@@ -2,69 +2,69 @@
 
 <div class="row">
 
-  <%= image_tag user_icon(@user), size: "130x130", class: "img-circle center-block", style: "margin-bottom: 30px;"%>
+	<%= image_tag user_icon(@user), size: "130x130", class: "img-circle center-block", style: "margin-bottom: 30px;"%>
 
 
 </div>
-  
+
 
 <div class="row" style="margin-bottom: 10px;">
-  <div class="text-center">
-    <h3><strong><%= @user.name %></strong></h3>
-    <dd><strong><%= "account: #{@user.account}" if current_user == @user %></strong></dd>
-    <dd><strong><%= "created: #{@user.created_question_number}" %></strong></dd>
-    <dd><strong><%= "solved: #{@user.solved_question_number}" %></strong></dd>
-  </div>
+	<div class="text-center">
+		<h3><strong><%= @user.name %></strong></h3>
+		<dd><strong><%= "account: #{@user.account}" if current_user == @user %></strong></dd>
+		<dd><strong><%= "created: #{@user.created_question_number}" %></strong></dd>
+		<dd><strong><%= "solved: #{@user.solved_question_number}" %></strong></dd>
+	</div>
 </div>
 <div class="row">
 
-    <% unless current_user == @user %>
-    <div class="row">
-      <div id="follow_form">
-        <% if current_user.following?(@user) %>
-        <%= render partial: 'unfollow' %>
-        <% else %>
-        <%= render partial: 'follow' %>
-        <% end %>
-      </div>
+	<% unless current_user == @user %>
+	<div class="row">
+		<div id="follow_form">
+			<% if current_user.following?(@user) %>
+			<%= render partial: 'unfollow' %>
+			<% else %>
+			<%= render partial: 'follow' %>
+			<% end %>
+		</div>
 
-      <div id="block_form">
-        <% if current_user.blocking?(@user) %>
-        <%= render partial: 'unblock' %>
-        <% else %>
-        <%= render partial: 'block' %>
-        <% end %>
-      </div>
-    </div>
-    <% else %>
-    <%= link_to "Edit", edit_user_registration_path, class: 'btn btn-default btn-lg col-xs-12 col-sm-12 col-md-2 col-md-offset-5' %>
-    <% end %>
+		<div id="block_form">
+			<% if current_user.blocking?(@user) %>
+			<%= render partial: 'unblock' %>
+			<% else %>
+			<%= render partial: 'block' %>
+			<% end %>
+		</div>
+	</div>
+	<% else %>
+	<%= link_to "Edit", edit_user_registration_path, class: 'btn btn-default btn-lg col-xs-12 col-sm-12 col-md-2 col-md-offset-5' %>
+	<% end %>
 
 </div>
 
 <div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-5 col-md-offset-1">
-    <h2 class="text-center">Created Questions</h2>
-    <div id="create_questions">
-      <%= render partial: 'question_list', locals: { questions: @create_questions, level_page:  
-        :create_questions_page } %>
-      </div>
-    </div>
+	<div class="col-xs-12 col-sm-12 col-md-5 col-md-offset-1">
+		<h2 class="text-center">Created Questions</h2>
+		<div id="create_questions">
+			<%= render partial: 'question_list', locals: { questions: @create_questions, level_page:  
+				:create_questions_page } %>
+			</div>
+		</div>
 
-    <div class="col-xs-12 col-sm-12 col-md-5">
-      <h2 class="text-center">Solved Questions</h2>
-      <div  id="solve_questions">
-        <%= render partial: 'question_list', locals: { questions: @solve_questions, level_page:  
-          :solve_questions_page } %>
-        </div>
-      </div>
-    </div>
+		<div class="col-xs-12 col-sm-12 col-md-5">
+			<h2 class="text-center">Solved Questions</h2>
+			<div  id="solve_questions">
+				<%= render partial: 'question_list', locals: { questions: @solve_questions, level_page:  
+					:solve_questions_page } %>
+				</div>
+			</div>
+		</div>
 
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
-        <h2 class="text-center">Logs</h2>
-        <div  id="records">
-          <%= render partial: 'log_list' %>
-        </div>
-      </div>
-    </div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
+				<h2 class="text-center">Logs</h2>
+				<div  id="records">
+					<%= render partial: 'log_list' %>
+				</div>
+			</div>
+		</div>

@@ -1,3 +1,3 @@
 class Block < ApplicationRecord
-   include Resonatable
+	include Resonatable
 end

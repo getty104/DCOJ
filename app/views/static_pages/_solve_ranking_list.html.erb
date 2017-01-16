@@ -1,18 +1,18 @@
 <h2 class="text-center">Best Answerers Ranking</h2>
 <table class="table table-borderd">
-  <tbody>
-  <% number = 1 %>
-    <% @solved_users.each do |user| %>
-    <tr class="text-center">
-    <td><%= number %></td>
-      <td><%= link_to user.name, user %></td>
-      <td><%= user.solved_question_number.to_s + "問"%></td>
-    </tr>
-    <% number += 1 %>
-    <% if number == 6 %>
-    <% break %>
-    <% end %>
-    <% end %>
-  </tbody>
+	<tbody>
+		<% number = 1 %>
+		<% @solved_users.each do |user| %>
+		<tr class="text-center">
+			<td><%= number %></td>
+			<td><%= link_to user.name, user %></td>
+			<td><%= user.solved_question_number.to_s + "問"%></td>
+		</tr>
+		<% number += 1 %>
+		<% if number == 6 %>
+		<% break %>
+		<% end %>
+		<% end %>
+	</tbody>
 </table> 
 

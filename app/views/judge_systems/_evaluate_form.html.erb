@@ -4,31 +4,31 @@
 <%= f.hidden_field :first_time, value: @first_time %>
 <% if @first_time %>
 <div class="form-group">
-  <%= f.label "問題レベルを評価してください", class: 'control-label col-lg-2' %>
-  <div class="btn-group" data-toggle="buttons">
-    <label class="btn btn-warning active">
-     <%= f.radio_button :evaluation, 1, autocomplete: "off" %>1
-   </label>
-   <label class="btn btn-warning">
-     <%= f.radio_button :evaluation, 2, autocomplete: "off" %>2
-   </label>
-   <label class="btn btn-warning">
-     <%= f.radio_button :evaluation, 3, autocomplete: "off" %>3
-   </label>
-   <label class="btn btn-warning">
-     <%= f.radio_button :evaluation, 4, autocomplete: "off" %>4
-   </label>
-   <label class="btn btn-warning">
-     <%= f.radio_button :evaluation, 5, autocomplete: "off" %>5
-   </label>
- </div>
- <%=f.error_span(:evaluation) %>
+	<%= f.label "問題レベルを評価してください", class: 'control-label col-lg-2' %>
+	<div class="btn-group" data-toggle="buttons">
+		<label class="btn btn-warning active">
+			<%= f.radio_button :evaluation, 1, autocomplete: "off" %>1
+		</label>
+		<label class="btn btn-warning">
+			<%= f.radio_button :evaluation, 2, autocomplete: "off" %>2
+		</label>
+		<label class="btn btn-warning">
+			<%= f.radio_button :evaluation, 3, autocomplete: "off" %>3
+		</label>
+		<label class="btn btn-warning">
+			<%= f.radio_button :evaluation, 4, autocomplete: "off" %>4
+		</label>
+		<label class="btn btn-warning">
+			<%= f.radio_button :evaluation, 5, autocomplete: "off" %>5
+		</label>
+	</div>
+	<%=f.error_span(:evaluation) %>
 </div>
 
 <div class="form-group">
-  <div class="col-lg-offset-2 col-lg-4">
-    <%= f.submit "submit", class: 'btn btn-primary' %>
-  </div>
+	<div class="col-lg-offset-2 col-lg-4">
+		<%= f.submit "submit", class: 'btn btn-primary' %>
+	</div>
 </div>
 <% end %>
 <% end %>

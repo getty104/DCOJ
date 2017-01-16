@@ -1,25 +1,25 @@
 
 <table class="table table-borderd">
-  <thead>
-    <tr>
-      <th><%= :number %></th>
-      <th><%= :title %></th>
-      <th><%= :created %></th>
-      <th><%= :accepted %></th>
-      <th>level</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% questions.each do |question| %>
-    <tr>
-      <td><%=  question.id %></td>
-      <td><%= link_to question.title, question %></td>
-      <td><%= link_to question.created_user.name,question.created_user %></td>
-      <td><%= question.users.length %></td>
-      <td><%= question.question_level.to_i %></td>
-    </tr>
-    <% end %>
-  </tbody>
+	<thead>
+		<tr>
+			<th><%= :number %></th>
+			<th><%= :title %></th>
+			<th><%= :created %></th>
+			<th><%= :accepted %></th>
+			<th>level</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% questions.each do |question| %>
+		<tr>
+			<td><%=  question.id %></td>
+			<td><%= link_to question.title, question %></td>
+			<td><%= link_to question.created_user.name,question.created_user %></td>
+			<td><%= question.users.length %></td>
+			<td><%= question.question_level.to_i %></td>
+		</tr>
+		<% end %>
+	</tbody>
 </table>  
 <%= paginate questions, param_name: level_page, remote: true %>
 

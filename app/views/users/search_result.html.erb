@@ -1,28 +1,28 @@
 
 
 <div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-3 col-md-offset-3">
-    <h2 class="text-center">Search Result</h2>
-  </div>
+	<div class="col-xs-12 col-sm-12 col-md-3 col-md-offset-3">
+		<h2 class="text-center">Search Result</h2>
+	</div>
 </div>
 <div class="row">
-  <div class="col-xs-12  col-sm-12 col-md-8 col-md-offset-2">
+	<div class="col-xs-12  col-sm-12 col-md-8 col-md-offset-2">
 
-   <div id="lists">
-    <div class="page">
-     <%= render partial: 'user_list' %>
-   </div>
- </div>
-</div>
-</div>
-
-<div class="row">
-  <div class="col-xs-12  col-sm-12 col-md-8 col-md-offset-2">
-    <%= paginate @users %>
-  </div>
+		<div id="lists">
+			<div class="page">
+				<%= render partial: 'user_list' %>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="row">
-  <%= link_to "Back", main_menu_path, class: "btn btn-default col-xs-12 col-sm-12 col-md-2 col-md-offset-2" %>
+	<div class="col-xs-12  col-sm-12 col-md-8 col-md-offset-2">
+		<%= paginate @users %>
+	</div>
+</div>
+
+<div class="row">
+	<%= link_to "Back", main_menu_path, class: "btn btn-default col-xs-12 col-sm-12 col-md-2 col-md-offset-2" %>
 </div>
 

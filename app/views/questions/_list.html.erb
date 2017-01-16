@@ -1,30 +1,30 @@
 <table class="table table-borderd">
-  <thead>
-    <tr>
-      <th>number</th>
-      <th>title</th>
-      <th> created </th>
-      <th>accepted </th>
-      <th>condition</th>
-    </tr>
-  </thead>
-  <tbody>
-  
-    <% questions.each do |question| %>
-    <tr>
-      <td><%=  question.id %></td>
-      <td><%= link_to question.title, question %></td>
-      <td><%= link_to question.created_user.name, question.created_user  %></td>
-      <td><%= question.users.length %></td>
-      <% if current_user.questions.include?(question) %>
-      <td style="color: red;"><strong>AC</strong></td>
-      <% else %>
-      <td style="color: gray;" ><strong>---------</strong></td>
-      <%end%>
-    </tr>
-    
-    <% end %>
-  </tbody>
+	<thead>
+		<tr>
+			<th>number</th>
+			<th>title</th>
+			<th> created </th>
+			<th>accepted </th>
+			<th>condition</th>
+		</tr>
+	</thead>
+	<tbody>
+		
+		<% questions.each do |question| %>
+		<tr>
+			<td><%=  question.id %></td>
+			<td><%= link_to question.title, question %></td>
+			<td><%= link_to question.created_user.name, question.created_user  %></td>
+			<td><%= question.users.length %></td>
+			<% if current_user.questions.include?(question) %>
+			<td style="color: red;"><strong>AC</strong></td>
+			<% else %>
+			<td style="color: gray;" ><strong>---------</strong></td>
+			<%end%>
+		</tr>
+		
+		<% end %>
+	</tbody>
 </table>  
 <%= paginate questions, param_name: level_page, remote: true %>
 

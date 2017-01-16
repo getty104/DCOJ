@@ -1,3 +1,3 @@
 class Follow < ApplicationRecord
- include Resonatable
+	include Resonatable
 end

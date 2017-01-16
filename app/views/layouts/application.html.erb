@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Daisuki Club Online Judge</title>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-        tex2jax: {
-        inlineMath: [ ['$','$'] ],
-        processEscapes: true
-    }
+	<title>Daisuki Club Online Judge</title>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+		tex2jax: {
+		inlineMath: [ ['$','$'] ],
+		processEscapes: true
+	}
 });
 </script>
 <%= mathjax_tag %>
@@ -18,25 +18,25 @@
 <%= render 'layouts/shim' %>
 </head>
 <body>
-<%= render 'layouts/header' %>
-    <div class="wrapper">
-        <div class="container-fluid">
-            <% flash.each do |name, msg| %>
-            <% next if name == 'timedout' %>
-            <div class="alert alert-<%= name == "notice" ? "success" : "danger" %>">
-                <a class="close" data-dismiss="alert">×</a> <!-- アラートダイアログに×ボタンをつける -->
-                <%= msg %>
-                <% end %>
-            </div>
+	<%= render 'layouts/header' %>
+	<div class="wrapper">
+		<div class="container-fluid">
+			<% flash.each do |name, msg| %>
+			<% next if name == 'timedout' %>
+			<div class="alert alert-<%= name == "notice" ? "success" : "danger" %>">
+				<a class="close" data-dismiss="alert">×</a> <!-- アラートダイアログに×ボタンをつける -->
+				<%= msg %>
+				<% end %>
+			</div>
 
-            <%= yield %>
-            <div class="push"></div>
+			<%= yield %>
+			<div class="push"></div>
 
 
-        </div>
+		</div>
 
-        <div class="footer">
-         <%= render 'layouts/footer' %>
-     </div>
- </body>
- </html>
+		<div class="footer">
+			<%= render 'layouts/footer' %>
+		</div>
+	</body>
+	</html>

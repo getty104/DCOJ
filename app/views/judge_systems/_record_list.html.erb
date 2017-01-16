@@ -1,18 +1,18 @@
 <h2 class="text-center">This problems Log</h2>
 <table class="table table-striped">
-  <thead>
-    <tr>
-      <th><%= :submitted_at%></th>
-      <th><%= :result %></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @records.each do |record| %>
-      <tr>
-        <td><%= record.created_at %></td>
-        <td><%= record.result %></td>
-      </tr>
-    <% end %>
-  </tbody>
+	<thead>
+		<tr>
+			<th><%= :submitted_at%></th>
+			<th><%= :result %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @records.each do |record| %>
+		<tr>
+			<td><%= record.created_at %></td>
+			<td><%= record.result %></td>
+		</tr>
+		<% end %>
+	</tbody>
 </table>
-  <%= paginate @records, remote: true %>
+<%= paginate @records, remote: true %>

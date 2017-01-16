@@ -1,23 +1,23 @@
  <table class="table table-borderd" id="lists"> 
-  <tbody>
-   <% @posts.each do |post| %>
-   <% if current_user.following.include?(post.user) || current_user == post.user %>
-   <tr>
-      <td>
-        <%= post.created_at %>
-        <br>
-        <%="#{post.user.name}さんが"%>
-        <br>
-        <%= link_to "問題:#{post.question.title}", post.question %>
-        <br>
-        <% if post.category == 0 %>
-        <%="を作りました" %>
-        <% else %>
-        <%="でAcceptされました" %>
-        <% end %>
-    </td>
-</tr>
-<% end %>
-<% end %>
-</tbody>
-</table>
+	<tbody>
+		<% @posts.each do |post| %>
+		<% if current_user.following.include?(post.user) || current_user == post.user %>
+		<tr>
+			<td>
+				<%= post.created_at %>
+				<br>
+				<%="#{post.user.name}さんが"%>
+				<br>
+				<%= link_to "問題:#{post.question.title}", post.question %>
+				<br>
+				<% if post.category == 0 %>
+				<%="を作りました" %>
+				<% else %>
+				<%="でAcceptされました" %>
+				<% end %>
+			</td>
+		</tr>
+		<% end %>
+		<% end %>
+	</tbody>
+ </table>

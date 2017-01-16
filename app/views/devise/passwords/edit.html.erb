@@ -5,23 +5,23 @@
 <%= f.hidden_field :reset_password_token %>
 
 <div class="form-group">
-  <%= f.label "New Password", class: 'control-label col-xs-12 col-sm-12 col-lg-2' %>
-  <div class="col-lg-4">
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %>
-     <%= f.password_field :password, class: 'form-control' %>
-  </div>
+	<%= f.label "New Password", class: 'control-label col-xs-12 col-sm-12 col-lg-2' %>
+	<div class="col-lg-4">
+		<% if @minimum_password_length %>
+		<em>(<%= @minimum_password_length %> characters minimum)</em>
+		<% end %>
+		<%= f.password_field :password, class: 'form-control' %>
+	</div>
 </div>
 
 <div class="form-group">
-  <%= f.label :password_confirmation, class: 'control-label col-xs-12 col-sm-12 col-lg-2' %>
-  <div class="col-lg-4">
-    <%= f.password_field :password_confirmation, class: 'form-control' %>
-  </div>
+	<%= f.label :password_confirmation, class: 'control-label col-xs-12 col-sm-12 col-lg-2' %>
+	<div class="col-lg-4">
+		<%= f.password_field :password_confirmation, class: 'form-control' %>
+	</div>
 </div>
 
 <div class="form-group">
-  <%= f.submit "Send me reset password instructions", class: 'btn btn-primary col-xs-12 col-sm-12 col-md-3 col-md-offset-2' %>
+	<%= f.submit "Send me reset password instructions", class: 'btn btn-primary col-xs-12 col-sm-12 col-md-3 col-md-offset-2' %>
 </div>
 <% end %>

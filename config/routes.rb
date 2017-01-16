@@ -36,7 +36,7 @@ Rails.application.routes.draw do
 
 	#お問い合わせフォーム
 	 get 'inquiries' => 'inquiries#new'              # 入力画面
-  post 'inquiries/confirm' => 'inquiries#confirm'   # 確認画面
-  get 'inquiries/thanks' => 'inquiries#thanks'     # 送信完了画面
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+	post 'inquiries/confirm' => 'inquiries#confirm'   # 確認画面
+	get 'inquiries/thanks' => 'inquiries#thanks'     # 送信完了画面
+	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
