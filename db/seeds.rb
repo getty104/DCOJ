@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-10.times do |i|
+100.times do |i|
 	user = User.new(name: "name#{i}",account: "name#{i}", email: "exp#{i}@exp.com", password: "123456", solved_question_number: 0, created_question_number: 0)
 	user.save!
 end

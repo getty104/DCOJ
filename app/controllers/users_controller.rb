@@ -39,15 +39,15 @@ class UsersController < ApplicationController
 	end
 
 	def follower_list
-		@users = @user.followers.select(:id,:name, :image).order(:id).page(params[:page]).per(6)
+		@users = @user.followers.select(:id,:name, :image).order(:id).page(params[:page]).per(12)
 	end
 
 	def following_list
-		@users = @user.following.select(:id, :name, :image).order(:id).page(params[:page]).per(6)
+		@users = @user.following.select(:id, :name, :image).order(:id).page(params[:page]).per(12)
 	end
 
 	def search_result
-		@users = User.search(params[:search]).select(:id, :name, :image).page(params[:page]).per(6)
+		@users = User.search(params[:search]).select(:id, :name, :image).page(params[:page]).per(12)
 	end
 
 	private

@@ -17,12 +17,21 @@
 </div>
 
 <div class="row">
-	<div class="col-xs-12  col-sm-12 col-md-8 col-md-offset-2">
+	<div class="col-xs-12  col-sm-12 col-md-8 col-md-offset-2" style="display: none;">
 		<%= paginate @users %>
 	</div>
 </div>
 
-<div class="row">
-	<%= link_to "Back", main_menu_path, class: "btn btn-default col-xs-12 col-sm-12 col-md-2 col-md-offset-2" %>
-</div>
+<%= javascript_include_tag 'jquery.infinitescroll' %>
+<script>
+	$("#lists .page").infinitescroll({
+		loading: {
+			img:     "http://www.mytreedb.com/uploads/mytreedb/loader/ajax_loader_blue_48.gif",
+			msgText: "loading..."
+		},
+		navSelector: "nav.pagination",
+		nextSelector: "nav.pagination a[rel=next]",
+		itemSelector: "#lists div.lists" /* このDOMに差し掛かった時に、次のページのロードが始まる*/
+	});
 
+</script>
