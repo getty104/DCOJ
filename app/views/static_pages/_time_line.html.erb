@@ -4,7 +4,7 @@
 		<% if current_user.following.include?(post.user) || current_user == post.user %>
 		<tr>
 			<td>
-				<%= post.created_at %>
+				<%= date_format post.created_at %>
 				<br>
 				<%="#{post.user.name}さんが"%>
 				<br>

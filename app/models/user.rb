@@ -12,6 +12,7 @@ class User < ApplicationRecord
 	has_many :records, dependent: :destroy
 	has_many :posts, dependent: :destroy
 	has_many :contests, dependent: :destroy
+	belongs_to :joined_contest, class_name: "Contest", foreign_key: 'joined_contest_id'
 	validates :account, presence: true, uniqueness: { case_sensitive: false }
 	validates :name, presence: true
 	attr_accessor :login
@@ -26,7 +27,7 @@ def self.search(search) #self.でクラスメソッドとしている
 		else
 			User.where(name: search)
 		end
-end
+	end
 
 	def self.find_first_by_auth_conditions(warden_conditions)
 		conditions = warden_conditions.dup

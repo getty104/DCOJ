@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170103121619) do
+ActiveRecord::Schema.define(version: 20170204031331) do
 
   create_table "blocks", force: :cascade do |t|
     t.integer  "user_id"
@@ -115,9 +115,11 @@ ActiveRecord::Schema.define(version: 20170103121619) do
     t.integer  "failed_attempts",         default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.integer  "joined_contest_id"
     t.index ["account"], name: "index_users_on_account", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["joined_contest_id"], name: "index_users_on_joined_contest_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
