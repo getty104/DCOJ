@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170204031331) do
+ActiveRecord::Schema.define(version: 20170204035158) do
 
   create_table "blocks", force: :cascade do |t|
     t.integer  "user_id"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20170204031331) do
     t.text     "sample_output"
     t.integer  "contest_id"
     t.string   "image"
+    t.boolean  "for_contest"
     t.index ["contest_id"], name: "index_questions_on_contest_id"
     t.index ["created_user_id"], name: "index_questions_on_created_user_id"
   end

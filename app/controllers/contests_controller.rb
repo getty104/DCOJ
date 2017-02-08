@@ -1,10 +1,22 @@
 class ContestsController < ApplicationController
 	before_action :authenticate_user!
+	
 	def new
 		@contest = Contest.new
 	end
 
 	def create
+		@contest = Contest.new(contest_params)
+		
+		respond_to do |format|
+			if @contest.save
+				format.html { redirect_to @contest, notice: 'Contest was successfully created.' }
+				format.json { render :show, status: :created, location: @contest }
+			else
+				format.html { render :new }
+				format.json { render json: @contest, status: :unprocessable_entity }
+			end
+		end
 	end
 
 	def index

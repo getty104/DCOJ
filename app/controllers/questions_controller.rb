@@ -11,11 +11,11 @@ class QuestionsController < ApplicationController
 	end
 
 	def index
-		@level1_questions = Question.where(question_level: 1.0...1.5).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level1_page]).per(8).order(:id)
-		@level2_questions = Question.where(question_level: 1.5...2.5).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level2_page]).per(8).order(:id)
-		@level3_questions = Question.where(question_level: 2.5...3.5).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level3_page]).per(8).order(:id)
-		@level4_questions = Question.where(question_level: 3.5...4.5).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level4_page]).per(8).order(:id)
-		@level5_questions = Question.where(question_level: 4.5...5.0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level5_page]).per(8).order(:id)
+		@level1_questions = Question.where(question_level: 1.0...1.5, for_contest: false).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level1_page]).per(8).order(:id)
+		@level2_questions = Question.where(question_level: 1.5...2.5, for_contest: false).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level2_page]).per(8).order(:id)
+		@level3_questions = Question.where(question_level: 2.5...3.5, for_contest: false).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level3_page]).per(8).order(:id)
+		@level4_questions = Question.where(question_level: 3.5...4.5, for_contest: false).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level4_page]).per(8).order(:id)
+		@level5_questions = Question.where(question_level: 4.5...5.0, for_contest: false).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level5_page]).per(8).order(:id)
 
 		respond_to do |format|
 			format.html
@@ -26,6 +26,9 @@ class QuestionsController < ApplicationController
 	# GET /questions/1
 	# GET /questions/1.json
 	def show
+		if @question.for_contest == true
+			redirect_to main_menu_path
+		end
 	end
 
 	# GET /questions/new
@@ -110,6 +113,7 @@ class QuestionsController < ApplicationController
 
 		# Never trust parameters from the scary internet, only allow the white list through.
 		def question_params
-			params.require(:question).permit(:title, :content,:question_id, :input, :output, :i_data, :o_data, :question_level, :input_text, :output_text, :sample_input, :sample_output, :image)
+			params.require(:question).permit(:title, :content,:question_id, :input, :output, :i_data, 
+				:o_data, :question_level, :input_text, :output_text, :sample_input, :sample_output, :image, :for_contest)
 		end
 end

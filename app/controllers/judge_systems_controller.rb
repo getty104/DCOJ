@@ -6,7 +6,7 @@ class JudgeSystemsController < ApplicationController
 
 
 	# GET /judge_systems/new
-	def new
+	def submit
 		@judge_system = JudgeSystem.new
 		@question = Question.find(params[:question_id])
 	end
