@@ -10,14 +10,6 @@
 				<%= link_to fa_icon("plus") + " Create Question", new_question_path, class: "navbar-brand" %>
 				<%= link_to fa_icon("file-text-o")+" Question List", questions_path, class: "navbar-brand" %>
 			</div>
-			<div class="nav navbar-nav navbar-form">
-				<%= form_tag user_search_result_path, method: 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
-				<div class="form-group">
-					<%= text_field_tag :search, params[:search], placeholder: "User name",style: "width: 100px;" %>
-				</div>         
-				<%= submit_tag "Search", name: nil, class: "btn btn-warning" %>
-				<% end %>
-			</div>
 			<div class="nav navbar-nav">
 				<%= link_to fa_icon("plus") + " Create Contest", new_contest_path, class: "navbar-brand" %>
 				<%= link_to fa_icon("file-text-o")+" Contest List", contests_path, class: "navbar-brand" %>
@@ -38,6 +30,14 @@
 					<li><%= link_to fa_icon("sign-out") + " Log out", destroy_user_session_path, method: :delete %></li>
 				</ul>
 			</li> 
+			<div class="nav navbar-nav navbar-form pull-right">
+				<%= form_tag user_search_result_path, method: 'get' do %> <%#　projects_pathはモデル名で読みかえること %>
+				<div class="form-group">
+					<%= text_field_tag :search, params[:search], placeholder: "User name",style: "width: 100px;" %>
+				</div>         
+				<%= submit_tag "Search", name: nil, class: "btn btn-warning" %>
+				<% end %>
+			</div>
 		</div>
 		<% else %>
 		<div class="collapse navbar-collapse" id="top-nav">
