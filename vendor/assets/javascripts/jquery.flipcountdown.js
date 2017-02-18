@@ -200,7 +200,7 @@ jQuery.fn.flipCountDown = jQuery.fn.flipcountdown = function( _options ){
 							hours	= parseInt((range%secday)/sechour),
 							min		= parseInt(((range%secday)%sechour)/60),
 							sec		= ((range%secday)%sechour)%60;
-						return [nol(days),nol(hours),nol(min),nol(sec)];
+						return [nol(hours),nol(min),nol(sec)];
 					}
 				}
 				
