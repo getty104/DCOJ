@@ -21,12 +21,12 @@ ActiveRecord::Schema.define(version: 20170216142854) do
   end
 
   create_table "contests", force: :cascade do |t|
-    t.datetime "start_time"
-    t.datetime "finish_time"
     t.integer  "created_user_id",                 null: false
     t.datetime "created_at",                      null: false
     t.datetime "updated_at",                      null: false
     t.string   "title"
+    t.datetime "start_time"
+    t.datetime "finish_time"
     t.boolean  "contest_end",     default: false
     t.text     "description"
     t.index ["created_user_id"], name: "index_contests_on_created_user_id"
