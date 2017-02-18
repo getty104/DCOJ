@@ -1,5 +1,0 @@
-class AddContestRefToUsers < ActiveRecord::Migration[5.0]
-  def change
-    add_reference :users, :joined_contest
-  end
-end
