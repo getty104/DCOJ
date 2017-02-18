@@ -12,12 +12,15 @@
 
 ActiveRecord::Schema.define(version: 20170216142854) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "blocks", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "target_user_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.index ["user_id", "target_user_id"], name: "index_blocks_on_user_id_and_target_user_id", unique: true
+    t.index ["user_id", "target_user_id"], name: "index_blocks_on_user_id_and_target_user_id", unique: true, using: :btree
   end
 
   create_table "contests", force: :cascade do |t|
@@ -29,7 +32,7 @@ ActiveRecord::Schema.define(version: 20170216142854) do
     t.datetime "finish_time"
     t.boolean  "contest_end",     default: false
     t.text     "description"
-    t.index ["created_user_id"], name: "index_contests_on_created_user_id"
+    t.index ["created_user_id"], name: "index_contests_on_created_user_id", using: :btree
   end
 
   create_table "follows", force: :cascade do |t|
@@ -37,7 +40,7 @@ ActiveRecord::Schema.define(version: 20170216142854) do
     t.integer  "target_user_id"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.index ["user_id", "target_user_id"], name: "index_follows_on_user_id_and_target_user_id", unique: true
+    t.index ["user_id", "target_user_id"], name: "index_follows_on_user_id_and_target_user_id", unique: true, using: :btree
   end
 
   create_table "inquiries", force: :cascade do |t|
@@ -49,8 +52,8 @@ ActiveRecord::Schema.define(version: 20170216142854) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.integer  "score",      default: 0
-    t.index ["contest_id"], name: "index_joins_on_contest_id"
-    t.index ["user_id"], name: "index_joins_on_user_id"
+    t.index ["contest_id"], name: "index_joins_on_contest_id", using: :btree
+    t.index ["user_id"], name: "index_joins_on_user_id", using: :btree
   end
 
   create_table "judge_systems", force: :cascade do |t|
@@ -62,8 +65,8 @@ ActiveRecord::Schema.define(version: 20170216142854) do
     t.datetime "updated_at",  null: false
     t.integer  "question_id"
     t.integer  "category"
-    t.index ["question_id"], name: "index_posts_on_question_id"
-    t.index ["user_id"], name: "index_posts_on_user_id"
+    t.index ["question_id"], name: "index_posts_on_question_id", using: :btree
+    t.index ["user_id"], name: "index_posts_on_user_id", using: :btree
   end
 
   create_table "questions", force: :cascade do |t|
@@ -81,16 +84,16 @@ ActiveRecord::Schema.define(version: 20170216142854) do
     t.text     "sample_output"
     t.integer  "contest_id"
     t.string   "image"
-    t.integer  "for_contest",     null: false
-    t.index ["contest_id"], name: "index_questions_on_contest_id"
-    t.index ["created_user_id"], name: "index_questions_on_created_user_id"
+    t.integer  "for_contest"
+    t.index ["contest_id"], name: "index_questions_on_contest_id", using: :btree
+    t.index ["created_user_id"], name: "index_questions_on_created_user_id", using: :btree
   end
 
   create_table "questions_users", id: false, force: :cascade do |t|
     t.integer "user_id",     null: false
     t.integer "question_id", null: false
-    t.index ["question_id"], name: "index_questions_users_on_question_id"
-    t.index ["user_id"], name: "index_questions_users_on_user_id"
+    t.index ["question_id"], name: "index_questions_users_on_question_id", using: :btree
+    t.index ["user_id"], name: "index_questions_users_on_user_id", using: :btree
   end
 
   create_table "records", force: :cascade do |t|
@@ -99,8 +102,8 @@ ActiveRecord::Schema.define(version: 20170216142854) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "result"
-    t.index ["question_id"], name: "index_records_on_question_id"
-    t.index ["user_id"], name: "index_records_on_user_id"
+    t.index ["question_id"], name: "index_records_on_question_id", using: :btree
+    t.index ["user_id"], name: "index_records_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -128,11 +131,10 @@ ActiveRecord::Schema.define(version: 20170216142854) do
     t.integer  "failed_attempts",         default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.index ["account"], name: "index_users_on_account", unique: true
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+    t.index ["account"], name: "index_users_on_account", unique: true, using: :btree
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
 
-end

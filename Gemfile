@@ -48,12 +48,12 @@ gem 'cloudinary'
 # For Carrierwave
 gem 'fog-aws'
 #自動処理
+	gem 'pg', '~> 0.18'
 gem 'whenever', require: false
 gem 'devise'
 group :development, :test do
 	# Call 'byebug' anywhere in the code to stop execution and get a debugger console
 	gem 'byebug', platform: :mri
-	gem 'sqlite3'
 end
 
 group :development do
@@ -78,7 +78,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 group :production do
 	gem 'newrelic_rpm'
-	gem 'pg', '~> 0.18'
+
 	gem 'rails_12factor'
 	gem 'heroku-deflater'
 end
