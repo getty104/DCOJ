@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170204035158) do
+ActiveRecord::Schema.define(version: 20170216142854) do
 
   create_table "blocks", force: :cascade do |t|
     t.integer  "user_id"
@@ -21,13 +21,15 @@ ActiveRecord::Schema.define(version: 20170204035158) do
   end
 
   create_table "contests", force: :cascade do |t|
-    t.time     "start_time"
-    t.time     "finish_time"
-    t.integer  "user_id",     null: false
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "start_time"
+    t.datetime "finish_time"
+    t.integer  "created_user_id",                 null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.string   "title"
-    t.index ["user_id"], name: "index_contests_on_user_id"
+    t.boolean  "contest_end",     default: false
+    t.text     "description"
+    t.index ["created_user_id"], name: "index_contests_on_created_user_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -39,6 +41,16 @@ ActiveRecord::Schema.define(version: 20170204035158) do
   end
 
   create_table "inquiries", force: :cascade do |t|
+  end
+
+  create_table "joins", force: :cascade do |t|
+    t.integer  "contest_id"
+    t.integer  "user_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "score",      default: 0
+    t.index ["contest_id"], name: "index_joins_on_contest_id"
+    t.index ["user_id"], name: "index_joins_on_user_id"
   end
 
   create_table "judge_systems", force: :cascade do |t|
@@ -69,7 +81,7 @@ ActiveRecord::Schema.define(version: 20170204035158) do
     t.text     "sample_output"
     t.integer  "contest_id"
     t.string   "image"
-    t.boolean  "for_contest"
+    t.integer  "for_contest",     null: false
     t.index ["contest_id"], name: "index_questions_on_contest_id"
     t.index ["created_user_id"], name: "index_questions_on_created_user_id"
   end
@@ -116,11 +128,9 @@ ActiveRecord::Schema.define(version: 20170204035158) do
     t.integer  "failed_attempts",         default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.integer  "joined_contest_id"
     t.index ["account"], name: "index_users_on_account", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["joined_contest_id"], name: "index_users_on_joined_contest_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end

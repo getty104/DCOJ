@@ -12,7 +12,7 @@ Devise.setup do |config|
 	# Configure the e-mail address which will be shown in Devise::Mailer,
 	# note that it will be overwritten if you use your own mailer class
 	# with default "from" parameter.
-	config.mailer_sender = '"Programing Daisuki Club" <no_reply@example.com>'
+	config.mailer_sender = '"Programming Daisuki Club" <no_reply@example.com>'
 	 # lock sessings
 	 config.unlock_strategy = :email
 	 config.maximum_attempts = 5

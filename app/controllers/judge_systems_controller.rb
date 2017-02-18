@@ -12,7 +12,7 @@ class JudgeSystemsController < ApplicationController
 	end
 
 
-	def create
+	def judge
 		@question = Question.find(params[:judge_system][:question_id])
 		unless params[:judge_system][:ans]
 			flash.now[:danger] = '正しく提出されていません'
@@ -37,6 +37,44 @@ class JudgeSystemsController < ApplicationController
 				record = current_user.records.build(result: "WA")
 				@question.records << record
 				redirect_to action: :wrong_answer, question_id: @question.id
+			end
+		end
+	end
+
+	def contest_submit
+		@contest_id = params[:contest_id]
+		@contest = Contest.find(@contest_id)
+		time_up @contest
+		@question = Question.find(params[:question_id])
+		@judge_system = JudgeSystem.new
+	end
+
+	def contest_judge
+		@question = Question.find(params[:judge_system][:question_id])
+		@contest = Contest.find(params[:judge_system][:contest_id])
+		time_up @contest
+		unless params[:judge_system][:ans]
+			flash.now[:danger] = '正しく提出されていません'
+			render action: :new, question_id: @question.id
+		else
+			ans_data = params[:judge_system][:ans].read
+			if ans_data == @question.output
+				if current_user != @question.created_user && !current_user.questions.include?(@question)
+					current_user.questions << @question
+					num =  current_user.solved_question_number + 1
+					current_user.update_attribute(:solved_question_number, num)
+				end
+				join = Join.find_by( contest_id: @contest.id, user_id: current_user.id)
+				join.update_attribute(:score, join.score + 1)
+				record = current_user.records.build(result: "AC")
+				post = current_user.posts.build(category: 1)
+				@question.posts << post
+				@question.records << record
+				current_user.save
+				redirect_to @contest, flash: { notice: 'Accept!!!'}
+			else
+				record = current_user.records.build(result: "WA")
+				redirect_to @contest, flash: {danger: 'Wrong Answer...'}
 			end
 		end
 	end
@@ -86,4 +124,8 @@ class JudgeSystemsController < ApplicationController
 		def judge_system_params
 			params.require(:judge_system).permit()
 		end
-	end
+
+		def time_up contest
+			redirect_to contest, flash: {danger: 'Time is up'} if Time.now >= contest.finish_time
+		end
+end

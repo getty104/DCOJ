@@ -1,6 +1,6 @@
 <nav class="navbar navbar-fixed-top" style="background-color: #00ada9;">
 	<div class="container-fluid">
-	<%= link_to image_tag(asset_path("layout/pdc-logo.png"), size: "53x47", class: "img-circle"), home_path, class: " navbar-nav" %>
+		<%= link_to image_tag(asset_path("layout/pdc-logo.png"), size: "53x47", class: "img-circle"), home_path, class: " navbar-nav" %>
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-nav">
 			<%= fa_icon("list") + " Manu" %>
 		</button>
@@ -18,7 +18,11 @@
 				<%= submit_tag "Search", name: nil, class: "btn btn-warning" %>
 				<% end %>
 			</div>
-
+			<div class="nav navbar-nav">
+				<%= link_to fa_icon("plus") + " Create Contest", new_contest_path, class: "navbar-brand" %>
+				<%= link_to fa_icon("file-text-o")+" Contest List", contests_path, class: "navbar-brand" %>
+			</div>
+			<div id="clock" class="nav navbar-nav"></div><%# 時計 %>
 			<li class="dropdown nav navbar-nav pull-right">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<%= image_tag user_icon(current_user) , size: "47x47", class: "img-circle"%> 
@@ -44,3 +48,21 @@
 		<% end %>
 	</div>
 </nav>
+
+<%= javascript_include_tag 'jquery.flipcountdown' %>
+<script>jQuery(function($){
+		<% if @path.is('contests#show') || @path.is('questions#contest_submission') || @path.is('judge_systems#contest_submit') %>
+		<% if @contest.users.include?(current_user) && Time.now >= @contest.start_time && Time.now < @contest.finish_time %>
+		$('#clock').flipcountdown({
+			size:'md',
+			beforeDateTime: '<%= @contest.finish_time.strftime('%m/%d/%Y %H:%M:%S') %>'
+		});
+		<% else %>
+		$('#clock').flipcountdown();
+		<% end %>
+		<% else %>
+		$('#clock').flipcountdown();
+		<% end %>
+
+	});</script>
+

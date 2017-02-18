@@ -14,6 +14,7 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.infinitescroll
+//= require jquery.flipcountdown
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .

@@ -1,2 +1,4 @@
 $('#lists').append("<%= escape_javascript(render partial: 'time_line', object: @posts) %>");
-$("#view_more").replaceWith("<%= escape_javascript(link_to_next_page( @posts, 'more', remote: true, id: 'view_more', class: "btn btn-info col-xs-12 col-sm-12 col-md-12")) %>");
+$("#view_more1").replaceWith("<%= escape_javascript(link_to_next_page( @posts, 'more', param_name: :page1, remote: true, id: 'view_more1', class: "btn btn-info col-xs-12 col-sm-12 col-md-12")) %>");
+$("#view_more2").replaceWith("<%= escape_javascript(link_to_next_page( @now_contests, 'more', param_name: :page2, remote: true, id: 'view_more2', class: "btn btn-info col-xs-12 col-sm-12 col-md-12")) %>");
+$("#view_more3").replaceWith("<%= escape_javascript(link_to_next_page( @recent_contests, 'more', param_name: :page3, remote: true, id: 'view_more3', class: "btn btn-info col-xs-12 col-sm-12 col-md-12")) %>");

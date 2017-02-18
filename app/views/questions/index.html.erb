@@ -1,4 +1,3 @@
-<% provide(:title, "Question List") %>
 <div class="row">
 	<div class="col-xs-12 col-md-4 col-md-offset-8">
 		<%= form_tag search_result_path, method: 'get' do %><%#　projects_pathはモデル名で読みかえること %>
@@ -9,7 +8,7 @@
 		<% end %>
 	</div>
 </div>
-<h2 class="text-center">Problem List</h2>
+<h2 class="text-center">Question List</h2>
 
 <div class="row">
 	<div class="col-sm-12  col-md-10 col-md-offset-1">
@@ -29,6 +28,9 @@
 			<li role="presentation">
 				<a aria-controls="tab_5" data-toggle="tab" href="#tab_5" role="tab" class="table-list">level 5</a>
 			</li>
+			<li role="presentation">
+				<a aria-controls="tab_6" data-toggle="tab" href="#tab_6" role="tab" class="table-list">for contest</a>
+			</li>
 		</ul>
 
 		<div class="tab-content">
@@ -47,9 +49,12 @@
 				<%= render partial: 'list', locals: { questions: @level4_questions, level_page: :level4_page } %>
 			</div>
 
-
 			<div class="tab-pane fade" id="tab_5" role="tabpanel">
 				<%= render partial: 'list', locals: { questions: @level5_questions, level_page: :level5_page } %>
+			</div>
+
+				<div class="tab-pane fade" id="tab_6" role="tabpanel">
+				<%= render partial: 'list', locals: { questions: @for_contest_questions, level_page: :for_contest_page } %>
 			</div>
 
 		</div>

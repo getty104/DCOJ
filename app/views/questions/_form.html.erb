@@ -89,7 +89,7 @@
 	<%=f.error_span(:o_data) %>
 </div>
 
-<% unless @question.question_level %>
+<% if @path.is('questions#new') %>
 <div class="form-group">
 	<%= f.label "Problem Level", class: 'control-label col-lg-2' %>
 	<div class="btn-group" data-toggle="buttons">
@@ -111,11 +111,10 @@
 	</div>
 	<%=f.error_span(:question_level) %>
 </div>
-
 <div class="form-group">
 	<%= f.label "For Contest?", class: 'control-label col-lg-2' %>
-	<%= f.radio_button :for_contest, true %> yes
-	<%= f.radio_button :for_contest, false,  checked: true %> no
+	<%= f.radio_button :for_contest, 1 %> yes
+	<%= f.radio_button :for_contest, 0,  checked: true %> no
 </div>
 <% end %>
 <div class="form-group">

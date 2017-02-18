@@ -1,7 +1,7 @@
  <table class="table table-borderd" id="lists"> 
 	<tbody>
 		<% @posts.each do |post| %>
-		<% if current_user.following.include?(post.user) || current_user == post.user %>
+		<% if (current_user.following.include?(post.user) || current_user == post.user) && !post.question.for_contest  %>
 		<tr>
 			<td>
 				<%= date_format post.created_at %>

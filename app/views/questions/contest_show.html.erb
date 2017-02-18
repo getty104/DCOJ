@@ -15,24 +15,13 @@
 	<dt>Sample Output</dt>
 	<dd><%= simple_format(hbr(@question.sample_output)) %></dd>
 	<dd><%= link_to 'input download', download_input_question_path(@question),class: "btn btn-default" %></dd>
-	<dd><%= link_to('submission', {controller: 'judge_systems', action: 'submit', question_id: @question.id}, class: "btn btn-primary", style: "color: white") %></dd>
+	<dd><%= link_to('submission', {controller: 'judge_systems', action: 'contest_submit', question_id: @question.id, contest_id: @contest_id}, class: "btn btn-primary", style: "color: white") %></dd>
 </dl>
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-1">
 		<%= link_to "Back",
-		questions_path, class: 'btn btn-default btn-lg' %>
-
-		<% if current_user == @question.created_user %>
-		<%= link_to "Edit",
-		edit_question_path(@question), class: 'btn btn-default btn-lg' %>
-
-		<%= link_to "Delete",
-		question_path(@question),
-		method: 'delete',
-		data: { confirm:  "一度削除した問題のデータは復元できません。\n本当に削除しますか？" },
-		class: 'btn btn-danger btn-lg' %>
+		contest_path(@contest_id), class: 'btn btn-default btn-lg' %>
 	</div>
-	<% end %>
 </div>
 <script>
 	MathJax.Hub.Typeset();

@@ -11,8 +11,9 @@ class User < ApplicationRecord
 	has_and_belongs_to_many :questions
 	has_many :records, dependent: :destroy
 	has_many :posts, dependent: :destroy
-	has_many :contests, dependent: :destroy
-	belongs_to :joined_contest, class_name: "Contest", foreign_key: 'joined_contest_id'
+	has_many :create_contests, class_name: "Contest", foreign_key: 'created_user_id', dependent: :destroy
+	has_many :joins
+	has_many :contests, through: :joins
 	validates :account, presence: true, uniqueness: { case_sensitive: false }
 	validates :name, presence: true
 	attr_accessor :login
@@ -21,7 +22,7 @@ def to_param
 	name
 end
 
-def self.search(search) #self.でクラスメソッドとしている
+	def self.search(search) #self.でクラスメソッドとしている
 		if search && search != "" # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
 			User.where("name like '%" + search + "%'") 
 		else

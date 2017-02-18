@@ -5,26 +5,38 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-3 col-md-offset-2">
+	<div class="col-md-10 col-md-offset-1">
 
-		<div style="border: 1px solid #c0c0c0; background-color: white; margin-top:80px; ">
-			<h2 class="text-center" >Time Line</h2>
-			<div style="height:300px; overflow-y:scroll; -webkit-overflow-scrolling: touch;">
-				<%= render partial: 'time_line' %>
-				<%= link_to_next_page( @posts, 'more', remote: true, id: 'view_more', class: "btn btn-info col-xs-12 col-sm-12 col-md-12") %>
-			</div>  
+		<div class="col-xs-12 col-sm-12 col-md-4">
+			<div style="border: 1px solid #c0c0c0; background-color: white; margin-top:80px; ">
+				<h2 class="text-center" >Time Line</h2>
+				<div style="height:300px; overflow-y:scroll; -webkit-overflow-scrolling: touch;">
+					<%= render partial: 'time_line' %>
+					<%= link_to_next_page( @posts, 'more', param_name: :page1, remote: true, id: 'view_more1', class: "btn btn-info col-xs-12 col-sm-12 col-md-12") %>
+				</div>  
+			</div>
 		</div>
-	</div>
-	<div class="col-xs-12 col-sm-12 col-md-3 col-md-offset-2">
-		<div style="border: 1px solid #c0c0c0; background-color: white; margin-top:80px;">
-			<h2 class="text-center" >Update Info</h2>
-			<div style="height:300px; overflow-y:scroll; -webkit-overflow-scrolling: touch;">
-				<%= render partial: 'update_info' %>
+
+		<div class="col-xs-12 col-sm-12 col-md-4">
+			<div style="border: 1px solid #c0c0c0; background-color: white; margin-top:80px;">
+				<h2 class="text-center" >Now Contests</h2>
+				<div style="height:300px; overflow-y:scroll; -webkit-overflow-scrolling: touch;">
+					<%= render partial: 'now_contest' %>
+					<%= link_to_next_page( @now_contests, 'more', param_name: :page2, remote: true, id: 'view_more2', class: "btn btn-info col-xs-12 col-sm-12 col-md-12") %>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-4">
+			<div style="border: 1px solid #c0c0c0; background-color: white; margin-top:80px;">
+				<h2 class="text-center" >Comming Up Contests</h2>
+				<div style="height:300px; overflow-y:scroll; -webkit-overflow-scrolling: touch;">
+						<%= render partial: 'contest_list' %>
+					<%= link_to_next_page( @recent_contests, 'more', param_name: :page3, remote: true, id: 'view_more3', class: "btn btn-info col-xs-12 col-sm-12 col-md-12") %>
+				</div>
 			</div>
 		</div>
 	</div>
-
-
 </div>
 
 <div class="row" style="margin-top: 80px;">

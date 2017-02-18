@@ -1,22 +1,20 @@
 class QuestionsController < ApplicationController
-	before_action :set_question, only: [:show, :edit, :update, :destroy, :submission,:download_input]
+	before_action :set_question, only: [:show, :edit, :update, :destroy, :submission,:download_input, :contest_show]
 	before_action :authenticate_user!
 	# GET /questions
 	# GET /questions.json
-
-
 
 	def search_result
 		@questions = Question.search(params[:search]).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:page]).per(10).order(:id)
 	end
 
 	def index
-		@level1_questions = Question.where(question_level: 1.0...1.5, for_contest: false).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level1_page]).per(8).order(:id)
-		@level2_questions = Question.where(question_level: 1.5...2.5, for_contest: false).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level2_page]).per(8).order(:id)
-		@level3_questions = Question.where(question_level: 2.5...3.5, for_contest: false).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level3_page]).per(8).order(:id)
-		@level4_questions = Question.where(question_level: 3.5...4.5, for_contest: false).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level4_page]).per(8).order(:id)
-		@level5_questions = Question.where(question_level: 4.5...5.0, for_contest: false).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level5_page]).per(8).order(:id)
-
+		@level1_questions = Question.where(question_level: 1.0...1.5, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level1_page]).per(8).order(:id)
+		@level2_questions = Question.where(question_level: 1.5...2.5, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level2_page]).per(8).order(:id)
+		@level3_questions = Question.where(question_level: 2.5...3.5, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level3_page]).per(8).order(:id)
+		@level4_questions = Question.where(question_level: 3.5...4.5, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level4_page]).per(8).order(:id)
+		@level5_questions = Question.where(question_level: 4.5...5.0, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level5_page]).per(8).order(:id)
+		@for_contest_questions = current_user.create_questions.where(for_contest: 1).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:for_contest_page]).per(8).order(:id)
 		respond_to do |format|
 			format.html
 			format.js
@@ -26,9 +24,15 @@ class QuestionsController < ApplicationController
 	# GET /questions/1
 	# GET /questions/1.json
 	def show
-		if @question.for_contest == true
+		unless !@question.for_contest || current_user == @question.created_user 
 			redirect_to main_menu_path
 		end
+	end
+
+	def contest_show
+		@contest_id = params[:contest_id]
+		@contest = Contest.find(@contest_id)
+#コンテスト参加者以外参加できないようにする
 	end
 
 	# GET /questions/new

@@ -1,0 +1,14 @@
+ <table class="table table-borderd" id="lists"> 
+	<tbody>
+		<% @now_contests.each do |contest| %>
+		<tr>
+			<td>
+				<%= contest.start_time %>
+				<br>
+		
+				<br>
+				<%= link_to "title: #{contest.title}", contest %>
+		</tr>
+		<% end %>
+	</tbody>
+ </table>
