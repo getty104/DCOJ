@@ -24,7 +24,7 @@ class QuestionsController < ApplicationController
 	# GET /questions/1
 	# GET /questions/1.json
 	def show
-		unless !@question.for_contest || current_user == @question.created_user 
+		unless @question.for_contest == 0 || current_user == @question.created_user 
 			redirect_to main_menu_path
 		end
 	end
