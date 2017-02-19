@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170216142854) do
+ActiveRecord::Schema.define(version: 20170218075927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,8 @@ ActiveRecord::Schema.define(version: 20170216142854) do
     t.datetime "updated_at",  null: false
     t.integer  "question_id"
     t.integer  "category"
+    t.integer  "contest_id"
+    t.index ["contest_id"], name: "index_posts_on_contest_id", using: :btree
     t.index ["question_id"], name: "index_posts_on_question_id", using: :btree
     t.index ["user_id"], name: "index_posts_on_user_id", using: :btree
   end
@@ -138,3 +140,16 @@ ActiveRecord::Schema.define(version: 20170216142854) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true, using: :btree
   end
 
+  add_foreign_key "contests", "users", column: "created_user_id"
+  add_foreign_key "joins", "contests"
+  add_foreign_key "joins", "users"
+  add_foreign_key "posts", "contests"
+  add_foreign_key "posts", "questions"
+  add_foreign_key "posts", "users"
+  add_foreign_key "questions", "contests"
+  add_foreign_key "questions", "users", column: "created_user_id"
+  add_foreign_key "questions_users", "questions"
+  add_foreign_key "questions_users", "users"
+  add_foreign_key "records", "questions"
+  add_foreign_key "records", "users"
+end

@@ -35,10 +35,12 @@
 <div class="jumbotron text-center">
 		<h1><%= @contest.title %></h1>
 		<p><%=simple_format(hbr(@contest.description)) %></p>
+		<% if @contest.created_user != current_user %>
 		<% if @contest.users.include?(current_user) %>
 		<%= "you are joining" %>
 		<% else %>
 		<%= render partial: 'join' %>
+		<% end %>
 		<% end %>
 	</div>
 </div>
@@ -64,6 +66,7 @@
 					<td><%= link_to user.name, user %></td>
 					<td><%= join.score %></td>
 				</tr>
+				<% i += 1 %>
 				<% end %>
 			</tbody>
 		</table> 

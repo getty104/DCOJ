@@ -29,7 +29,7 @@ class JudgeSystemsController < ApplicationController
 				record = current_user.records.build(result: "AC")
 				post = current_user.posts.build(category: 1)
 				@question.posts << post
-				post.save
+				current_user.save
 				@question.records << record
 				current_user.save
 				redirect_to action: :accept, question_id: @question.id, first_time: @first_time
@@ -63,17 +63,14 @@ class JudgeSystemsController < ApplicationController
 					current_user.questions << @question
 					num =  current_user.solved_question_number + 1
 					current_user.update_attribute(:solved_question_number, num)
+					join = Join.find_by( contest_id: @contest.id, user_id: current_user.id)
+					join.update_attribute(:score, join.score + 1)
 				end
-				join = Join.find_by( contest_id: @contest.id, user_id: current_user.id)
-				join.update_attribute(:score, join.score + 1)
-				record = current_user.records.build(result: "AC")
 				post = current_user.posts.build(category: 1)
 				@question.posts << post
-				@question.records << record
 				current_user.save
 				redirect_to @contest, flash: { notice: 'Accept!!!'}
 			else
-				record = current_user.records.build(result: "WA")
 				redirect_to @contest, flash: {danger: 'Wrong Answer...'}
 			end
 		end
@@ -128,4 +125,4 @@ class JudgeSystemsController < ApplicationController
 		def time_up contest
 			redirect_to contest, flash: {danger: 'Time is up'} if Time.now >= contest.finish_time
 		end
-end
+	end

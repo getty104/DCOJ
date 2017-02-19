@@ -58,7 +58,7 @@ class QuestionsController < ApplicationController
 			if @question.save
 				post = current_user.posts.build(category: 0)
 				@question.posts << post
-				post.save
+				current_user.save
 				num =  current_user.created_question_number + 1
 				current_user.update_attribute(:created_question_number, num)
 				format.html { redirect_to @question, notice: 'Question was successfully created.' }

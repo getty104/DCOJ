@@ -2,9 +2,8 @@ class JudgeSystem < ApplicationRecord
 	attr_accessor :ans, :question_id, :evaluation, :first_time
 	validates :ans, presence: true
 
-
-	def update_info
-		contests = Contests.where(contest_end: false).includes(:users).includes(:questions)
+	def self.update_info
+		contests = Contest.where(contest_end: false).where("finish_time < ?", Time.now).includes(:users).includes(:questions)
 		contests.each do |contest|
 			contest.users.each do |user|
 				
@@ -16,4 +15,5 @@ class JudgeSystem < ApplicationRecord
 			contest.update_attribute(:contest_end, true)
 		end
 	end
+	
 end

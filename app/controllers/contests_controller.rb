@@ -16,6 +16,9 @@ class ContestsController < ApplicationController
 		@contest.finish_time = @contest.start_time + params[:contest][:contest_length].to_i.hours
 		respond_to do |format|
 			if @contest.save
+				post = current_user.posts.build(category: 3)
+				@contest.posts << post
+				current_user.save
 				question1 = Question.find(params[:contest][:level1_question]) unless params[:contest][:level1_question].blank?
 				question2 = Question.find(params[:contest][:level2_question]) unless params[:contest][:level2_question].blank?
 				question3 = Question.find(params[:contest][:level3_question]) unless params[:contest][:level3_question].blank?
@@ -64,6 +67,9 @@ class ContestsController < ApplicationController
 	def join
 		@user = User.find_by(account: params[:join_account])
 		@contest.users << @user 
+		post = current_user.posts.build(category: 2)
+		@contest.posts << post
+		current_user.save
 		redirect_to @contest
 	end
 

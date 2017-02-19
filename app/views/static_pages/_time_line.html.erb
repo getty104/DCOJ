@@ -1,23 +1,41 @@
  <table class="table table-borderd" id="lists"> 
-	<tbody>
-		<% @posts.each do |post| %>
-		<% if (current_user.following.include?(post.user) || current_user == post.user) && !post.question.for_contest  %>
-		<tr>
-			<td>
-				<%= date_format post.created_at %>
-				<br>
-				<%="#{post.user.name}さんが"%>
-				<br>
-				<%= link_to "問題:#{post.question.title}", post.question %>
-				<br>
-				<% if post.category == 0 %>
-				<%="を作りました" %>
-				<% else %>
-				<%="でAcceptされました" %>
-				<% end %>
-			</td>
-		</tr>
-		<% end %>
-		<% end %>
-	</tbody>
+ 	<tbody>
+ 		<% @posts.each do |post| %>
+ 		<% if (current_user.following.include?(post.user) || current_user == post.user)   %>
+ 		<% if (post.category == 0 || post.category == 1) && post.question.for_contest == 0 %>
+ 		<tr>
+ 			<td>
+ 				<%= date_format post.created_at %>
+ 				<br>
+ 				<%="#{post.user.name}さんが"%>
+ 				<br>
+ 				<%= link_to "問題:#{post.question.title}", post.question %>
+ 				<br>
+ 				<% if post.category == 0 %>
+ 				<%="を作成しました" %>
+ 				<% else %>
+ 				<%="でAcceptされました" %>
+ 				<% end %>
+ 			</td>
+ 		</tr>
+ 		<% elsif post.category == 2 ||  post.category == 3 %>
+ 		<tr>
+ 			<td>
+ 				<%= date_format post.created_at %>
+ 				<br>
+ 				<%="#{post.user.name}さんが"%>
+ 				<br>
+ 				<%= link_to "コンテスト:#{post.contest.title}", post.contest %>
+ 				<br>
+ 				<% if post.category == 2 %>
+ 				<%="に参加をしました" %>
+ 				<% else %>
+ 				<%="を作成しました" %>
+ 				<% end %>
+ 			</td>
+ 		</tr>
+ 		<% end %>
+ 		<% end %>
+ 		<% end %>
+ 	</tbody>
  </table>
