@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 		redirect_to main_menu_path , flash: { danger: "You can't access" } if @user.blocking?(current_user)
 		@records = @user.records.page(params[:records_page]).per(5).order("created_at DESC")
 		@create_questions = @user.create_questions.where(for_contest: 0).includes(:created_user).includes(:users).page(params[:create_questions_page]).select(:id, :title, :created_user_id, :question_level).per(5).order(:id)
-		@solve_questions = @user.questions.where(for_contest: 0).includes(:created_user).includes(:uers).page(params[:solve_questions_page]).select(:id, :title, :created_user_id, :question_level).per(5).order(:id)
+		@solve_questions = @user.questions.where(for_contest: 0).includes(:created_user).includes(:users).page(params[:solve_questions_page]).select(:id, :title, :created_user_id, :question_level).per(5).order(:id)
 		respond_to do |format|
 			format.html
 			format.js
