@@ -9,7 +9,7 @@ class JudgeSystem < ApplicationRecord
 				
 			end
 
-			contests.questions.each do |question|
+			contest.questions.each do |question|
 				question.update_attribute(:for_contest, 0)
 			end
 			contest.update_attribute(:contest_end, true)
