@@ -20,11 +20,11 @@ class JudgeSystemsController < ApplicationController
 		else
 			ans_data = params[:judge_system][:ans].read
 			File.open("/tmp/#{current_user.id}_input.txt","wb") do |ans|
-				ans.write ans_data.encode("UTF-8")
+				ans.write ans_data.gsub(/\R/, "\n") 
 				ans.close
 			end
 			File.open("/tmp/#{current_user.id}_output.txt","wb") do |out|
-				out.write @question.output.encode("UTF-8")
+				out.write @question.output.gsub(/\R/, "\n") 
 				out.close
 			end
 			ans = File.open("/tmp/#{current_user.id}_input.txt", "r")
