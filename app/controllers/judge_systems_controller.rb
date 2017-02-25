@@ -19,12 +19,12 @@ class JudgeSystemsController < ApplicationController
 			render action: :new, question_id: @question.id
 		else
 			ans_data = params[:judge_system][:ans].read
-			File.open("/tmp/#{current_user.id}_input.txt","wb:EUC-JP:UTF-8") do |ans|
-				ans.write ans_data
+			File.open("/tmp/#{current_user.id}_input.txt","wb") do |ans|
+				ans.write ans_data.encode("UTF-8")
 				ans.close
 			end
-			File.open("/tmp/#{current_user.id}_output.txt","wb:EUC-JP:UTF-8") do |out|
-				out.write @question.output
+			File.open("/tmp/#{current_user.id}_output.txt","wb") do |out|
+				out.write @question.output.encode("UTF-8")
 				out.close
 			end
 			ans = File.open("/tmp/#{current_user.id}_input.txt", "r")
