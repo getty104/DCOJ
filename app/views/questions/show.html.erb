@@ -4,7 +4,7 @@
 	<dt><strong><h4>title:<%= @question.title %></h4></strong></dt>
 	<dt>level: <%= @question.question_level.round %></dt>
 	<%= image_tag @question.image_url , size: "400x300", style: "margin-bottom: 20px;" if @question.image? %>
-	<dt>Probrem Statement</dt>
+	<dt>Question Statement</dt>
 	<dd><%= simple_format(hbr(@question.content)) %></dd>
 	<dt>Input</dt>
 	<dd><%=simple_format(hbr(@question.input_text)) %></dd>

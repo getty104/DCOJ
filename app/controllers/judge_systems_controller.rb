@@ -19,7 +19,17 @@ class JudgeSystemsController < ApplicationController
 			render action: :new, question_id: @question.id
 		else
 			ans_data = params[:judge_system][:ans].read
-			if ans_data == @question.output
+			File.open("/tmp/#{current_user.id}_input.txt","wb") do |ans|
+				ans.write ans_data
+				ans.close
+			end
+			File.open("/tmp/#{current_user.id}_output.txt","wb") do |out|
+				out.write @question.output
+				out.close
+			end
+			ans = File.open("/tmp/#{current_user.id}_input.txt", "r")
+			out = File.open("/tmp/#{current_user.id}_output.txt", "r")
+			if FileUtils.cmp(ans, out) #=> true
 				if current_user != @question.created_user && !current_user.questions.include?(@question)
 					current_user.questions << @question
 					num =  current_user.solved_question_number + 1
