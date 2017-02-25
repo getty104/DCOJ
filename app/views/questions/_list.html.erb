@@ -18,9 +18,11 @@
 			<td><%= question.users.length %></td>
 			<% if current_user.questions.include?(question) %>
 			<td style="color: red;"><strong>AC</strong></td>
+			<% elsif question.created_user == current_user %>
+			<td style="color: green;" ><strong>you create</strong></td>
 			<% else %>
 			<td style="color: gray;" ><strong>---------</strong></td>
-			<%end%>
+			<% end %>
 		</tr>
 		
 		<% end %>

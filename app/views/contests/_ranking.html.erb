@@ -1,0 +1,19 @@
+<% if Time.now >= @contest.start_time %>
+<h2 class="text-center">Ranking</h2>
+<div class="row">
+	<div class="col-sm-12  col-md-6 col-md-offset-3">
+		<table class="table table-borderd">
+			<thead>
+				<tr>
+					<th>ranking</th>
+					<th>name</th>
+					<th>score</th>
+				</tr>
+			</thead>
+			<tbody>
+				<%= render partial: 'ranking_list' %>
+			</tbody>
+		</table> 
+	</div>
+</div>
+<% end %>

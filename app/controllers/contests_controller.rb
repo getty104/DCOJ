@@ -52,7 +52,8 @@ class ContestsController < ApplicationController
 	end
 
 	def index
-		@contests = Contest.where( contest_end: false ).order("start_time DESC").select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:page]).per(8)
+		@contests = Contest.where( contest_end: false ).order("start_time DESC").select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:contest_page]).per(8)
+		@end_contests = Contest.where( contest_end: true ).order("start_time DESC").select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:end_contest_page]).per(8)
 	end
 
 	def edit

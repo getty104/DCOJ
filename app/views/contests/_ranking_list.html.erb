@@ -1,0 +1,10 @@
+<% i = 1 %>
+<% @joins.each do |join| %>
+<% user = join.user %>
+<tr>
+	<td><%= i %></td>
+	<td><%= link_to user.name, user %></td>
+	<td><%= join.score %></td>
+</tr>
+<% i += 1 %>
+<% end %>

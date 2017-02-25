@@ -1,26 +1,23 @@
-<h2 class="text-center">Contest List</h2>
 <div class="row">
 	<div class="col-sm-12  col-md-10 col-md-offset-1">
-		<table class="table table-borderd">
-			<thead>
-				<tr>
-					<th>title</th>
-					<th>start time</th>
-					<th>end time</th>
-					<th> created </th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @contests.each do |contest| %>
-				<tr>
-					<td><%= link_to contest.title, contest %></td>
-					<td><%= contest.start_time %></td>
-					<td><%= contest.finish_time %></td>
-					<td><%= link_to contest.created_user.name, contest.created_user  %></td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>  
-		<%= paginate @contests %>
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="active" role="presentation">
+				<a aria-controls="tab_1" data-toggle="tab" href="#tab_1" role="tab" class="table-list">contest list</a>
+			</li>
+			<li role="presentation">
+				<a aria-controls="tab_2" data-toggle="tab" href="#tab_2" role="tab" class="table-list">end contest list</a>
+			</li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="tab_1" role="tabpanel">
+				<%= render partial: 'now_contest_list' %>
+			</div>
+
+			<div class="tab-pane fade" id="tab_2" role="tabpanel">
+				<%= render partial: 'end_contest_list' %>
+			</div>
+		</div>
 	</div>
 </div>
+

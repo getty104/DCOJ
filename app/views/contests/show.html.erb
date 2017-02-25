@@ -1,76 +1,23 @@
-<% if Time.now > @contest.start_time && Time.now < @contest.finish_time && @contest.users.include?(current_user) %>
-<h2 class="text-center">Problem List</h2>
 <div class="row">
 	<div class="col-sm-12  col-md-10 col-md-offset-1">
-		<table class="table table-borderd">
-			<thead>
-				<tr>
-					<th>question level</th>
-					<th>title</th>
-					<th>accepted </th>
-					<th>condition</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @questions.each do |question| %>
-				<tr>
-					<td><%=  question.question_level.round %></td>
-					<td><%= question.title %></td>
-					<td><%= question.users.length %></td>
-					<% if current_user.questions.include?(question) %>
-					<td style="color: red;"><strong>AC</strong></td>
-					<% else %>
-					<td style="color: gray;" ><strong>---------</strong></td>
-					<% end %>
-					<td><%= link_to('Detail', {controller: 'questions', action: 'contest_show', id: question.id, contest_id: @contest.id }, class: "btn btn-primary", style: "color: white") %></td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table> 
-	</div>
-</div>
-<% elsif Time.now < @contest.finish_time %>
+		<ul class="nav nav-tabs" role="tablist">
+			<li class="active" role="presentation">
+				<a aria-controls="tab_1" data-toggle="tab" href="#tab_1" role="tab" class="table-list">question list</a>
+			</li>
+			<li role="presentation">
+				<a aria-controls="tab_2" data-toggle="tab" href="#tab_2" role="tab" class="table-list">ranking</a>
+			</li>
+		</ul>
 
-<div id="join_form">
-<div class="jumbotron text-center">
-		<h1><%= @contest.title %></h1>
-		<p><%=simple_format(hbr(@contest.description)) %></p>
-		<% if @contest.created_user != current_user %>
-		<% if @contest.users.include?(current_user) %>
-		<%= "you are joining" %>
-		<% else %>
-		<%= render partial: 'join' %>
-		<% end %>
-		<% end %>
-	</div>
-</div>
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="tab_1" role="tabpanel">
+				<%= render partial: 'question_list' %>
+			</div>
 
-<% else %>
-<h2 class="text-center">Result</h2>
-<div class="row">
-	<div class="col-sm-12  col-md-6 col-md-offset-3">
-		<table class="table table-borderd">
-			<thead>
-				<tr>
-					<th>ranking</th>
-					<th>name</th>
-					<th>score</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% i = 1 %>
-				<% @joins.each do |join| %>
-				<% user = join.user %>
-				<tr>
-					<td><%= i %></td>
-					<td><%= link_to user.name, user %></td>
-					<td><%= join.score %></td>
-				</tr>
-				<% i += 1 %>
-				<% end %>
-			</tbody>
-		</table> 
+			<div class="tab-pane fade" id="tab_2" role="tabpanel">
+				<%= render partial: 'ranking' %>
+			</div>
+		</div>
 	</div>
 </div>
-<% end %>
 

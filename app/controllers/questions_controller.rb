@@ -90,7 +90,7 @@ class QuestionsController < ApplicationController
 	def download_input
 		send_data(
 			@question.input,
-			type: 'text/txt; charset=utf-8;',
+			type: 'text/txt; charset=shift_jis;',
 			disposition: 'attachment',
 			filename: "#{@question.id}_input.txt",
 			status: 200

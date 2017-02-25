@@ -1,0 +1,49 @@
+<% if Time.now >= @contest.start_time && Time.now < @contest.finish_time && @contest.users.include?(current_user) || Time.now >= @contest.finish_time  %>
+<h2 class="text-center">Problem List</h2>
+<div class="row">
+	<div class="col-sm-12  col-md-10 col-md-offset-1">
+		<table class="table table-borderd">
+			<thead>
+				<tr>
+					<th>question level</th>
+					<th>title</th>
+					<th>accepted </th>
+					<th>condition</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @questions.each do |question| %>
+				<tr>
+					<td><%=  question.question_level.round %></td>
+					<td><%= question.title %></td>
+					<td><%= question.users.length %></td>
+					<% if current_user.questions.include?(question) %>
+					<td style="color: red;"><strong>AC</strong></td>
+					<% elsif question.created_user == current_user %>
+					<td style="color: green;" ><strong>you create</strong></td>
+					<% else %>
+					<td style="color: gray;" ><strong>---------</strong></td>
+					<% end %>
+					<td><%= link_to('Detail', {controller: 'questions', action: 'contest_show', id: question.id, contest_id: @contest.id }, class: "btn btn-primary", style: "color: white") %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table> 
+	</div>
+</div>
+
+<% elsif Time.now < @contest.finish_time %>
+<div id="join_form">
+	<div class="jumbotron text-center">
+		<h1><%= @contest.title %></h1>
+		<p><%=simple_format(hbr(@contest.description)) %></p>
+		<% if @contest.created_user != current_user %>
+		<% if @contest.users.include?(current_user) %>
+		<%= "you are joining" %>
+		<% else %>
+		<%= render partial: 'join' %>
+		<% end %>
+		<% end %>
+	</div>
+</div>
+<% end %>
