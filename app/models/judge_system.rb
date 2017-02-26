@@ -3,7 +3,7 @@ class JudgeSystem < ApplicationRecord
 	validates :ans, presence: true
 
 	def self.update_info
-		contests = Contest.where(contest_end: false).where("finish_time < ?", Time.now).includes(:users).includes(:questions)
+		contests = Contest.where(contest_end: false).end_contests.includes(:users).includes(:questions)
 		contests.each do |contest|
 			contest.users.each do |user|
 				

@@ -5,4 +5,16 @@ class Contest < ApplicationRecord
 	has_many :joins
 	has_many :users, through: :joins
 	has_many :posts, dependent: :destroy
+
+	def self.future_contests
+			Contest.where("start_time > ?", Time.now)
+	end
+
+	def self.now_contests
+		Contest.where("start_time <= ?", Time.now).where("finish_time > ?", Time.now)
+	end
+
+	def self.end_contests
+			Contest.where("finish_time < ?", Time.now)
+	end
 end

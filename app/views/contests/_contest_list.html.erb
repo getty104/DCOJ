@@ -1,4 +1,4 @@
-<h2 class="text-center">End Contest List</h2>
+<h2 class="text-center"><%= contest_list_name %></h2>
 <div class="row">
 	<div class="col-sm-12  col-md-10 col-md-offset-1">
 		<table class="table table-borderd">
@@ -11,7 +11,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% @end_contests.each do |contest| %>
+				<% contests.each do |contest| %>
 				<tr>
 					<td><%= link_to contest.title, contest %></td>
 					<td><%= contest.start_time %></td>
@@ -21,6 +21,6 @@
 				<% end %>
 			</tbody>
 		</table>  
-		<%= paginate @end_contests, param_name: :end_contest_page, remote: true  %>
+		<%= paginate contests, param_name: page, remote: true  %>
 	</div>
 </div>

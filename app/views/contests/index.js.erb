@@ -1,2 +1,3 @@
-$("#tab_1").html("<%= j(render partial: 'now_contest_list') %>");
-$("#tab_2").html("<%= j(render partial: 'end_contest_list') %>");
+$("#tab_1").html("<%= j(render partial: 'contest_list', locals: { contest_list_name: "Now Contests", contests: @now_contests, page: :now_contest_page) %>");
+$("#tab_2").html("<%= j(render partial: 'contest_list', locals: { contest_list_name: "Future Contests",contests: @future_contests, page: :future_contest_page }) %>");
+$("#tab_3").html("<%= j(render partial: 'contest_list', locals: { contest_list_name: "End Contests",contests: @end_contests, page: :end_contest_page }) %>");

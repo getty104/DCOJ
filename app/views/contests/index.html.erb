@@ -1,23 +1,33 @@
 <div class="row">
 	<div class="col-sm-12  col-md-10 col-md-offset-1">
+
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="active" role="presentation">
-				<a aria-controls="tab_1" data-toggle="tab" href="#tab_1" role="tab" class="table-list">contest list</a>
+				<a aria-controls="tab_1" data-toggle="tab" href="#tab_1" role="tab" class="table-list">now contest list</a>
 			</li>
 			<li role="presentation">
-				<a aria-controls="tab_2" data-toggle="tab" href="#tab_2" role="tab" class="table-list">end contest list</a>
+				<a aria-controls="tab_2" data-toggle="tab" href="#tab_2" role="tab" class="table-list">future contest list</a>
+			</li>
+			<li role="presentation">
+				<a aria-controls="tab_3" data-toggle="tab" href="#tab_3" role="tab" class="table-list">end contest list</a>
 			</li>
 		</ul>
 
 		<div class="tab-content">
+
 			<div class="tab-pane fade in active" id="tab_1" role="tabpanel">
-				<%= render partial: 'now_contest_list' %>
+				<%= render partial: 'contest_list', locals: { contest_list_name: "Now Contests", contests: @now_contests, page: :now_contest_page } %>
 			</div>
 
-			<div class="tab-pane fade" id="tab_2" role="tabpanel">
-				<%= render partial: 'end_contest_list' %>
+				<div class="tab-pane fade" id="tab_2" role="tabpanel">
+					<%= render partial: 'contest_list', locals: { contest_list_name: "Future Contests",contests: @future_contests, page: :future_contest_page } %>
+				</div>
+
+				<div class="tab-pane fade" id="tab_3" role="tabpanel">
+					<%= render partial: 'contest_list', locals: { contest_list_name: "End Contests",contests: @end_contests, page: :end_contest_page } %>
+				</div>
+
 			</div>
 		</div>
 	</div>
-</div>
 

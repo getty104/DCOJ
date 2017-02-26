@@ -18,18 +18,7 @@ class JudgeSystemsController < ApplicationController
 			flash.now[:danger] = '正しく提出されていません'
 			render action: :new, question_id: @question.id
 		else
-			ans_data = params[:judge_system][:ans].read
-			File.open("/tmp/#{current_user.id}_input.txt","wb") do |ans|
-				ans.write ans_data.gsub(/\R/, "\n") 
-				ans.close
-			end
-			File.open("/tmp/#{current_user.id}_output.txt","wb") do |out|
-				out.write @question.output.gsub(/\R/, "\n") 
-				out.close
-			end
-			ans = File.open("/tmp/#{current_user.id}_input.txt", "r")
-			out = File.open("/tmp/#{current_user.id}_output.txt", "r")
-			if FileUtils.cmp(ans, out) #=> true
+			if answer_crrect?
 				if current_user != @question.created_user && !current_user.questions.include?(@question)
 					current_user.questions << @question
 					num =  current_user.solved_question_number + 1
@@ -67,18 +56,7 @@ class JudgeSystemsController < ApplicationController
 			flash.now[:danger] = '正しく提出されていません'
 			render action: :new, question_id: @question.id
 		else
-			ans_data = params[:judge_system][:ans].read
-			File.open("/tmp/#{current_user.id}_input.txt","wb") do |ans|
-				ans.write ans_data.gsub(/\R/, "\n") 
-				ans.close
-			end
-			File.open("/tmp/#{current_user.id}_output.txt","wb") do |out|
-				out.write @question.output.gsub(/\R/, "\n") 
-				out.close
-			end
-			ans = File.open("/tmp/#{current_user.id}_input.txt", "r")
-			out = File.open("/tmp/#{current_user.id}_output.txt", "r")
-			if FileUtils.cmp(ans, out) #=> true
+			if answer_crrect?
 				if current_user != @question.created_user && !current_user.questions.include?(@question)
 					current_user.questions << @question
 					num =  current_user.solved_question_number + 1
@@ -144,5 +122,21 @@ class JudgeSystemsController < ApplicationController
 
 		def time_up contest
 			redirect_to contest, flash: {danger: 'Time is up'} if Time.now >= contest.finish_time
+		end
+
+		def answer_crrect?
+			ans_data = params[:judge_system][:ans].read
+			File.open("/tmp/#{current_user.id}_input.txt","wb") do |ans|
+				ans.write ans_data.gsub(/\R/, "\n") 
+				ans.close
+			end
+			File.open("/tmp/#{current_user.id}_output.txt","wb") do |out|
+				out.write @question.output.gsub(/\R/, "\n") 
+				out.close
+			end
+			ans = File.open("/tmp/#{current_user.id}_input.txt", "r")
+			out = File.open("/tmp/#{current_user.id}_output.txt", "r")
+
+			return FileUtils.cmp(ans, out)
 		end
 	end

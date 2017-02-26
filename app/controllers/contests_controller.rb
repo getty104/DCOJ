@@ -52,8 +52,9 @@ class ContestsController < ApplicationController
 	end
 
 	def index
-		@contests = Contest.where( contest_end: false ).order("start_time DESC").select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:contest_page]).per(8)
-		@end_contests = Contest.where( contest_end: true ).order("start_time DESC").select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:end_contest_page]).per(8)
+		@now_contests = Contest.now_contests.order("start_time DESC").select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:now_contest_page]).per(8)
+		@end_contests = Contest.end_contests.order("start_time DESC").select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:end_contest_page]).per(8)
+		@future_contests =  Contest.future_contests.order("start_time DESC").select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:future_contest_page]).per(8)
 	end
 
 	def edit

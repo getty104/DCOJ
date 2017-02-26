@@ -24,7 +24,11 @@
 					<% else %>
 					<td style="color: gray;" ><strong>---------</strong></td>
 					<% end %>
+					<% if Time.now < @contest.finish_time %>
 					<td><%= link_to('Detail', {controller: 'questions', action: 'contest_show', id: question.id, contest_id: @contest.id }, class: "btn btn-primary", style: "color: white") %></td>
+					<% else %>
+					<td><%= link_to('Detail', question_path(question), class: "btn btn-primary", style: "color: white") %></td>
+					<% end %>
 				</tr>
 				<% end %>
 			</tbody>
