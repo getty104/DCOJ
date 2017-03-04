@@ -60,9 +60,9 @@ class JudgeSystemsController < ApplicationController
 				if current_user != @question.created_user && !current_user.questions.include?(@question)
 					current_user.questions << @question
 					num =  current_user.solved_question_number + 1
-					current_user.update_attribute(:solved_question_number, num)
-					join = Join.find_by( contest_id: @contest.id, user_id: current_user.id)
-					join.update_attribute(:score, join.score + 1)
+					current_user.update_attribute( :solved_question_number, num )
+					join = Join.find_by( contest_id: @contest.id, user_id: current_user.id )
+					join.update_attribute( :score, join.score + @question.question_level * 100 )
 				end
 				post = current_user.posts.build(category: 1)
 				@question.posts << post

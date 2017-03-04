@@ -24,15 +24,13 @@ class QuestionsController < ApplicationController
 	# GET /questions/1
 	# GET /questions/1.json
 	def show
-		unless @question.for_contest == 0 || current_user == @question.created_user 
-			redirect_to main_menu_path
-		end
+		render file: "#{Rails.root}/public/404.html", status: 404	unless @question.for_contest == 0 || current_user == @question.created_user 
 	end
 
 	def contest_show
 		@contest_id = params[:contest_id]
 		@contest = Contest.find(@contest_id)
-#コンテスト参加者以外参加できないようにする
+		render file: "#{Rails.root}/public/404.html", status: 404	unless @contest.finish_time < Time.now && @contest.start_time >= Time.now && @contest.users.include?(current_user) 
 	end
 
 	# GET /questions/new
@@ -53,20 +51,15 @@ class QuestionsController < ApplicationController
 		@question = current_user.create_questions.build(question_params)
 		@question.input = params[:question][:i_data].read if params[:question][:i_data]
 		@question.output = params[:question][:o_data].read if params[:question][:o_data]
-
-		respond_to do |format|
-			if @question.save
-				post = current_user.posts.build(category: 0)
-				@question.posts << post
-				current_user.save
-				num =  current_user.created_question_number + 1
-				current_user.update_attribute(:created_question_number, num)
-				format.html { redirect_to @question, notice: 'Question was successfully created.' }
-				format.json { render :show, status: :created, location: @question }
-			else
-				format.html { render :new }
-				format.json { render json: @question.errors, status: :unprocessable_entity }
-			end
+		if @question.save
+			post = current_user.posts.build(category: 0)
+			@question.posts << post
+			current_user.save
+			num =  current_user.created_question_number + 1
+			current_user.update_attribute(:created_question_number, num)
+			redirect_to @question, flash: { notice: 'Question was successfully created.' }
+		else
+			render :new
 		end
 	end
 
@@ -76,14 +69,10 @@ class QuestionsController < ApplicationController
 		@question.input = params[:question][:i_data].read if params[:question][:i_data]
 		@question.output = params[:question][:o_data].read if params[:question][:o_data]
 
-		respond_to do |format|
-			if @question.update(question_params)
-				format.html { redirect_to @question, notice: 'Question was successfully updated.' }
-				format.json { render :show, status: :ok, location: @question }
-			else
-				format.html { render :edit }
-				format.json { render json: @question.errors, status: :unprocessable_entity }
-			end
+		if @question.update(question_params)
+			redirect_to @question, flash: {notice: 'Question was successfully updated.' }
+		else
+			render :edit 
 		end
 	end
 
@@ -103,10 +92,7 @@ class QuestionsController < ApplicationController
 		@question.destroy
 		num =  current_user.created_question_number - 1
 		current_user.update_attribute(:created_question_number, num)
-		respond_to do |format|
-			format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
-			format.json { head :no_content }
-		end
+		redirect_to questions_url, flash: {notice: 'Question was successfully destroyed.' }
 	end
 
 	private
@@ -120,4 +106,4 @@ class QuestionsController < ApplicationController
 			params.require(:question).permit(:title, :content,:question_id, :input, :output, :i_data, 
 				:o_data, :question_level, :input_text, :output_text, :sample_input, :sample_output, :image, :for_contest)
 		end
-end
+	end

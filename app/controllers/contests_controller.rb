@@ -14,33 +14,29 @@ class ContestsController < ApplicationController
 	def create
 		@contest = current_user.create_contests.build(contest_params)
 		@contest.finish_time = @contest.start_time + params[:contest][:contest_length].to_i.hours
-		respond_to do |format|
-			if @contest.save
-				post = current_user.posts.build(category: 3)
-				@contest.posts << post
-				current_user.save
-				question1 = Question.find(params[:contest][:level1_question]) unless params[:contest][:level1_question].blank?
-				question2 = Question.find(params[:contest][:level2_question]) unless params[:contest][:level2_question].blank?
-				question3 = Question.find(params[:contest][:level3_question]) unless params[:contest][:level3_question].blank?
-				question4 = Question.find(params[:contest][:level4_question]) unless params[:contest][:level4_question].blank?
-				question5 = Question.find(params[:contest][:level5_question]) unless params[:contest][:level5_question].blank?
-				question1.update_attribute(:for_contest, 2) if question1
-				question2.update_attribute(:for_contest, 2) if question2
-				question3.update_attribute(:for_contest, 2) if question3
-				question4.update_attribute(:for_contest, 2) if question4
-				question5.update_attribute(:for_contest, 2) if question5
-				@contest.questions << question1 if question1
-				@contest.questions << question2 if question2
-				@contest.questions << question3 if question3
-				@contest.questions << question4 if question4
-				@contest.questions << question5 if question5
-				@contest.save
-				format.html { redirect_to @contest, notice: 'Contest was successfully created.' }
-				format.json { render :show, status: :created, location: @contest }
-			else
-				format.html { render :new }
-				format.json { render json: @contest, status: :unprocessable_entity }
-			end
+		if @contest.save
+			post = current_user.posts.build(category: 3)
+			@contest.posts << post
+			current_user.save
+			question1 = Question.find(params[:contest][:level1_question]) unless params[:contest][:level1_question].blank?
+			question2 = Question.find(params[:contest][:level2_question]) unless params[:contest][:level2_question].blank?
+			question3 = Question.find(params[:contest][:level3_question]) unless params[:contest][:level3_question].blank?
+			question4 = Question.find(params[:contest][:level4_question]) unless params[:contest][:level4_question].blank?
+			question5 = Question.find(params[:contest][:level5_question]) unless params[:contest][:level5_question].blank?
+			question1.update_attribute(:for_contest, 2) if question1
+			question2.update_attribute(:for_contest, 2) if question2
+			question3.update_attribute(:for_contest, 2) if question3
+			question4.update_attribute(:for_contest, 2) if question4
+			question5.update_attribute(:for_contest, 2) if question5
+			@contest.questions << question1 if question1
+			@contest.questions << question2 if question2
+			@contest.questions << question3 if question3
+			@contest.questions << question4 if question4
+			@contest.questions << question5 if question5
+			@contest.save
+			redirect_to @contest, flash: { notice: 'Contest was successfully created.' }
+		else
+			render :new 
 		end
 	end
 
@@ -48,7 +44,10 @@ class ContestsController < ApplicationController
 
 	def show
 		@questions = @contest.questions.order(:question_level)
-		@joins = @contest.joins.order("score DESC").includes(:user)
+		@joins = @contest.joins.select(:id,:user_id,:rank,:score, :updated_at).order("score DESC").includes(:user).page(params[:page]).per(20)
+		unless @joins.blank?
+			update_ranking	if Time.now - @joins[0].updated_at > 120 && @joins[0].updated_at <= @contest.finish_time
+		end
 	end
 
 	def index
@@ -84,6 +83,13 @@ class ContestsController < ApplicationController
 		# Never trust parameters from the scary internet, only allow the white list through.
 		def contest_params
 			params.require(:contest).permit(:title, :start_time, :finish_time, :description)
+		end
+
+		def update_ranking
+			joins = @contest.joins.select(:id).order("score DESC")
+			joins.each_with_index do |join, rank|
+				join.update_attribute(:rank, rank + 1)
+			end
 		end
 		
 	end

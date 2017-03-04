@@ -6,7 +6,7 @@ class JudgeSystem < ApplicationRecord
 		contests = Contest.where(contest_end: false).end_contests.includes(:users).includes(:questions)
 		contests.each do |contest|
 			contest.users.each do |user|
-				
+			join =	user.joins.find_by(contest_id: contest.id)
 			end
 
 			contest.questions.each do |question|

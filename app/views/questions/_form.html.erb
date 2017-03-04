@@ -89,7 +89,7 @@
 	<%=f.error_span(:o_data) %>
 </div>
 
-<% if @path.is('questions#new') %>
+<% if @path.is('questions#new') || @path.is('questions#create') %>
 <div class="form-group">
 	<%= f.label "Problem Level", class: 'control-label col-lg-2' %>
 	<div class="btn-group" data-toggle="buttons">

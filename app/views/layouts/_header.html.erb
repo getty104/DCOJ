@@ -50,7 +50,8 @@
 </nav>
 
 <%= javascript_include_tag 'jquery.flipcountdown' %>
-<script>jQuery(function($){
+<script>
+	jQuery(function($){
 		<% if @path.is('contests#show') || @path.is('questions#contest_submission') || @path.is('judge_systems#contest_submit') %>
 		<% if @contest.users.include?(current_user) && Time.now >= @contest.start_time && Time.now < @contest.finish_time %>
 		$('#clock').flipcountdown({
@@ -63,6 +64,6 @@
 		<% else %>
 		$('#clock').flipcountdown();
 		<% end %>
-
-	});</script>
+	});
+</script>
 
