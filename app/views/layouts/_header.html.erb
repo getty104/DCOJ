@@ -50,19 +50,27 @@
 </nav>
 
 <script>
-	jQuery(function($){
-		<% if @path.is('contests#show') || @path.is('questions#contest_submission') || @path.is('judge_systems#contest_submit') %>
-		<% if @contest.users.include?(current_user) && Time.now >= @contest.start_time && Time.now < @contest.finish_time %>
-		$('#clock').flipcountdown({
-			size:'md',
-			beforeDateTime: '<%= @contest.finish_time.strftime('%m/%d/%Y %H:%M:%S') %>'
+	jQuery(
+		function($){
+			$(document).on('turbolinks:visit', function($){
+				location.reload();
+			});
 		});
-		<% else %>
-		$('#clock').flipcountdown();
-		<% end %>
-		<% else %>
-		$('#clock').flipcountdown();
-		<% end %>
-	});
-</script>
+	jQuery(
+		function($){
+			
+			<% if @path.is('contests#show') || @path.is('questions#contest_submission') || @path.is('judge_systems#contest_submit') %>
+			<% if @contest.users.include?(current_user) && Time.now >= @contest.start_time && Time.now < @contest.finish_time %>
+			$('#clock').flipcountdown({
+				size:'md',
+				beforeDateTime: '<%= @contest.finish_time.strftime('%m/%d/%Y %H:%M:%S') %>'
+			});
+			<% else %>
+			$('#clock').flipcountdown();
+			<% end %>
+			<% else %>
 
+			$('#clock').flipcountdown();
+			<% end %>
+		});
+	</script>
