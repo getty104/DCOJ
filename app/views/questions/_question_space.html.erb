@@ -3,20 +3,18 @@
 	<dt>level: <%= @question.question_level.round %></dt>
 	<%= image_tag @question.image_url , size: "400x300", style: "margin-bottom: 20px;" if @question.image? %>
 	<dt>Question Statement</dt>
-	<dd><%#= simple_format(hbr(@question.content)) %></dd>
 	<dd><%== markdown(@question.content) %></dd>
 	<dt>Input</dt>
-	<dd><%#=simple_format(hbr(@question.input_text)) %></dd>
 	<dd><%== markdown(@question.input_text) %></dd>
 	<dt>Ouput</dt>
-	<dd><%#=simple_format(hbr(@question.output_text)) %></dd>
 	<dd><%== markdown(@question.output_text) %></dd>
 	<dt>Sample Input</dt>
-	<dd><%#= simple_format(hbr(@question.sample_input)) %></dd>
 	<dd><%== markdown(@question.sample_input) %></dd>
 	<dt>Sample Output</dt>
-	<dd><%#= simple_format(hbr(@question.sample_output)) %></dd>
 	<dd><%= markdown(@question.sample_output).html_safe %></dd>
 	<dd><%= link_to 'input download', download_input_question_path(@question),class: "btn btn-default" %></dd>
 	<dd><%= link_to('submission', {controller: 'judge_systems', action: action, question_id: @question.id}, class: "btn btn-primary", style: "color: white") %></dd>
 </dl>
+<script>
+	MathJax.Hub.Typeset();
+</script>

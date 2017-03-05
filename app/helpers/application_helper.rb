@@ -46,6 +46,7 @@ module ApplicationHelper
 	end
 
 	def markdown(text)
+		language ||= :plaintext
 		html_render = HTMLwithCoderay.new(filter_html: true, hard_wrap: true)
 		options = {
 			autolink: true,
