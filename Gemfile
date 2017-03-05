@@ -28,12 +28,17 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'dotenv-rails'
 gem 'kaminari'
+#マークダウン方式の適用
+gem 'redcarpet'
+gem 'coderay'
+
 #Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'therubyracer' # javascript runtime。lessをコンパイルするために必要
 gem 'less-rails' # Railsでlessを使えるようにする。Bootstrapがlessで書かれているため
 gem 'twitter-bootstrap-rails' # Bootstrapの本体
 gem 'resonance'
+
 #無限スクロール
 gem 'jquery-turbolinks'
 gem 'sprockets-rails', '2.3.3'
@@ -48,9 +53,10 @@ gem 'cloudinary'
 # For Carrierwave
 gem 'fog-aws'
 #自動処理
-	gem 'pg', '~> 0.18'
 gem 'whenever', require: false
 gem 'devise'
+#データベース
+gem 'pg'
 group :development, :test do
 	# Call 'byebug' anywhere in the code to stop execution and get a debugger console
 	gem 'byebug', platform: :mri

@@ -19,7 +19,6 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					<%= image_tag user_icon(current_user) , size: "47x47", class: "img-circle"%> 
 				</a>
-
 				<ul class="dropdown-menu">
 					<li><%= link_to fa_icon("address-card") + " Profile", current_user %></li>
 					<li class="divider"></li>
@@ -52,13 +51,10 @@
 <script>
 	jQuery(
 		function($){
+			
 			$(document).on('turbolinks:visit', function($){
 				location.reload();
 			});
-		});
-	jQuery(
-		function($){
-			
 			<% if @path.is('contests#show') || @path.is('questions#contest_submission') || @path.is('judge_systems#contest_submit') %>
 			<% if @contest.users.include?(current_user) && Time.now >= @contest.start_time && Time.now < @contest.finish_time %>
 			$('#clock').flipcountdown({
@@ -69,7 +65,6 @@
 			$('#clock').flipcountdown();
 			<% end %>
 			<% else %>
-
 			$('#clock').flipcountdown();
 			<% end %>
 		});

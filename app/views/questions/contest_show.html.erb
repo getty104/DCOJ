@@ -1,28 +1,6 @@
-
-
-<dl class="col-xs-12 col-sm-12 col-md-offset-1 col-md-7">
-	<dt><strong><h4>title:<%= @question.title %></h4></strong></dt>
-	<dt>level: <%= @question.question_level.round %></dt>
-	<%= image_tag @question.image_url , size: "400x300", style: "margin-bottom: 20px;" if @question.image? %>
-	<dt>Probrem Statement</dt>
-	<dd><%= simple_format(hbr(@question.content)) %></dd>
-	<dt>Input</dt>
-	<dd><%=simple_format(hbr(@question.input_text)) %></dd>
-	<dt>Ouput</dt>
-	<dd><%=simple_format(hbr(@question.output_text)) %></dd>
-	<dt>Sample Input</dt>
-	<dd><%= simple_format(hbr(@question.sample_input)) %></dd>
-	<dt>Sample Output</dt>
-	<dd><%= simple_format(hbr(@question.sample_output)) %></dd>
-	<dd><%= link_to 'input download', download_input_question_path(@question),class: "btn btn-default" %></dd>
-	<dd><%= link_to('submission', {controller: 'judge_systems', action: 'contest_submit', question_id: @question.id, contest_id: @contest_id}, class: "btn btn-primary", style: "color: white") %></dd>
-</dl>
+<%= render 'question_space', action: 'contest_submit' %>
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-1">
-		<%= link_to "Back",
-		contest_path(@contest_id), class: 'btn btn-default btn-lg' %>
+		<%= link_to "Back",contest_path(@contest_id), class: 'btn btn-default btn-lg' %>
 	</div>
 </div>
-<script>
-	MathJax.Hub.Typeset();
-</script>

@@ -8,12 +8,10 @@
 				<a aria-controls="tab_2" data-toggle="tab" href="#tab_2" role="tab" class="table-list">ranking</a>
 			</li>
 		</ul>
-
 		<div class="tab-content">
 			<div class="tab-pane fade in active" id="tab_1" role="tabpanel">
 				<%= render partial: 'question_list' %>
 			</div>
-
 			<div class="tab-pane fade" id="tab_2" role="tabpanel">
 				<%= render partial: 'ranking' %>
 				<%= paginate @joins %>
