@@ -18,7 +18,6 @@ Rails.application.routes.draw do
 	get    'main_menu' => 'static_pages#main_menu'
 	get 'search_result' => 'questions#search_result'
 	get 'user_search_result' => 'users#search_result'
-  get 'contests/ajax/realtime_ranking' => 'contests#realtime_ranking'
 	resources :questions do
 		member do 
 			get   'download_input' 
