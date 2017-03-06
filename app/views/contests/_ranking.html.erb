@@ -10,10 +10,27 @@
 					<th>score</th>
 				</tr>
 			</thead>
-			<tbody>
-				<%= render partial: 'ranking_list' %>
-			</tbody>
+			<div id="ranking_list">
+				<tbody>
+					<%= render partial: 'ranking_list' %>
+				</tbody>
+			</div>
 		</table> 
 	</div>
 </div>
 <% end %>
+
+<script>
+	jQuery(function($){
+		setInterval(function(){
+			$.ajax({
+				url: '<%= @contest.id %>',
+				type: "GET",
+				data: {
+					id : '<%= @contest.id %>'
+				},
+				dataType: "html"
+			});
+		},1000);
+	});
+</script>
