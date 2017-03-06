@@ -46,11 +46,8 @@ class ContestsController < ApplicationController
 		@questions = @contest.questions.order(:question_level)
 		@joins = @contest.joins.select(:id,:user_id,:rank,:score, :updated_at).order("score DESC").includes(:user).page(params[:page]).per(20)
 		respond_to do |format|
-			if request.xhr?
-				format.js
-			else
-				format.html
-			end
+			format.js
+			format.html
 		end
 	end
 

@@ -10,11 +10,9 @@
 					<th>score</th>
 				</tr>
 			</thead>
-			<div id="ranking_list">
-				<tbody>
+				<tbody id="ranking_list">
 					<%= render partial: 'ranking_list' %>
 				</tbody>
-			</div>
 		</table> 
 	</div>
 </div>
@@ -29,7 +27,7 @@
 				data: {
 					id : '<%= @contest.id %>'
 				},
-				dataType: "html"
+				dataType: "script"
 			});
 		},1000);
 	});
