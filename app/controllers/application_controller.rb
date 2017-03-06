@@ -10,6 +10,25 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
+	def update_ranking
+			joins = @contest.joins.select(:id, :score).order("score DESC")
+			rank = 0
+			number = 1
+			joins.size.times do |key|
+				if key == 0
+					rank += number
+				elsif key > 0
+					if joins[key].score == joins[key -1].score
+						number += 1
+					else
+						rank += number
+						number = 1
+					end
+				end
+				joins[key].update_attribute(:rank, rank)
+			end
+		end
+
 	protected
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :account, :email, :image, :created_question_number, :solved_question_number])

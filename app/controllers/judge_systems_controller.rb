@@ -140,11 +140,5 @@ class JudgeSystemsController < ApplicationController
 
 			return FileUtils.cmp(ans, out)
 		end
-
-		def update_ranking
-			joins = @contest.joins.select(:id).order("score DESC")
-			joins.each_with_index do |join, rank|
-				join.update_attribute(:rank, rank + 1)
-			end
-		end
+		
 	end

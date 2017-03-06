@@ -72,6 +72,7 @@ class ContestsController < ApplicationController
 		post = current_user.posts.build(category: 2)
 		@contest.posts << post
 		current_user.save
+		update_ranking
 		redirect_to @contest
 	end
 
