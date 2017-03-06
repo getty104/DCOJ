@@ -1,5 +1,5 @@
 class ContestsController < ApplicationController
-	before_action :set_contest, only: [:show, :edit, :join, :unjoin]
+	before_action :set_contest, only: [:show, :edit, :join, :unjoin, :realtime_ranking]
 	before_action :authenticate_user!
 	
 	def new
@@ -45,9 +45,19 @@ class ContestsController < ApplicationController
 	def show
 		@questions = @contest.questions.order(:question_level)
 		@joins = @contest.joins.select(:id,:user_id,:rank,:score, :updated_at).order("score DESC").includes(:user).page(params[:page]).per(20)
-		unless @joins.blank?
-			update_ranking	if Time.now - @joins[0].updated_at > 120 && @joins[0].updated_at <= @contest.finish_time
+		respond_to do |format|
+			if request.xhr?
+				format.js
+			else
+				format.html
+			end
 		end
+	end
+
+	def realtime_ranking
+		@questions = @contest.questions.order(:question_level)
+		@joins = @contest.joins.select(:id,:user_id,:rank,:score, :updated_at).order("score DESC").includes(:user).page(params[:page]).per(20)
+		render :show
 	end
 
 	def index
@@ -85,11 +95,6 @@ class ContestsController < ApplicationController
 			params.require(:contest).permit(:title, :start_time, :finish_time, :description)
 		end
 
-		def update_ranking
-			joins = @contest.joins.select(:id).order("score DESC")
-			joins.each_with_index do |join, rank|
-				join.update_attribute(:rank, rank + 1)
-			end
-		end
+		
 		
 	end

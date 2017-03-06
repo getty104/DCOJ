@@ -30,7 +30,7 @@ class QuestionsController < ApplicationController
 	def contest_show
 		@contest_id = params[:contest_id]
 		@contest = Contest.find(@contest_id)
-		render file: "#{Rails.root}/public/404.html", status: 404	unless @contest.finish_time < Time.now && @contest.start_time >= Time.now && @contest.users.include?(current_user) 
+		render file: "#{Rails.root}/public/404.html", status: 404	unless @contest.finish_time > Time.now && @contest.start_time <= Time.now && @contest.users.include?(current_user) 
 	end
 
 	# GET /questions/new

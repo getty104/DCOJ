@@ -63,6 +63,7 @@ class JudgeSystemsController < ApplicationController
 					current_user.update_attribute( :solved_question_number, num )
 					join = Join.find_by( contest_id: @contest.id, user_id: current_user.id )
 					join.update_attribute( :score, join.score + @question.question_level * 100 )
+					update_ranking
 				end
 				post = current_user.posts.build(category: 1)
 				@question.posts << post
@@ -138,5 +139,12 @@ class JudgeSystemsController < ApplicationController
 			out = File.open("/tmp/#{current_user.id}_output.txt", "r")
 
 			return FileUtils.cmp(ans, out)
+		end
+
+		def update_ranking
+			joins = @contest.joins.select(:id).order("score DESC")
+			joins.each_with_index do |join, rank|
+				join.update_attribute(:rank, rank + 1)
+			end
 		end
 	end
