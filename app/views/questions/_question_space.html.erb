@@ -13,7 +13,11 @@
 	<dt>Sample Output</dt>
 	<dd><%= markdown(@question.sample_output).html_safe %></dd>
 	<dd><%= link_to 'input download', download_input_question_path(@question),class: "btn btn-default" %></dd>
+	<% if @path.is('questions#show') %>
 	<dd><%= link_to('submission', {controller: 'judge_systems', action: action, question_id: @question.id}, class: "btn btn-primary", style: "color: white") %></dd>
+	<% else %>
+	<dd><%= link_to('submission', {controller: 'judge_systems', action: action, question_id: @question.id, contest_id: @contest.id }, class: "btn btn-primary", style: "color: white") %></dd>
+	<% end %>
 </dl>
 <script>
 	MathJax.Hub.Typeset();
