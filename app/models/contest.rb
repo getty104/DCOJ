@@ -5,7 +5,8 @@ class Contest < ApplicationRecord
 	has_many :joins
 	has_many :users, through: :joins
 	has_many :posts, dependent: :destroy
-
+	validates :title, presence: true
+	validates :description, presence: true
 	def self.future_contests
 			Contest.where("start_time > ?", Time.now)
 	end
