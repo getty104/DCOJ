@@ -13,7 +13,7 @@ class QuestionsController < ApplicationController
 		@level2_questions = Question.where(question_level: 1.5...2.5, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level2_page]).per(8).order(:id)
 		@level3_questions = Question.where(question_level: 2.5...3.5, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level3_page]).per(8).order(:id)
 		@level4_questions = Question.where(question_level: 3.5...4.5, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level4_page]).per(8).order(:id)
-		@level5_questions = Question.where(question_level: 4.5...5.0, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level5_page]).per(8).order(:id)
+		@level5_questions = Question.where(question_level: 4.5...5.1, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level5_page]).per(8).order(:id)
 		@for_contest_questions = current_user.create_questions.where(for_contest: 1).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:for_contest_page]).per(8).order(:id)
 		respond_to do |format|
 			format.html
@@ -24,13 +24,13 @@ class QuestionsController < ApplicationController
 	# GET /questions/1
 	# GET /questions/1.json
 	def show
-		render file: "#{Rails.root}/public/404.html", status: 404	unless @question.for_contest == 0 || current_user == @question.created_user 
+		render file: "#{Rails.root}/public/404.html", status: 404	unless @question.for_contest == 0 || current_user == @question.created_user
 	end
 
 	def contest_show
 		@contest_id = params[:contest_id]
 		@contest = Contest.find(@contest_id)
-		render file: "#{Rails.root}/public/404.html", status: 404	unless (@contest.finish_time > Time.now && @contest.start_time <= Time.now && @contest.users.include?(current_user)) || @contest.finish_time <= Time.now
+		render file: "#{Rails.root}/public/404.html", status: 404	unless (@contest.finish_time > Time.now && @contest.start_time <= Time.now && @contest.users.include?(current_user))
 	end
 
 	# GET /questions/new
