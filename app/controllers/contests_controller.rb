@@ -45,9 +45,10 @@ class ContestsController < ApplicationController
 	def show
 		@questions = @contest.questions.order(:question_level)
 		@joins = @contest.joins.select(:id,:user_id,:rank,:score, :updated_at).order("score DESC").includes(:user).page(params[:page]).per(20)
+		update_info	if @contest.finish_time <= Time.now && @contest.contest_end == false
 		respond_to do |format|
-			format.js
 			format.html
+			format.js
 		end
 	end
 
@@ -86,6 +87,18 @@ class ContestsController < ApplicationController
 		def contest_params
 			params.require(:contest).permit(:title, :start_time, :finish_time, :description)
 		end
+
+		def update_info
+			@contest.users.each do |user|
+				join = user.joins.find_by(contest_id: @contest.id)
+			end
+			@contest.questions.each do |question|
+				question.update_attribute(:for_contest, 0)
+			end
+			@contest.update_attribute(:contest_end, true)
+		end
+
+
 
 		
 		

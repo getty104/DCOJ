@@ -17,7 +17,7 @@
 	</div>
 </div>
 <% end %>
-<% if @contest.finish_time > Time.now %>
+<% if @contest.finish_time +  2.minutes > Time.now %>
 <script>
 	jQuery(function($){
 		setInterval(function(){
