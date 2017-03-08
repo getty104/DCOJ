@@ -49,7 +49,17 @@ class ContestsController < ApplicationController
 
 	def show
 		@questions = @contest.questions.order(:question_level)
-		@joins = @contest.joins.select(:id,:user_id,:rank,:score, :updated_at).order("score DESC").includes(:user).page(params[:page]).per(20)
+		@question1 = @contest.questions.select(:id).find_by(question_level: 1)
+		@question2 = @contest.questions.select(:id).find_by(question_level: 2)
+		@question3 = @contest.questions.select(:id).find_by(question_level: 3)
+		@question4 = @contest.questions.select(:id).find_by(question_level: 4)
+		@question5 = @contest.questions.select(:id).find_by(question_level: 5)
+		@joins = @contest.joins
+		.select(:id,:user_id,:rank,:score, :updated_at, :level1_solve_time, :level2_solve_time, :level3_solve_time, :level4_solve_time, :level5_solve_time, :amount_time)
+		.order("score DESC, amount_time").includes(:user).page(params[:page]).per(20)
+		@current_join = @contest.joins
+		.select(:id,:user_id,:rank,:score, :updated_at, :level1_solve_time, :level2_solve_time, :level3_solve_time, :level4_solve_time, :level5_solve_time, :amount_time)
+		.find_by(user_id: current_user.id)
 		update_info	if @contest.finish_time <= Time.now && @contest.contest_end == false
 		respond_to do |format|
 			format.html

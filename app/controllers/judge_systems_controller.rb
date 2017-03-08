@@ -62,7 +62,22 @@ class JudgeSystemsController < ApplicationController
 					num =  current_user.solved_question_number + 1
 					current_user.update_attribute( :solved_question_number, num )
 					join = Join.find_by( contest_id: @contest.id, user_id: current_user.id )
-					join.update_attribute( :score, join.score + @question.question_level * 100 )
+					if @question.question_level.to_i == 1
+						join.update_columns( score: join.score + 100, amount_time: join.amount_time +
+							(Time.now - @contest.start_time).to_i, level1_solve_time: (Time.now - @contest.start_time).to_i )
+					elsif @question.question_level.to_i == 2
+						join.update_columns( score: join.score + 200, amount_time: join.amount_time + 
+							(Time.now - @contest.start_time).to_i, level2_solve_time: (Time.now - @contest.start_time).to_i )
+					elsif @question.question_level.to_i == 3
+						join.update_columns( score: join.score + 300, amount_time: join.amount_time + 
+							(Time.now - @contest.start_time).to_i, level3_solve_time: (Time.now - @contest.start_time).to_i )
+					elsif @question.question_level.to_i == 4
+						join.update_columns( score: join.score + 400, amount_time: join.amount_time + 
+							(Time.now - @contest.start_time).to_i, level4_solve_time: (Time.now - @contest.start_time).to_i )
+					elsif @question.question_level.to_i == 5
+						join.update_columns( score: join.score + 500, amount_time: join.amount_time + 
+							(Time.now - @contest.start_time).to_i, level5_solve_time: (Time.now - @contest.start_time).to_i )
+					end
 					update_ranking
 				end
 				post = current_user.posts.build(category: 1)

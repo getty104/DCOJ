@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302135907) do
+ActiveRecord::Schema.define(version: 20170307144746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,10 +49,16 @@ ActiveRecord::Schema.define(version: 20170302135907) do
   create_table "joins", force: :cascade do |t|
     t.integer  "contest_id"
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "score",      default: 0
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "score",             default: 0
     t.integer  "rank"
+    t.integer  "amount_time",       default: 0
+    t.integer  "level1_solve_time"
+    t.integer  "level2_solve_time"
+    t.integer  "level3_solve_time"
+    t.integer  "level4_solve_time"
+    t.integer  "level5_solve_time"
     t.index ["contest_id"], name: "index_joins_on_contest_id", using: :btree
     t.index ["user_id"], name: "index_joins_on_user_id", using: :btree
   end

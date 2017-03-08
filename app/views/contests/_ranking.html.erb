@@ -1,12 +1,27 @@
 <% if Time.now >= @contest.start_time %>
 <h2 class="text-center">Ranking</h2>
 <div class="row">
-	<div class="col-sm-12  col-md-6 col-md-offset-3">
+	<div class="col-sm-12  col-md-8 col-md-offset-2">
 		<table class="table table-borderd">
 			<thead>
 				<tr>
 					<th>ranking</th>
 					<th>name</th>
+					<% if @question1 %>
+					<th>level 1</th>
+					<% end %>
+					<% if @questoin2 %>
+					<th>level 2</th>
+					<% end %>
+					<% if @question3 %>
+					<th>level 3</th>
+					<% end %>
+					<% if @question4 %>
+					<th>level 4</th>
+					<% end %>
+					<% if @question5 %>
+					<th>level 5</th>
+					<% end %>
 					<th>score</th>
 				</tr>
 			</thead>
@@ -29,7 +44,7 @@
 				},
 				dataType: "script"
 			});
-		},5000);
+		},10000);
 	});
 </script>
 <% end %>
