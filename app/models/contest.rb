@@ -33,7 +33,6 @@ class Contest < ApplicationRecord
 
 		averating = 0
 	 joins.order("rank DESC")
-		return nil if joins[0].rank == 1
 		joins.each do |join|
 			averating += join.user.rate
 		end
@@ -42,7 +41,7 @@ class Contest < ApplicationRecord
 		competition_factor_sum1, competition_factor_sum2 = 0, 0
 		joins.each do |join|
 			competition_factor_sum1 += join.user.volatility ** 2
-			competition_factor_sum2 +=(join.user.rate - averating) ** 2
+			competition_factor_sum2 += (join.user.rate - averating) ** 2
 		end
 		competition_factor = (competition_factor_sum1 / numofcoder + competition_factor_sum2/(numofcoder - 1)) ** 0.5
 
