@@ -25,9 +25,13 @@ class Contest < ApplicationRecord
 		return (-0.5*(Math.log(1-x**2)))**(Math::PI/2)
 	end
 
+	public 
+
 	def change_rating
-		averating = 0
 		numofcoder = joins.size.to_i
+		return nil if numofcoder < 2 
+
+		averating = 0
 		averating = 0
 		joins.each do |join|
 			averating += join.user.rate
@@ -39,12 +43,12 @@ class Contest < ApplicationRecord
 			competition_factor_sum1 += join.user.volatility**2
 			competition_factor_sum2 +=(join.user.rate - averating)**2
 		end
-		competition_factor = (competition_factor_sum1/numofcoder + competition_factor_sum2/(numofcoder - 1))**0.5
+		competition_factor = (competition_factor_sum1 / numofcoder + competition_factor_sum2/(numofcoder - 1))**0.5
 
 		newrate = []
 		newvolatility = []
 		numofcoder.times do |key1|
-			erank=0.5
+			erank = 0.5
 			oldrate = joins[key1].user.rate
 			oldvolatility = joins[key1].user.volatility
 
@@ -53,7 +57,7 @@ class Contest < ApplicationRecord
 			end
 
 			eperf = - arc_gauss((erank - 0.5)/numofcoder)
-			aperf = - arc_gauss((joins[key1].rank - 0.5)/numofcoder)
+			aperf = - arc_gauss((joins[key1].rank - 0.5) / numofcoder)
 			perfas = joins[key1].user.rate + competition_factor*(aperf-eperf)
 			weight = (1 / (1 - ((0.42 / (joins[key1].user.joins.size.to_i + 1)) + 0.18))) - 1
 			capacity = 150 + 1500 / ( joins[key1].user.joins.size.to_i + 2 )
@@ -64,8 +68,6 @@ class Contest < ApplicationRecord
 			joins[key].user.update_columns(rate: newrate[key],volatility: newvolatility[key].round(3))
 		end
 	end
-
-	public 
 
 	def self.update_info
 		Contest.where( contest_end: false ).each do |contest|
