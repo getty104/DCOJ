@@ -52,6 +52,7 @@ class QuestionsController < ApplicationController
 		@question = current_user.create_questions.build(question_params)
 		@question.input = params[:question][:i_data].read if params[:question][:i_data]
 		@question.output = params[:question][:o_data].read if params[:question][:o_data]
+		@question.origin_level =  params[:question][:question_level].to_i
 		if @question.save
 			post = current_user.posts.build(category: 0)
 			@question.posts << post
