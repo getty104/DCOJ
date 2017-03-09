@@ -22,7 +22,7 @@ class Contest < ApplicationRecord
 	private
 
 	def arc_gauss(x)
-		return ( -0.5*(Math.log(1 - x ** 2 ) ) ) ** ( Math::PI / 2 )
+		return ( -0.5 * ( Math.log( 1 - x ** 2 ) ) ) ** ( Math::PI / 2 )
 	end
 
 	public 
@@ -42,7 +42,7 @@ class Contest < ApplicationRecord
 			competition_factor_sum1 += join.user.volatility ** 2
 			competition_factor_sum2 += (join.user.rate - averating) ** 2
 		end
-		competition_factor = (competition_factor_sum1 / numofcoder + competition_factor_sum2/(numofcoder - 1)) ** 0.5
+		competition_factor = Math.sqrt(competition_factor_sum1 / numofcoder + competition_factor_sum2/(numofcoder - 1))
 
 		newrate = []
 		newvolatility = []
@@ -52,7 +52,7 @@ class Contest < ApplicationRecord
 			oldvolatility = joins[key1].user.volatility
 
 			numofcoder.times do |key2|
-				erank += 0.5 * ( Math.erf( ( oldrate - joins[key2].user.rate ) / ( ( 2 * (oldvolatility ** 2 + joins[key2].user.volatility ** 2) ) ** 0.5) ) + 1 )
+				erank += 0.5 * ( Math.erf( ( oldrate - joins[key2].user.rate ) / ( Math.sqrt( 2 * (oldvolatility ** 2 + joins[key2].user.volatility ** 2) ) ) ) + 1 )
 			end
 
 			eperf = - arc_gauss( ( erank - 0.5 ) / numofcoder )
@@ -61,7 +61,7 @@ class Contest < ApplicationRecord
 			weight = (1 / (1 - ((0.42 / (joins[key1].user.joins.size.to_i + 1)) + 0.18))) - 1
 			capacity = 150 + 1500 / ( joins[key1].user.joins.size.to_i + 2 )
 			newrate << ( oldrate + weight * perfas ) / ( 1 + weight )
-			newvolatility << ( ( newrate[key1] - oldrate ) ** 2 / weight + oldvolatility ** 2 / ( weight + 1 ) ) ** 0.5
+			newvolatility << Math.sqrt( ( newrate[key1] - oldrate ) ** 2 / weight + oldvolatility ** 2 / ( weight + 1 ) )
 		end
 		numofcoder.times do |key|
 			joins[key].user.update_columns( rate: newrate[key], volatility: newvolatility[key].round(3) )
