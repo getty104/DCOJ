@@ -40,7 +40,7 @@ class ContestsController < ApplicationController
 			@level2_questions = current_user.create_questions.where(question_level: 1.5...2.5, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
 			@level3_questions = current_user.create_questions.where(question_level: 2.5...3.5, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
 			@level4_questions = current_user.create_questions.where(question_level: 3.5...4.5, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
-			@level5_questions = current_user.create_questions.where(question_level: 4.5...5.0, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
+			@level5_questions = current_user.create_questions.where(question_level: 4.5...5.1, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
 			render :new 
 		end
 	end
@@ -49,11 +49,11 @@ class ContestsController < ApplicationController
 
 	def show
 		@questions = @contest.questions.order(:origin_level)
-		@question1 = @contest.questions.select(:id, :origin_level).find_by(origin_level: 1)
-		@question2 = @contest.questions.select(:id, :origin_level).find_by(origin_level: 2)
-		@question3 = @contest.questions.select(:id, :origin_level).find_by(origin_level: 3)
-		@question4 = @contest.questions.select(:id, :origin_level).find_by(origin_level: 4)
-		@question5 = @contest.questions.select(:id, :origin_level).find_by(origin_level: 5)
+		@question1 = @contest.questions.select(:id).find_by(origin_level: 1)
+		@question2 = @contest.questions.select(:id).find_by(origin_level: 2)
+		@question3 = @contest.questions.select(:id).find_by(origin_level: 3)
+		@question4 = @contest.questions.select(:id).find_by(origin_level: 4)
+		@question5 = @contest.questions.select(:id).find_by(origin_level: 5)
 		@joins = @contest.joins
 		.select(:id,:user_id,:rank,:score, :updated_at, :level1_solve_time, :level2_solve_time, :level3_solve_time, :level4_solve_time, :level5_solve_time, :amount_time)
 		.order("score DESC, amount_time").includes(:user).page(params[:page]).per(20)
@@ -64,11 +64,11 @@ class ContestsController < ApplicationController
 	end
 
 	def sync_ranking
-		@question1 = @contest.questions.select(:id, :origin_level).find_by(origin_level: 1)
-		@question2 = @contest.questions.select(:id, :origin_level).find_by(origin_level: 2)
-		@question3 = @contest.questions.select(:id, :origin_level).find_by(origin_level: 3)
-		@question4 = @contest.questions.select(:id, :origin_level).find_by(origin_level: 4)
-		@question5 = @contest.questions.select(:id, :origin_level).find_by(origin_level: 5)
+		@question1 = @contest.questions.select(:id).find_by(origin_level: 1)
+		@question2 = @contest.questions.select(:id).find_by(origin_level: 2)
+		@question3 = @contest.questions.select(:id).find_by(origin_level: 3)
+		@question4 = @contest.questions.select(:id).find_by(origin_level: 4)
+		@question5 = @contest.questions.select(:id).find_by(origin_level: 5)
 		@joins = @contest.joins
 		.select(:id,:user_id,:rank,:score, :level1_solve_time, :level2_solve_time, :level3_solve_time, :level4_solve_time, :level5_solve_time, :amount_time)
 		.order("score DESC, amount_time").includes(:user).page(params[:page]).per(20)
