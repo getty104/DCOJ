@@ -165,7 +165,7 @@ class ContestsController < ApplicationController
 				newvolatility << ((newrate[key1] - oldrate)**2/weight + oldvolatility**2/(weight + 1))**0.5
 			end
 			numofcoder.times do |key|
-				joins[key].user.update_columns(rate: newrate[key],volatility: newvolatility[key])
+				joins[key].user.update_columns(rate: newrate[key],volatility: newvolatility[key].round(3))
 			end
 		end
 	end
