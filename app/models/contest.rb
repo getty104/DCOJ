@@ -22,7 +22,7 @@ class Contest < ApplicationRecord
 	private
 
 	def arc_gauss(x)
-		return (-0.5*(Math.log(1-x**2)))**(Math::PI/2)
+		return ( -0.5*(Math.log(1 - x ** 2 ) ) ) ** ( Math::PI / 2 )
 	end
 
 	public 
@@ -32,7 +32,6 @@ class Contest < ApplicationRecord
 		return nil if numofcoder < 2 
 
 		averating = 0
-	 joins.order("rank DESC")
 		joins.each do |join|
 			averating += join.user.rate
 		end
