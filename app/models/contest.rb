@@ -70,7 +70,7 @@ class Contest < ApplicationRecord
 	end
 
 	def self.update_info
-		Contest.where( contest_end: false ).each do |contest|
+		Contest.end_contests.where( contest_end: false, ).each do |contest|
 			contest.change_rating
 			contest.update_attribute(:contest_end, true )
 		end
