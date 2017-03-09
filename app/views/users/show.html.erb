@@ -11,6 +11,7 @@
 <div class="row" style="margin-bottom: 10px;">
 	<div class="text-center">
 		<h3><strong><%= @user.name %></strong></h3>
+		<dd><strong>rate: <%= @user.rate %></strong></dd>
 		<dd><strong><%= "account: #{@user.account}" if current_user == @user %></strong></dd>
 		<dd><strong><%= "created: #{@user.created_question_number}" %></strong></dd>
 		<dd><strong><%= "solved: #{@user.solved_question_number}" %></strong></dd>

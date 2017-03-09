@@ -117,17 +117,54 @@ class ContestsController < ApplicationController
 		end
 
 		def update_info
-			@contest.users.each do |user|
-				#レーティング計算入れる
-			end
+			change_rating
 			@contest.questions.each do |question|
 				question.update_attribute(:for_contest, 0)
 			end
 			@contest.update_attribute(:contest_end, true)
 		end
 
+		def change_rating
+			averating=0
+			joins = @contest.joins.includes(:user)
+			numofcoder = joins.size.to_i
+			averating = 0
+			joins.each do |join|
+				averating += join.user.rate
+			end
+			averating /= numofcoder
+
+			competition_factor_sum1, competition_factor_sum2 = 0, 0
+			joins.each do |join|
+				competition_factor_sum1 += join.user.volatility**2
+				competition_factor_sum2 +=(join.user.rate - averating)**2
+			end
+			competition_factor = (competition_factor_sum1/numofcoder + competition_factor_sum2/(numofcoder - 1))**0.5
+
+			newrate = []
+			newvolatility = []
+			numofcoder.times do |key1|
+				erank=0.5
+				oldrate = joins[key1].user.rate
+				oldvolatility = joins[key1].user.volatility
+
+				numofcoder.times do |key2|
+					erank+=0.5*(Math.erf((oldrate - joins[key2].user.rate)/((2*(oldvolatility**2 + joins[key2].user.volatility**2))**0.5))+1)
+				end
+
+				eperf = - arc_gauss((erank - 0.5)/numofcoder)
+				aperf = - arc_gauss((joins[key1].rank - 0.5)/numofcoder)
+				perfas = joins[key1].user.rate + competition_factor*(aperf-eperf)
+				weight = (1/(1 - ((0.42/(joins[key1].user.joins.size.to_i + 1)) + 0.18)))-1
+				capacity = 150 + 1500/(joins[key1].user.joins.size.to_i + 2)
+				newrate << (oldrate + weight*perfas)/(1 + weight)
+				newvolatility << ((newrate[key1] - oldrate)**2/weight + oldvolatility**2/(weight + 1))**0.5
+			end
+			numofcoder.times do |key|
+				joins[key].user.update_columns(rate: nowrate[key],volatility: newvolatility[key])
+			end
+		end
 
 
-		
-		
+
 	end
