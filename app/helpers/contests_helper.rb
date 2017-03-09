@@ -4,7 +4,7 @@ module ContestsHelper
 		time = time % (60 * 60)
 		minute = time / 60
 		sec = time % 60
-		return "#{hour}:#{minute}:#{sec}"
+		return sprintf("%02d:%02d:%02d",hour,minute,sec)
 	end
 
 end

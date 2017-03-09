@@ -125,7 +125,7 @@ class ContestsController < ApplicationController
 		end
 
 		def arc_gauss(x)
-			return (-0.5*(Math.log(1-x**2)))**(Math.PI/2)
+			return (-0.5*(Math.log(1-x**2)))**(Math::PI/2)
 		end
 
 		def change_rating
@@ -165,7 +165,7 @@ class ContestsController < ApplicationController
 				newvolatility << ((newrate[key1] - oldrate)**2/weight + oldvolatility**2/(weight + 1))**0.5
 			end
 			numofcoder.times do |key|
-				joins[key].user.update_columns(rate: nowrate[key],volatility: newvolatility[key])
+				joins[key].user.update_columns(rate: newrate[key],volatility: newvolatility[key])
 			end
 		end
 	end
