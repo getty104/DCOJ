@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307144746) do
+ActiveRecord::Schema.define(version: 20170309025812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20170307144746) do
     t.integer  "contest_id"
     t.string   "image"
     t.integer  "for_contest"
+    t.integer  "origin_level"
     t.index ["contest_id"], name: "index_questions_on_contest_id", using: :btree
     t.index ["created_user_id"], name: "index_questions_on_created_user_id", using: :btree
   end
