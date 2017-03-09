@@ -29,6 +29,10 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
+	def time_up contest
+		redirect_to contest if Time.now >= contest.finish_time
+	end
+
 	protected
 	def configure_permitted_parameters
 		devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :account, :email, :image, :created_question_number, :solved_question_number])

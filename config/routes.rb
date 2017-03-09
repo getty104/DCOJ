@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 	resources :contests do
 		member do
 			post 'join'
+			get 'sync_ranking'
 		end
 	end
 

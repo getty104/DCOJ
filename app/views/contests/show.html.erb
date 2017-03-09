@@ -21,3 +21,28 @@
 </div>
 
 
+<% if @contest.finish_time +  30 > Time.now %>
+<script>
+	jQuery(function($){
+		setInterval(function(){
+			$.ajax({
+				url: '<%= @contest.id %>/sync_ranking',
+				type: "GET",
+				data: {
+					id : '<%= @contest.id %>'
+				},
+				dataType: "script"
+			});
+		},10000);
+
+		$(document).on('turbolinks:visit', function(){
+			location.reload();
+		});
+
+	});
+</script>
+<% end %>
+
+
+
+

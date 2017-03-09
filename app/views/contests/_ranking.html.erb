@@ -25,26 +25,11 @@
 					<th>score</th>
 				</tr>
 			</thead>
-				<tbody id="ranking_list">
-					<%= render partial: 'ranking_list' %>
-				</tbody>
+			<tbody id="ranking_list">
+				<%= render partial: 'ranking_list' %>
+			</tbody>
 		</table> 
 	</div>
 </div>
 <% end %>
-<% if @contest.finish_time +  2.minutes > Time.now %>
-<script>
-	jQuery(function($){
-		setInterval(function(){
-			$.ajax({
-				url: '<%= @contest.id %>',
-				type: "GET",
-				data: {
-					id : '<%= @contest.id %>'
-				},
-				dataType: "script"
-			});
-		},10000);
-	});
-</script>
-<% end %>
+

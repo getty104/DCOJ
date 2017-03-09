@@ -1,5 +1,5 @@
 class ContestsController < ApplicationController
-	before_action :set_contest, only: [:show, :edit, :join, :unjoin, :realtime_ranking]
+	before_action :set_contest, only: [:show, :edit, :join, :unjoin, :sync_ranking]
 	before_action :authenticate_user!
 	
 	def new
@@ -61,8 +61,16 @@ class ContestsController < ApplicationController
 		.select(:id,:user_id,:rank,:score, :updated_at, :level1_solve_time, :level2_solve_time, :level3_solve_time, :level4_solve_time, :level5_solve_time, :amount_time)
 		.find_by(user_id: current_user.id)
 		update_info	if @contest.finish_time <= Time.now && @contest.contest_end == false
+	end
+
+	def sync_ranking
+		@joins = @contest.joins
+		.select(:id,:user_id,:rank,:score, :level1_solve_time, :level2_solve_time, :level3_solve_time, :level4_solve_time, :level5_solve_time, :amount_time)
+		.order("score DESC, amount_time").includes(:user).page(params[:page]).per(20)
+		@current_join = @contest.joins
+		.select(:id,:user_id,:rank,:score, :level1_solve_time, :level2_solve_time, :level3_solve_time, :level4_solve_time, :level5_solve_time, :amount_time)
+		.find_by(user_id: current_user.id)
 		respond_to do |format|
-			format.html
 			format.js
 		end
 	end
@@ -105,7 +113,7 @@ class ContestsController < ApplicationController
 
 		def update_info
 			@contest.users.each do |user|
-				join = user.joins.find_by(contest_id: @contest.id)
+				#レーティング計算入れる
 			end
 			@contest.questions.each do |question|
 				question.update_attribute(:for_contest, 0)

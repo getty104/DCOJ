@@ -136,9 +136,6 @@ class JudgeSystemsController < ApplicationController
 			params.require(:judge_system).permit()
 		end
 
-		def time_up contest
-			redirect_to contest, flash: {danger: 'Time is up'} if Time.now >= contest.finish_time
-		end
 
 		def answer_crrect?
 			ans_data = params[:judge_system][:ans].read
