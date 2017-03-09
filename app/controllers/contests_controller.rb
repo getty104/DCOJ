@@ -64,6 +64,11 @@ class ContestsController < ApplicationController
 	end
 
 	def sync_ranking
+		@question1 = @contest.questions.select(:id).find_by(origin_level: 1)
+		@question2 = @contest.questions.select(:id).find_by(origin_level: 2)
+		@question3 = @contest.questions.select(:id).find_by(origin_level: 3)
+		@question4 = @contest.questions.select(:id).find_by(origin_level: 4)
+		@question5 = @contest.questions.select(:id).find_by(origin_level: 5)
 		@joins = @contest.joins
 		.select(:id,:user_id,:rank,:score, :level1_solve_time, :level2_solve_time, :level3_solve_time, :level4_solve_time, :level5_solve_time, :amount_time)
 		.order("score DESC, amount_time").includes(:user).page(params[:page]).per(20)

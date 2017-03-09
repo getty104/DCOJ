@@ -14,13 +14,13 @@
 			<tbody>
 				<% @questions.each do |question| %>
 				<tr>
-					<td><%=  question.question_level.round %></td>
+					<td><%=  question.origin_level %></td>
 					<td><%= question.title %></td>
 					<td><%= question.users.length %></td>
 					<% if current_user.questions.include?(question) %>
-					<td style="color: red;"><strong>AC</strong></td>
+					<td style="color: green;"><strong>AC</strong></td>
 					<% elsif question.created_user == current_user %>
-					<td style="color: green;" ><strong>you create</strong></td>
+					<td style="color: blue;" ><strong>you create</strong></td>
 					<% else %>
 					<td style="color: gray;" ><strong>---------</strong></td>
 					<% end %>
