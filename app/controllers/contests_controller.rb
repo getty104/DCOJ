@@ -124,6 +124,10 @@ class ContestsController < ApplicationController
 			@contest.update_attribute(:contest_end, true)
 		end
 
+		def arc_gauss(x)
+			return (-0.5*(Math.log(1-x**2)))**(Math.PI/2)
+		end
+
 		def change_rating
 			averating=0
 			joins = @contest.joins.includes(:user)
@@ -164,11 +168,4 @@ class ContestsController < ApplicationController
 				joins[key].user.update_columns(rate: nowrate[key],volatility: newvolatility[key])
 			end
 		end
-
-		def arc_gauss(x)
-			return (-0.5*(Math.log(1-x**2)))**(Math.PI/2)
-		end
-
-
-
 	end
