@@ -1,7 +1,7 @@
 <% if @contest.users.include?(current_user) %>
-<tr style="background-color:#98fb98;">
+<tr style="background-color:#dcdcdc;">
 	<td><%= @current_join.rank %></td>
-	<td><%= link_to current_user.name, current_user %></td>
+	<td><strong><%= link_to current_user.name, current_user, style: "color: #{rate_color current_user.rate} ;" %></strong></td>
 	<% if @question1 %>
 	<% if @current_join.level1_solve_time %>
 	<td><%= solve_time @current_join.level1_solve_time %></td>
@@ -50,7 +50,7 @@
 <% user = join.user %>
 <tr>
 	<td><%= join.rank %></td>
-	<td><%= link_to user.name, user %></td>
+	<td><strong><%= link_to user.name, user, style: "color: #{rate_color current_user.rate} ;" %></strong></td>
 
 	<% if @question1 %>
 	<% if join.level1_solve_time %>

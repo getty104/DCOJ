@@ -13,6 +13,21 @@ module ApplicationHelper
 		time_ago_in_words(datetime) + ' ago'
 	end
 
+	def rate_color(rate)
+		if rate < 900
+			color = '#999'
+		elsif rate < 1200
+			color =	'#00A900'
+		elsif rate < 1500
+			color = '#66F'
+		elsif rate < 2200
+			color = '#DC0'
+		else
+			color =  '#E00'
+		end
+		return color
+	end
+
 	require "redcarpet"
 	require "coderay"
 

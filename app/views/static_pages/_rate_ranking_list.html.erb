@@ -1,0 +1,18 @@
+<h2 class="text-center">Best Rateing Ranking</h2>
+<table class="table table-borderd">
+	<tbody>
+		<% number = 1 %>
+		<% @rate_users.each do |user| %>
+		<tr class="text-center">
+			<td><%= number %></td>
+			<td><%= link_to user.name, user %></td>
+			<td style="color:<%= rate_color user.rate %>"><%= user.rate %></td>
+		</tr>
+		<% number += 1 %>
+		<% if number == 6 %>
+		<% break %>
+		<% end %>
+		<% end %>
+	</tbody>
+</table> 
+

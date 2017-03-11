@@ -39,6 +39,26 @@ end
 		end
 	end
 
+	def self.update_rate_rank
+		users = User.select(:id, :rate).all.order("rate DESC")
+		rank = 0
+		number = 1
+		users.size.times do |key|
+			if key == 0
+				rank += number
+			elsif key > 0
+				if users[key].rate == users[key - 1].rate
+					number += 1
+				else
+					rank += number
+					number = 1
+				end
+			end
+			users[key].update_columns(rate_rank: rank)
+		end
+	end
+
+
 	private
 
 	def validate_password?

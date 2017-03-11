@@ -11,7 +11,7 @@
 <div class="row" style="margin-bottom: 10px;">
 	<div class="text-center">
 		<h3><strong><%= @user.name %></strong></h3>
-		<dd><strong>rate: <%= @user.rate %></strong></dd>
+		<dd><strong>rate:</strong><strong style="color:<%= rate_color @user.rate %>"> <%= @user.rate %></strong></dd>
 		<dd><strong><%= "account: #{@user.account}" if current_user == @user %></strong></dd>
 		<dd><strong><%= "created: #{@user.created_question_number}" %></strong></dd>
 		<dd><strong><%= "solved: #{@user.solved_question_number}" %></strong></dd>
@@ -48,24 +48,32 @@
 		<h2 class="text-center">Created Questions</h2>
 		<div id="create_questions">
 			<%= render partial: 'question_list', locals: { questions: @create_questions, level_page:  
-				:create_questions_page } %>
-			</div>
+			:create_questions_page } %>
 		</div>
+	</div>
 
-		<div class="col-xs-12 col-sm-12 col-md-5">
-			<h2 class="text-center">Solved Questions</h2>
-			<div  id="solve_questions">
-				<%= render partial: 'question_list', locals: { questions: @solve_questions, level_page:  
-					:solve_questions_page } %>
-				</div>
-			</div>
+	<div class="col-xs-12 col-sm-12 col-md-5 col-md-offset-1">
+		<h2 class="text-center">Created Questions</h2>
+		<div id="create_questions">
+			<%= render partial: 'question_list', locals: { questions: @create_questions, level_page:  
+			:create_questions_page } %>
 		</div>
+	</div>
 
-		<div class="row">
-			<div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
-				<h2 class="text-center">Logs</h2>
-				<div  id="records">
-					<%= render partial: 'log_list' %>
-				</div>
-			</div>
+	<div class="col-xs-12 col-sm-12 col-md-5">
+		<h2 class="text-center">Solved Questions</h2>
+		<div  id="solve_questions">
+			<%= render partial: 'question_list', locals: { questions: @solve_questions, level_page:  
+			:solve_questions_page } %>
 		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3">
+		<h2 class="text-center">Logs</h2>
+		<div  id="records">
+			<%= render partial: 'log_list' %>
+		</div>
+	</div>
+</div>

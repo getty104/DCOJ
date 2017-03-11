@@ -29,13 +29,18 @@
 			<div style="border: 1px solid #c0c0c0; background-color: white; margin-top:80px;">
 				<h2 class="text-center" >Comming Up Contests</h2>
 				<div style="height:300px; overflow-y:scroll; -webkit-overflow-scrolling: touch;">
-						<%= render partial: 'contest_list' %>
+					<%= render partial: 'contest_list' %>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
+<div class="row" style="margin-top: 80px;">
+	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+		<%= render partial: 'rate_ranking_list' %>
+		<strong><%= link_to 'more ranking', rate_ranking_path %></strong>
+	</div>
+</div>
 <div class="row" style="margin-top: 80px;">
 	<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 		<%= render partial: 'create_ranking_list' %>

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+
 	resources :questions
 
 	resources :contests
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
 	get    'main_menu' => 'static_pages#main_menu'
 	get 'search_result' => 'questions#search_result'
 	get 'user_search_result' => 'users#search_result'
+  get 'rate_ranking' => 'rankings#rate_ranking'
 	resources :questions do
 		member do 
 			get   'download_input' 

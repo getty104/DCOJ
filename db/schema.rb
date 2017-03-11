@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170309045318) do
+ActiveRecord::Schema.define(version: 20170310103156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(version: 20170309045318) do
     t.datetime "locked_at"
     t.integer  "rate",                    default: 1200
     t.decimal  "volatility",              default: "300.0"
+    t.integer  "rate_rank"
     t.index ["account"], name: "index_users_on_account", unique: true, using: :btree
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
