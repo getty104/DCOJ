@@ -50,7 +50,7 @@
 <% user = join.user %>
 <tr>
 	<td><%= join.rank %></td>
-	<td><strong><%= link_to user.name, user, style: "color: #{rate_color current_user.rate} ;" %></strong></td>
+	<td><strong><%= link_to user.name, user, style: "color: #{rate_color user.rate} ;" %></strong></td>
 
 	<% if @question1 %>
 	<% if join.level1_solve_time %>

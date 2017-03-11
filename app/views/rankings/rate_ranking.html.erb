@@ -18,7 +18,7 @@
 				<% @users.each do |user| %>
 				<tr>
 					<td><%= user.rate_rank %></td>
-					<td><%= link_to user.name, user, style: "color: #{rate_color current_user.rate} ;"  %></td>
+					<td><%= link_to user.name, user, style: "color: #{rate_color user.rate} ;"  %></td>
 					<td style="color:<%= rate_color user.rate %>"><strong><%= user.rate %></strong></td>
 				</tr>
 				<% end %>
