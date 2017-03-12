@@ -5,7 +5,7 @@
 		<% @created_users.each do |user| %>
 		<tr class="text-center">
 			<td><%= number %></td>
-			<td><%= link_to user.name, user %></td>
+			<td><%= link_to user.name, user, style: "color:#{rate_color user.rate}"  %></td>
 			<td><%= user.created_question_number.to_s + "問" %></td>
 		</tr>
 		<% number += 1 %>

@@ -5,7 +5,7 @@
 		<% @rate_users.each do |user| %>
 		<tr class="text-center">
 			<td><%= number %></td>
-			<td><%= link_to user.name, user %></td>
+			<td><%= link_to user.name, user, style: "color:#{rate_color user.rate}" %></td>
 			<td style="color:<%= rate_color user.rate %>"><%= user.rate %></td>
 		</tr>
 		<% number += 1 %>
