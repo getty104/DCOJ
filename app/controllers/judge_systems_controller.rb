@@ -18,7 +18,7 @@ class JudgeSystemsController < ApplicationController
 			flash.now[:danger] = '正しく提出されていません'
 			render action: :new, question_id: @question.id
 		else
-			if answer_crrect?
+			if answer_crrect? == true
 				if current_user != @question.created_user && !current_user.questions.include?(@question)
 					current_user.questions << @question
 					num =  current_user.solved_question_number + 1
@@ -56,7 +56,7 @@ class JudgeSystemsController < ApplicationController
 			flash.now[:danger] = '正しく提出されていません'
 			render action: :new, question_id: @question.id
 		else
-			if answer_crrect?
+			if answer_crrect? == true
 				if current_user != @question.created_user && !current_user.questions.include?(@question)
 					current_user.questions << @question
 					num =  current_user.solved_question_number + 1
@@ -144,23 +144,25 @@ class JudgeSystemsController < ApplicationController
 			out_file = "/tmp/#{current_user.id}_output.txt"
 			ans_file = "/tmp/#{current_user.id}_ans.txt"
 			File.open( submit_code, "wb" ) do |code|
-				code.write ans_code.input.gsub(/\R/, "\n") 
+				code.write ans_code.gsub(/\R/, "\n") 
 				code.close
 			end
-			File.open("/tmp/#{current_user.id}_input.txt","wb") do |input|
+			File.open( input_file ,"wb") do |input|
 				input.write @question.input.gsub(/\R/, "\n") 
 				input.close
 			end
-			File.open("/tmp/#{current_user.id}_output.txt","wb") do |out|
+			File.open( out_file ,"wb") do |out|
 				out.write @question.output.gsub(/\R/, "\n") 
 				out.close
 			end
-
-			system "ruby #{submit_code} < input_file > ans_file"
-
-			out = File.open( out_file, "r" )
-			ans = File.open( ans_file, "r" )
-			return FileUtils.cmp(ans, out)
+			error_check = SandBox.run submit_code,input_file, ans_file, 2
+			if error_check == true
+				out = File.open( out_file, "r" )
+				ans = File.open( ans_file, "r" )
+				return FileUtils.cmp(ans, out)
+			else
+				return error_check
+			end
 		end
 		
 	end
