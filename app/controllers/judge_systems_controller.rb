@@ -139,7 +139,17 @@ class JudgeSystemsController < ApplicationController
 
 		def answer_crrect?
 			ans_code = params[:judge_system][:ans].read
-			submit_code = "/tmp/#{current_user.id}_code.rb"
+			lang = params[:judge_system][:lang]
+			case lang
+			when "ruby"
+				submit_code = "/tmp/#{current_user.id}_code.rb"
+			when "c"
+				submit_code = "/tmp/#{current_user.id}_code.c"
+			when "c++"
+				submit_code = "/tmp/#{current_user.id}_code.cpp"
+			when "java"
+				submit_code = "/tmp/#{current_user.id}_code.java"
+			end
 			input_file = "/tmp/#{current_user.id}_input.txt"
 			out_file = "/tmp/#{current_user.id}_output.txt"
 			ans_file = "/tmp/#{current_user.id}_ans.txt"
@@ -155,7 +165,8 @@ class JudgeSystemsController < ApplicationController
 				out.write @question.output.gsub(/\R/, "\n") 
 				out.close
 			end
-			error_check = SandBox.run submit_code,input_file, ans_file, 2
+			error_check = SandBox.run(submit_code, input_file, ans_file, 3, lang, current_user.id)
+			binding.pry
 			if error_check == true
 				out = File.open( out_file, "r" )
 				ans = File.open( ans_file, "r" )

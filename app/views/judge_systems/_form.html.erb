@@ -2,8 +2,16 @@
 
 <p>問題: <%= @question.title %></p>
 <%= f.hidden_field :question_id, value: @question.id %>
+
 <div class="form-group">
-	<%= f.label "出力を提出", class: 'control-label col-lg-2' %>
+	<%= f.label :language, class: 'control-label col-xs-12 col-sm-12 col-md-2' %>
+	<div class="col-lg-10">
+		<%= f.select :lang, [["c","c"], ["c++","c++"], ["ruby","ruby"],["java", "java"]], class: 'form-control' %>
+	</div>
+</div>
+
+<div class="form-group">
+	<%= f.label "program code", class: 'control-label col-lg-2' %>
 	<div class="col-lg-10">
 		<%= f.file_field :ans, class: 'form-control' %>
 	</div>
