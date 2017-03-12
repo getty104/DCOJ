@@ -138,18 +138,28 @@ class JudgeSystemsController < ApplicationController
 
 
 		def answer_crrect?
-			ans_data = params[:judge_system][:ans].read
-			File.open("/tmp/#{current_user.id}_input.txt","wb") do |ans|
-				ans.write ans_data.gsub(/\R/, "\n") 
-				ans.close
+			ans_code = params[:judge_system][:ans].read
+			submit_code = "/tmp/#{current_user.id}_code.rb"
+			input_file = "/tmp/#{current_user.id}_input.txt"
+			out_file = "/tmp/#{current_user.id}_output.txt"
+			ans_file = "/tmp/#{current_user.id}_ans.txt"
+			File.open( submit_code, "wb" ) do |code|
+				code.write ans_code.input.gsub(/\R/, "\n") 
+				code.close
+			end
+			File.open("/tmp/#{current_user.id}_input.txt","wb") do |input|
+				input.write @question.input.gsub(/\R/, "\n") 
+				input.close
 			end
 			File.open("/tmp/#{current_user.id}_output.txt","wb") do |out|
 				out.write @question.output.gsub(/\R/, "\n") 
 				out.close
 			end
-			ans = File.open("/tmp/#{current_user.id}_input.txt", "r")
-			out = File.open("/tmp/#{current_user.id}_output.txt", "r")
 
+			system "ruby #{submit_code} < input_file > ans_file"
+
+			out = File.open( out_file, "r" )
+			ans = File.open( ans_file, "r" )
 			return FileUtils.cmp(ans, out)
 		end
 		
