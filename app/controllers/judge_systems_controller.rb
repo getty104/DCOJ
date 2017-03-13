@@ -142,17 +142,17 @@ class JudgeSystemsController < ApplicationController
 			lang = params[:judge_system][:lang]
 			case lang
 			when "ruby"
-				submit_code = "/tmp/#{current_user.id}_code.rb"
+				submit_code = "./tmp/judge/#{current_user.id}_code.rb"
 			when "c"
-				submit_code = "/tmp/#{current_user.id}_code.c"
+				submit_code = "./tmp/judge/#{current_user.id}_code.c"
 			when "c++"
-				submit_code = "/tmp/#{current_user.id}_code.cpp"
+				submit_code = "./tmp/judge/#{current_user.id}_code.cpp"
 			when "java"
-				submit_code = "/tmp/#{current_user.id}_code.java"
+				submit_code = "./tmp/judge/#{current_user.id}_code.java"
 			end
-			input_file = "/tmp/#{current_user.id}_input.txt"
-			out_file = "/tmp/#{current_user.id}_output.txt"
-			ans_file = "/tmp/#{current_user.id}_ans.txt"
+			input_file = "./tmp/judge/#{current_user.id}_input.txt"
+			out_file = "./tmp/judge/#{current_user.id}_output.txt"
+			ans_file = "./tmp/judge/#{current_user.id}_ans.txt"
 			File.open( submit_code, "wb" ) do |code|
 				code.write ans_code.gsub(/\R/, "\n") 
 				code.close
