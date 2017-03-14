@@ -177,6 +177,7 @@ GEM
     netrc (0.11.0)
     newrelic_rpm (3.18.1.330)
     nio4r (2.0.0)
+    nkryptic-sandbox (0.2.4)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
@@ -338,6 +339,7 @@ DEPENDENCIES
   mailboxer
   mathjax-rails
   newrelic_rpm
+  nkryptic-sandbox
   pg
   powder
   pry-byebug

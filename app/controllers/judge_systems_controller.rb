@@ -142,17 +142,41 @@ class JudgeSystemsController < ApplicationController
 			lang = params[:judge_system][:lang]
 			case lang
 			when "ruby"
-				submit_code = "./tmp/judge/#{current_user.id}_code.rb"
+				if Rails.env == "development"
+					submit_code = "./tmp/judge/#{current_user.id}_code.rb"
+				else
+					submit_code = "/tmp/#{current_user.id}_code.rb"
+				end
 			when "c"
-				submit_code = "./tmp/judge/#{current_user.id}_code.c"
+				if Rails.env == "development"
+					submit_code = "./tmp/judge/#{current_user.id}_code.c"
+				else
+					submit_code = "/tmp/#{current_user.id}_code.c"
+				end
 			when "c++"
-				submit_code = "./tmp/judge/#{current_user.id}_code.cpp"
+				if Rails.env == "development"
+					submit_code = "./tmp/judge/#{current_user.id}_code.cpp"
+				else
+					submit_code = "/tmp/#{current_user.id}_code.cpp"
+				end
 			when "java"
-				submit_code = "./tmp/judge/#{current_user.id}_code.java"
+				if Rails.env == "development"
+					submit_code = "./tmp/judge/#{current_user.id}_code.java"
+				else
+					submit_code = "/tmp/#{current_user.id}_code.java"
+				end
+
 			end
-			input_file = "./tmp/judge/#{current_user.id}_input.txt"
-			out_file = "./tmp/judge/#{current_user.id}_output.txt"
-			ans_file = "./tmp/judge/#{current_user.id}_ans.txt"
+			if Rails.env == "development"
+				input_file = "./tmp/judge/#{current_user.id}_input.txt"
+				out_file = "./tmp/judge/#{current_user.id}_output.txt"
+				ans_file = "./tmp/judge/#{current_user.id}_ans.txt"
+			else
+				input_file = "/tmp/#{current_user.id}_input.txt"
+				out_file = "/tmp/#{current_user.id}_output.txt"
+				ans_file = "/tmp/#{current_user.id}_ans.txt"
+			end
+			#system "source ./sandbox/bin/activate_sandbox"
 			File.open( submit_code, "wb" ) do |code|
 				code.write ans_code.gsub(/\R/, "\n") 
 				code.close
@@ -166,12 +190,13 @@ class JudgeSystemsController < ApplicationController
 				out.close
 			end
 			error_check = SandBox.run(submit_code, input_file, ans_file, 3, lang, current_user.id)
-			binding.pry
 			if error_check == true
 				out = File.open( out_file, "r" )
 				ans = File.open( ans_file, "r" )
+				#system " deactivate_sandbox"
 				return FileUtils.cmp(ans, out)
 			else
+				#system "deactivate_sandbox"
 				return error_check
 			end
 		end
