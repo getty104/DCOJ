@@ -2,37 +2,7 @@
 <h2 class="text-center">Problem List</h2>
 <div class="row">
 	<div class="col-sm-12  col-md-10 col-md-offset-1">
-		<table class="table table-borderd">
-			<thead>
-				<tr>
-					<th>question level</th>
-					<th>title</th>
-					<th>accepted </th>
-					<th>condition</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% @questions.each do |question| %>
-				<tr>
-					<td><%=  question.origin_level %></td>
-					<td><%= question.title %></td>
-					<td><%= question.users.length %></td>
-					<% if current_user.questions.include?(question) %>
-					<td style="color: green;"><strong>AC</strong></td>
-					<% elsif question.created_user == current_user %>
-					<td style="color: blue;" ><strong>you create</strong></td>
-					<% else %>
-					<td style="color: gray;" ><strong>---------</strong></td>
-					<% end %>
-					<% if Time.now < @contest.finish_time %>
-					<td><%= link_to('Detail', {controller: 'questions', action: 'contest_show', id: question.id, contest_id: @contest.id }, class: "btn btn-primary", style: "color: white") %></td>
-					<% else %>
-					<td><%= link_to('Detail', question_path(question), class: "btn btn-primary", style: "color: white") %></td>
-					<% end %>
-				</tr>
-				<% end %>
-			</tbody>
-		</table> 
+	<%= render 'questions/list', questions: @questions %>
 	</div>
 </div>
 

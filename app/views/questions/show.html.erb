@@ -1,18 +1,5 @@
-<%= render 'question_space', action: 'submit' %>
-<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-1">
-		<%= link_to "Back",
-		questions_path, class: 'btn btn-default btn-lg' %>
+<%= render 'question_body', path: submission_question_path(@question) %>
 
-		<% if current_user == @question.created_user %>
-		<%= link_to "Edit",edit_question_path(@question), class: 'btn btn-default btn-lg' %>
 
-		<%= link_to "Delete",
-		question_path(@question),
-		method: 'delete',
-		data: { confirm:  "一度削除した問題のデータは復元できません。\n本当に削除しますか？" },
-		class: 'btn btn-danger btn-lg' %>
-	</div>
-	<% end %>
-</div>
+
 

@@ -1,21 +1,11 @@
-<%= form_for :judge_system, url: submission_path, html: { class: "form-horizontal question" } do |f| %>
-
-<p>問題: <%= @question.title %></p>
-<%= f.hidden_field :question_id, value: @question.id %>
+<p>.txtで提出してください</p>
+<%= form_tag submit_path, method: "post", multipart: true do %>
 <div class="form-group">
-	<%= f.label "出力を提出", class: 'control-label col-lg-2' %>
-	<div class="col-lg-10">
-		<%= f.file_field :ans, class: 'form-control' %>
-	</div>
-	<%=f.error_span(:ans) %>
+	<%= label_tag "出力を提出" %>
+	<%= file_field_tag :ans, class: 'form-control' %>
 </div>
 
 <div class="form-group">
-	<div class="col-lg-offset-2 col-lg-10">
-		<%= f.submit "Submit", class: 'btn btn-primary' %>
-		<%= link_to t('.cancel', default: t("helpers.links.cancel")),
-		@question, class: 'btn btn-default' %>
-	</div>
+	<%= submit_tag "Submit", class: 'btn btn-primary' %>
 </div>
-
 <% end %>

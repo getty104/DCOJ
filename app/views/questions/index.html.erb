@@ -35,26 +35,32 @@
 
 		<div class="tab-content">
 			<div class="tab-pane fade in active" id="tab_1" role="tabpanel">
-				<%= render partial: 'list', locals: { questions: @level1_questions, level_page: :level1_page } %>
+				<%= render partial: 'list', locals: { questions: @level1_questions } %>
+				<%= paginate @level1_questions, param_name: :level1_page , remote: true %>
 			</div>
 			<div class="tab-pane fade" id="tab_2" role="tabpanel">
-				<%= render partial: 'list', locals: { questions: @level2_questions, level_page: :level2_page } %>
+				<%= render partial: 'list', locals: { questions: @level2_questions } %>
+				<%= paginate @level2_questions, param_name: :level2_page , remote: true %>
 			</div>
 
 			<div class="tab-pane fade" id="tab_3" role="tabpanel">
-				<%= render partial: 'list', locals: { questions: @level3_questions, level_page: :level3_page } %>
+				<%= render partial: 'list', locals: { questions: @level3_questions } %>
+				<%= paginate @level3_questions, param_name: :level3_page , remote: true %>
 			</div>
 
 			<div class="tab-pane fade" id="tab_4" role="tabpanel">
-				<%= render partial: 'list', locals: { questions: @level4_questions, level_page: :level4_page } %>
+				<%= render partial: 'list', locals: { questions: @level4_questions } %>
+				<%= paginate @level4_questions, param_name: :level4_page , remote: true %>
 			</div>
 
 			<div class="tab-pane fade" id="tab_5" role="tabpanel">
-				<%= render partial: 'list', locals: { questions: @level5_questions, level_page: :level5_page } %>
+				<%= render partial: 'list', locals: { questions: @level5_questions } %>
+				<%= paginate @level5_questions , param_name: :level5_page , remote: true %>
 			</div>
 
 				<div class="tab-pane fade" id="tab_6" role="tabpanel">
-				<%= render partial: 'list', locals: { questions: @for_contest_questions, level_page: :for_contest_page } %>
+				<%= render partial: 'list', locals: { questions: @for_contest_questions } %>
+				<%= paginate @for_contest_questions, param_name: :for_contest_page , remote: true %>
 			</div>
 
 		</div>

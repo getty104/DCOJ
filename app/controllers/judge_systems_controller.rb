@@ -5,19 +5,11 @@ class JudgeSystemsController < ApplicationController
 	# GET /judge_systems.json
 
 
-	# GET /judge_systems/new
-	def submit
-		@judge_system = JudgeSystem.new
-		@question = Question.find(params[:question_id])
-	end
-
-
 	def judge
-		@question = Question.find(params[:judge_system][:question_id])
-		unless params[:judge_system][:ans]
-			flash.now[:danger] = '正しく提出されていません'
-			render action: :new, question_id: @question.id
-		else
+		@question = Question.find(params[:id])
+		unless params[:ans]
+			redirect_to @question, flash: {danger: '正しく提出されていません' }
+			else
 			if answer_crrect?
 				if current_user != @question.created_user && !current_user.questions.include?(@question)
 					current_user.questions << @question
@@ -40,21 +32,12 @@ class JudgeSystemsController < ApplicationController
 		end
 	end
 
-	def contest_submit
-		@contest_id = params[:contest_id]
-		@contest = Contest.find(@contest_id)
-		time_up @contest
-		@question = Question.find(params[:question_id])
-		@judge_system = JudgeSystem.new
-	end
-
 	def contest_judge
-		@question = Question.find(params[:judge_system][:question_id])
-		@contest = Contest.find(params[:judge_system][:contest_id])
+		@question = Question.find(params[:id])
+		@contest = Contest.find(params[:contest_id])
 		time_up @contest
-		unless params[:judge_system][:ans]
-			flash.now[:danger] = '正しく提出されていません'
-			render action: :new, question_id: @question.id
+		unless params[:ans]
+			redirect_to contest_question_path(@contest,@question), flash: {danger: '正しく提出されていません' }
 		else
 			if answer_crrect?
 				if current_user != @question.created_user && !current_user.questions.include?(@question)
@@ -93,7 +76,7 @@ class JudgeSystemsController < ApplicationController
 
 
 	def accept
-		@question = Question.find(params[:question_id])
+		@question = Question.find(params[:id])
 		@records = current_user.records.where(question_id: @question.id).page(params[:page]).per(10).order("created_at DESC")
 		@first_time = params[:first_time]
 		respond_to do |format|
@@ -103,10 +86,10 @@ class JudgeSystemsController < ApplicationController
 	end
 
 	def evaluate
-		@question = Question.find(params[:judge_system][:question_id])
-		if params[:judge_system][:first_time] && params[:judge_system][:evaluation]
+		@question = Question.find(params[:id])
+		if params[:evaluation]
 			mass = @question.users.length
-			data = @question.question_level*(mass-1) + params[:judge_system][:evaluation].to_i
+			data = @question.question_level*(mass-1) + params[:evaluation].to_i
 			@question.question_level = data/mass
 			@question.save
 		end
@@ -138,17 +121,17 @@ class JudgeSystemsController < ApplicationController
 
 
 		def answer_crrect?
-			ans_data = params[:judge_system][:ans].read
-			File.open("/tmp/#{current_user.id}_input.txt","wb") do |ans|
+			ans_data = params[:ans].read
+			File.open("./tmp/#{current_user.id}_input.txt","wb") do |ans|
 				ans.write ans_data.gsub(/\R/, "\n") 
 				ans.close
 			end
-			File.open("/tmp/#{current_user.id}_output.txt","wb") do |out|
+			File.open("./tmp/#{current_user.id}_output.txt","wb") do |out|
 				out.write @question.output.gsub(/\R/, "\n") 
 				out.close
 			end
-			ans = File.open("/tmp/#{current_user.id}_input.txt", "r")
-			out = File.open("/tmp/#{current_user.id}_output.txt", "r")
+			ans = File.open("./tmp/#{current_user.id}_input.txt", "r")
+			out = File.open("./tmp/#{current_user.id}_output.txt", "r")
 
 			return FileUtils.cmp(ans, out)
 		end

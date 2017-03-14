@@ -1,4 +1,4 @@
-<dl class="col-xs-12 col-sm-12 col-md-offset-1 col-md-7">
+<dl>
 	<dt><strong><h4>title:<%= @question.title %></h4></strong></dt>
 	<dt>level: <%= @question.question_level.round %></dt>
 	<%= image_tag @question.image_url , size: "400x300", style: "margin-bottom: 20px;" if @question.image? %>
@@ -13,12 +13,18 @@
 	<dt>Sample Output</dt>
 	<dd><%= markdown(@question.sample_output).html_safe %></dd>
 	<dd><%= link_to 'input download', download_input_question_path(@question),class: "btn btn-default" %></dd>
-	<% if @path.is('questions#show') %>
-	<dd><%= link_to('submission', {controller: 'judge_systems', action: action, question_id: @question.id}, class: "btn btn-primary", style: "color: white") %></dd>
-	<% else %>
-	<dd><%= link_to('submission', {controller: 'judge_systems', action: action, question_id: @question.id, contest_id: @contest.id }, class: "btn btn-primary", style: "color: white") %></dd>
-	<% end %>
 </dl>
+<%= link_to "Back", :back, class: 'btn btn-default btn-lg' %>
 <script>
 	MathJax.Hub.Typeset();
 </script>
+
+<% if current_user == @question.created_user %>
+<%= link_to "Edit",edit_question_path(@question), class: 'btn btn-default btn-lg' %>
+
+<%= link_to "Delete",
+question_path(@question),
+method: 'delete',
+data: { confirm:  "一度削除した問題のデータは復元できません。\n本当に削除しますか？" },
+class: 'btn btn-danger btn-lg' %>
+<% end %>

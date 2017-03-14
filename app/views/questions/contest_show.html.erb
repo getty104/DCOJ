@@ -1,6 +1,1 @@
-<%= render 'question_space', action: 'contest_submit' %>
-<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-4 col-md-offset-1">
-		<%= link_to "Back",contest_path(@contest_id), class: 'btn btn-default btn-lg' %>
-	</div>
-</div>
+<%= render 'question_body', path: contest_submission_contest_question_path(@contest, @question) %>
