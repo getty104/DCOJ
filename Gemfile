@@ -25,7 +25,6 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
-gem 'nkryptic-sandbox'
 gem 'bcrypt', '~> 3.1.7'
 gem 'dotenv-rails'
 gem 'kaminari'
@@ -39,7 +38,8 @@ gem 'therubyracer' # javascript runtime。lessをコンパイルするために�
 gem 'less-rails' # Railsでlessを使えるようにする。Bootstrapがlessで書かれているため
 gem 'twitter-bootstrap-rails' # Bootstrapの本体
 gem 'resonance'
-
+#オンライン実行環境
+gem 'wandbox'
 #無限スクロール
 gem 'jquery-turbolinks'
 gem 'sprockets-rails', '2.3.3'
