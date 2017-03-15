@@ -1,29 +1,20 @@
 Rails.application.routes.draw do
 
-
-
-	resources :questions
-
-	resources :contests
-
 	mathjax 'mathjax'
 	root 'static_pages#home'
-	get 'accept' => 'judge_systems#accept'
-	post 'accept' => 'judge_systems#evaluate'
-	get 'wrong_answer' => 'judge_systems#wrong_answer'
-	get 'submission' => 'judge_systems#submit'
-	post 'submission' => 'judge_systems#judge'
-	get 'contest_submission' => 'judge_systems#contest_submit'
-	post 'contest_submission' => 'judge_systems#contest_judge'
-	get    'home'    => 'static_pages#home'
-	get    'main_menu' => 'static_pages#main_menu'
+	get 'home'    => 'static_pages#home'
+	get 'main_menu' => 'static_pages#main_menu'
 	get 'search_result' => 'questions#search_result'
 	get 'user_search_result' => 'users#search_result'
-  get 'rate_ranking' => 'rankings#rate_ranking'
+	get 'rate_ranking' => 'rankings#rate_ranking'
+	
 	resources :questions do
 		member do 
 			get   'download_input' 
-			get   'contest_show'
+			post 'submission' => 'judge_systems#judge'
+			get 'accept' => 'judge_systems#accept'
+			post 'accept' => 'judge_systems#evaluate'
+			get 'wrong_answer' => 'judge_systems#wrong_answer'
 		end
 	end
 
@@ -32,6 +23,13 @@ Rails.application.routes.draw do
 	end
 
 	resources :contests do
+		resources :questions do
+			member do
+				get   'contest_show'
+				post 'contest_submission' => 'judge_systems#contest_judge'
+			end
+		end
+
 		member do
 			post 'join'
 			get 'sync_ranking'

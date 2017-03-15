@@ -9,6 +9,7 @@
 
 	<tbody>
 		<% @records.each do |record| %>
+		<% next unless record.question.for_contest == 0 %>
 		<tr>
 			<td><%=link_to record.question.title, record.question %></td>
 			<td><%= record.created_at %></td>

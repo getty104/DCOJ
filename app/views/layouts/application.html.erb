@@ -37,7 +37,7 @@
 		</div>
 
 		
-		<% if (@path.is('contests#show') || @path.is('questions#contest_show') || @path.is('judge_systems#contest_submit')) && @contest.finish_time > Time.now %>
+		<% if (@path.is('contests#show') || @path.is('questions#contest_show')) && @contest.finish_time > Time.now %>
 		<%= render 'layouts/modal' %>
 		<script>
 			jQuery(function($){

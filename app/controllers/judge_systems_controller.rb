@@ -5,18 +5,10 @@ class JudgeSystemsController < ApplicationController
 	# GET /judge_systems.json
 
 
-	# GET /judge_systems/new
-	def submit
-		@judge_system = JudgeSystem.new
-		@question = Question.find(params[:question_id])
-	end
-
-
 	def judge
-		@question = Question.find(params[:judge_system][:question_id])
-		unless params[:judge_system][:ans]
-			flash.now[:danger] = '正しく提出されていません'
-			render action: :new, question_id: @question.id
+		@question = Question.find(params[:id])
+		unless params[:ans]
+			redirect_to @question, flash: {danger: '正しく提出されていません' }
 		else
 			if answer_crrect? == true
 				if current_user != @question.created_user && !current_user.questions.include?(@question)
@@ -40,21 +32,12 @@ class JudgeSystemsController < ApplicationController
 		end
 	end
 
-	def contest_submit
-		@contest_id = params[:contest_id]
-		@contest = Contest.find(@contest_id)
-		time_up @contest
-		@question = Question.find(params[:question_id])
-		@judge_system = JudgeSystem.new
-	end
-
 	def contest_judge
-		@question = Question.find(params[:judge_system][:question_id])
-		@contest = Contest.find(params[:judge_system][:contest_id])
+		@question = Question.find(params[:id])
+		@contest = Contest.find(params[:contest_id])
 		time_up @contest
-		unless params[:judge_system][:ans]
-			flash.now[:danger] = '正しく提出されていません'
-			render action: :new, question_id: @question.id
+		unless params[:ans]
+			redirect_to contest_question_path(@contest,@question), flash: {danger: '正しく提出されていません' }
 		else
 			if answer_crrect? == true
 				if current_user != @question.created_user && !current_user.questions.include?(@question)
@@ -93,7 +76,7 @@ class JudgeSystemsController < ApplicationController
 
 
 	def accept
-		@question = Question.find(params[:question_id])
+		@question = Question.find(params[:id])
 		@records = current_user.records.where(question_id: @question.id).page(params[:page]).per(10).order("created_at DESC")
 		@first_time = params[:first_time]
 		respond_to do |format|
@@ -103,10 +86,10 @@ class JudgeSystemsController < ApplicationController
 	end
 
 	def evaluate
-		@question = Question.find(params[:judge_system][:question_id])
-		if params[:judge_system][:first_time] && params[:judge_system][:evaluation]
+		@question = Question.find(params[:id])
+		if params[:evaluation]
 			mass = @question.users.length
-			data = @question.question_level*(mass-1) + params[:judge_system][:evaluation].to_i
+			data = @question.question_level*(mass-1) + params[:evaluation].to_i
 			@question.question_level = data/mass
 			@question.save
 		end
@@ -122,9 +105,6 @@ class JudgeSystemsController < ApplicationController
 		end
 	end
 
-
-
-
 	private
 		# Use callbacks to share common setup or constraints between actions.
 		def set_judge_system
@@ -138,8 +118,8 @@ class JudgeSystemsController < ApplicationController
 
 
 		def answer_crrect?
-			ans_code = params[:judge_system][:ans].read
-			lang = params[:judge_system][:lang]
+			ans_code = params[:ans].read
+			lang = params[:lang]
 			if Rails.env == "development"
 				root = "./tmp/judge"
 			else
@@ -180,5 +160,4 @@ class JudgeSystemsController < ApplicationController
 				return error_check
 			end
 		end
-		
 	end
