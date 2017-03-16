@@ -1,0 +1,8 @@
+<div class="container-fluid">
+			<% flash.each do |name, msg| %>
+			<% next if name == 'timedout' %>
+			<div class="alert alert-<%= name == "notice" ? "success" : "danger" %>">
+				<a class="close" data-dismiss="alert">×</a> <!-- アラートダイアログに×ボタンをつける -->
+				<%= msg %>
+				<% end %>
+			</div>

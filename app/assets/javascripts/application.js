@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require jquery.infinitescroll
 //= require jquery.flipcountdown
+//= require jquery.remotipart
 //= require twitter/bootstrap
 //= require_tree .
 //= require turbolinks

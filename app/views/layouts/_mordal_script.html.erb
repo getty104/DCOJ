@@ -1,0 +1,21 @@
+	<% if (@path.is('contests#show') || @path.is('questions#contest_show')) && @contest.finish_time > Time.now %>
+	<%= render 'layouts/modal' %>
+	<script>
+		jQuery(function($){
+			setInterval(function(){
+				var now_hour = new Date().getTime();
+				if ( now_hour - <%= @contest.start_time.to_i * 1000 %> <= 1000 && now_hour - <%= @contest.start_time.to_i * 1000 %> >= 0 ){
+					$('#start_pop').modal();
+					$('#start_button').click(function(){
+						location.reload();
+					});
+				} else if ( now_hour - <%= @contest.finish_time.to_i * 1000 %> <= 1000 && now_hour - <%= @contest.finish_time.to_i * 1000 %> >= 0 ) {
+					$('#end_pop').modal();
+					$('#end_button').click(function(){
+						location.reload();
+					});
+				}
+			},1000);
+		});
+	</script>
+	<% end %>

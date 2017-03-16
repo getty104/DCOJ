@@ -11,8 +11,7 @@
 	<dt>Sample Input</dt>
 	<dd><%== markdown(@question.sample_input) %></dd>
 	<dt>Sample Output</dt>
-	<dd><%= markdown(@question.sample_output).html_safe %></dd>
-	<dd><%= link_to 'input download', download_input_question_path(@question),class: "btn btn-default" %></dd>
+	<dd><%== markdown(@question.sample_output) %></dd>
 </dl>
 <%= link_to "Back", :back, class: 'btn btn-default btn-lg' %>
 <script>
@@ -21,7 +20,6 @@
 
 <% if current_user == @question.created_user %>
 <%= link_to "Edit",edit_question_path(@question), class: 'btn btn-default btn-lg' %>
-
 <%= link_to "Delete",
 question_path(@question),
 method: 'delete',

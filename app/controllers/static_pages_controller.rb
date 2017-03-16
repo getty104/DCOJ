@@ -7,7 +7,7 @@ class StaticPagesController < ApplicationController
 
 	def main_menu
 		authenticate_user!
-		@posts = Post.where(user_id:  current_user.following.ids).or(Post.where(user_id: current_user.id)).order("created_at DESC").includes(:user).includes(:question).includes(:contest).page(params[:page]).per(10)
+		@posts = Post.where(user_id: current_user.following.ids).or(Post.where(user_id: current_user.id)).includes(:question).includes(:contest).includes(:user).order("created_at DESC").page(params[:page]).per(10)
 		@created_users = User.all.select(:name, :created_question_number, :rate).limit(5).order('created_question_number DESC')
 		@solved_users = User.all.select(:name, :solved_question_number, :rate).limit(5).order('solved_question_number DESC')
 		@rate_users = User.all.select(:name, :rate).limit(5).order('rate DESC')

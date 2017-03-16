@@ -1,19 +1,18 @@
-
-
-
-<%= form_tag submit_path, method: "post", multipart: true , html: {class: "form-horizontal"} do %>
+<%= form_tag submit_path, method: "post", multipart: true, authenticity_token: true, remote: true, class: "form-horizonal"  do %>
 
 <div class="form-group">
 	<%= label_tag "","language", class: 'control-label' %>
-	<%= select_tag :lang, options_for_select([["c","c"], ["c++","c++"], ["ruby","ruby"],["java", "java"]]), autofocus: 'true' ,class: 'form-control' %>
+	<%= select_tag :lang, options_for_select([["c","c"], ["c++","c++"], ["ruby","ruby"],["java", "java"]]), autofocus: 'true' ,class: 'selectpicker' %>
 </div>
 
-<div class="form-group">
+<div class="form-group row">
 	<%= label_tag "",'コードを提出', class: 'control-label' %>
-	<%= file_field_tag :ans, class: 'form-control' %>
+	<div class="col-md-3">
+	<%= text_area_tag :ans,"" , size: "100x20" %>
+	</div>
 </div>
 
 <div class="form-group">
-	<%= submit_tag "Submit", class: 'btn btn-primary' %>
+	<%= submit_tag "Submit", class: 'btn btn-primary', id: "submit_btn" %>
 </div>
 <% end %>

@@ -25,13 +25,14 @@ class QuestionsController < ApplicationController
 	# GET /questions/1.json
 	def show
 		render file: "#{Rails.root}/public/404.html", status: 404	unless @question.for_contest == 0 || current_user == @question.created_user
+		@records = current_user.records.where(question_id: @question.id).limit(20).order("created_at DESC")
 	end
 
 	def contest_show
-		@contest_id = params[:contest_id]
-		@contest = Contest.find(@contest_id)
-		time_up @contest
 		render file: "#{Rails.root}/public/404.html", status: 404	unless @contest.users.include?(current_user)
+		time_up @contest
+		@contest = Contest.find(@contest_id)
+		@records = current_user.records.where(question_id: @question.id).limit(20).order("created_at DESC")
 	end
 
 	# GET /questions/new
@@ -78,15 +79,6 @@ class QuestionsController < ApplicationController
 		end
 	end
 
-	def download_input
-		send_data(
-			@question.input,
-			type: 'text/txt; charset=utf-8;',
-			disposition: 'attachment',
-			filename: "#{@question.id}_input.txt",
-			status: 200
-			)
-	end
 
 	# DELETE /questions/1
 	# DELETE /questions/1.json

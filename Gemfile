@@ -31,7 +31,6 @@ gem 'kaminari'
 #マークダウン方式の適用
 gem 'redcarpet'
 gem 'coderay'
-
 #Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'therubyracer' # javascript runtime。lessをコンパイルするために必要
@@ -40,6 +39,7 @@ gem 'twitter-bootstrap-rails' # Bootstrapの本体
 gem 'resonance'
 #オンライン実行環境
 gem 'wandbox'
+gem 'remotipart'
 #無限スクロール
 gem 'jquery-turbolinks'
 gem 'sprockets-rails', '2.3.3'

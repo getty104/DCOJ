@@ -10,11 +10,7 @@ Rails.application.routes.draw do
 	
 	resources :questions do
 		member do 
-			get   'download_input' 
 			post 'submission' => 'judge_systems#judge'
-			get 'accept' => 'judge_systems#accept'
-			post 'accept' => 'judge_systems#evaluate'
-			get 'wrong_answer' => 'judge_systems#wrong_answer'
 		end
 	end
 

@@ -1,3 +1,4 @@
+<div class="col-xs-12 col-md-6 col-md-offset-3">
 <h2 class="text-center">This problems Log</h2>
 <table class="table table-striped">
 	<thead>
@@ -6,7 +7,7 @@
 			<th><%= :result %></th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody class="update_record">
 		<% @records.each do |record| %>
 		<tr>
 			<td><%= record.created_at %></td>
@@ -15,4 +16,4 @@
 		<% end %>
 	</tbody>
 </table>
-<%= paginate @records, remote: true %>
+</div>
