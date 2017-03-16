@@ -85,6 +85,20 @@ class JudgeSystemsController < ApplicationController
 			@question = Question.find(params[:id])
 		end
 
+		require 'timeout'
+			def run(submit_code, input_file, ans_file, time )
+				result_or_error = nil
+				begin
+					Timeout::timeout time do
+						result_or_error =	system"wandbox run #{submit_code} < #{input_file} > #{ans_file}"
+					end
+				rescue Timeout::Error => e
+					result_or_error = e
+				end
+				return result_or_error
+			end
+
+
 		def answer_crrect?
 			ans_code = params[:ans]
 			lang = params[:lang]
@@ -119,7 +133,7 @@ class JudgeSystemsController < ApplicationController
 				out.write @question.output.gsub(/\R/, "\n") 
 				out.close
 			end
-			error_check = SandBox.run(submit_code, input_file, ans_file, 6)
+			error_check = run(submit_code, input_file, ans_file, 6)
 			if error_check == true
 				out = File.open( out_file, "r" )
 				ans = File.open( ans_file, "r" )
