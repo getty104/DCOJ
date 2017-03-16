@@ -1,3 +1,4 @@
+require "#{Rails.root}/lib/sand_box.rb"
 class JudgeSystemsController < ApplicationController
 	before_action :authenticate_user!
 	before_action :set_question, only: [:judge, :contest_judge, :accept, :evaluate, :wrong_answer]
@@ -6,7 +7,6 @@ class JudgeSystemsController < ApplicationController
 
 
 	def judge
-		
 		result = answer_crrect?
 		if result == true
 			if current_user != @question.created_user && !current_user.questions.include?(@question)
@@ -18,7 +18,7 @@ class JudgeSystemsController < ApplicationController
 			post = current_user.posts.build(category: 1)
 			@question.posts << post
 			@question.records << @record
-			flash.now[:success] = "Accepted!"
+			flash.now[:notice] = "Accepted!"
 		elsif result == false
 			@record = current_user.records.build(result: "WA")
 			@question.records << @record
@@ -85,22 +85,8 @@ class JudgeSystemsController < ApplicationController
 			@question = Question.find(params[:id])
 		end
 
-		require 'timeout'
-			def run(submit_code, input_file, ans_file, time )
-				result_or_error = nil
-				begin
-					Timeout::timeout time do
-						result_or_error =	system"wandbox run #{submit_code} < #{input_file} > #{ans_file}"
-					end
-				rescue Timeout::Error => e
-					result_or_error = e
-				end
-				return result_or_error
-			end
-
-
 		def answer_crrect?
-			ans_code = params[:ans]
+			ans_code = params[:ans].to_s
 			lang = params[:lang]
 			if Rails.env == "development"
 				root = "./tmp/judge"
@@ -109,22 +95,18 @@ class JudgeSystemsController < ApplicationController
 			end
 			case lang
 			when "ruby"
-				extension = "rb"
+				extension = "ruby-head"
 			when "c"
-				extension = "c"
+				extension = "gcc-head-c"
 			when "c++"
-				extension = "cpp"
+				extension = "gcc-head-pp"
 			when "java"
-				extension = "java"
+				extension = "openjdk-head"
 			end
-			submit_code = "#{root}/#{current_user.id}_code.#{extension}"
 			input_file = "#{root}/#{current_user.id}_input.txt"
 			out_file = "#{root}/#{current_user.id}_output.txt"
 			ans_file = "#{root}/#{current_user.id}_ans.txt"
-			File.open( submit_code, "w" ) do |code|
-				code.write ans_code.gsub(/\R/, "\n") 
-				code.close
-			end
+
 			File.open( input_file ,"wb") do |input|
 				input.write @question.input.gsub(/\R/, "\n") 
 				input.close
@@ -133,8 +115,8 @@ class JudgeSystemsController < ApplicationController
 				out.write @question.output.gsub(/\R/, "\n") 
 				out.close
 			end
-			error_check = run(submit_code, input_file, ans_file, 6)
-			if error_check == true
+			error_check = Wandbox.run( extension, ans_code, File.open(input_file).read, ans_file, 10)
+			if error_check
 				out = File.open( out_file, "r" )
 				ans = File.open( ans_file, "r" )
 				return FileUtils.cmp(ans, out)
