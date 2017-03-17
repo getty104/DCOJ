@@ -24,7 +24,7 @@ end
 
 	def self.search(search) #self.でクラスメソッドとしている
 		if search && search != "" # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
-			User.where("name like ?", search ) 
+			User.where("name LIKE ? ", "%" + search + "%" ) 
 		else
 			User.where(name: search)
 		end

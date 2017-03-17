@@ -17,7 +17,7 @@ class Question < ApplicationRecord
 
 	def self.search(search) #self.でクラスメソッドとしている
 		if search && search != "" # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
-			Question.where("title like ?", search ).where(for_contest: false) 
+			Question.where("title LIKE ?", "%" + search + "%" ).where(for_contest: false) 
 		else
 			Question.where(title: search)
 		end
