@@ -97,9 +97,9 @@ class JudgeSystemsController < ApplicationController
 			when "ruby"
 				extension = "ruby-head"
 			when "c"
-				extension = "gcc-head-c"
+				extension = "gcc-head"
 			when "c++"
-				extension = "gcc-head-pp"
+				extension = "gcc-head"
 			when "java"
 				extension = "openjdk-head"
 			end
