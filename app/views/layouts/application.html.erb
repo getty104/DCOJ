@@ -19,19 +19,21 @@
 <%= render 'layouts/shim' %>
 </head>
 <body>
+
 	<%= render 'layouts/header' %>
+	<%= render 'layouts/mordal_script' %>
+
 	<div class="wrapper">
 		<div id="alert">
 			<%= render 'layouts/alert' %>
 		</div>
-			<%= yield %>
-			<div class="push"></div>
-		</div>
-		<div class="footer">
-			<%= render 'layouts/footer' %>
-		</div>
-
-		<%= render 'layouts/mordal_script' %>
-		
-	</body>
-	</html>
+<div class="main_yield">
+	<%= yield %>
+</div>
+		<div class="push"></div>
+	</div>
+	<div class="footer">
+		<%= render 'layouts/footer' %>
+	</div>	
+</body>
+</html>

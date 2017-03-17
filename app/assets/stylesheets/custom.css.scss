@@ -1,11 +1,13 @@
 body {
-	padding-top: 80px;
+	padding-top: 53px;
 	color: #333;
 	font-family: verdana, arial, helvetica, sans-serif;
 	font-size: 13px;
 	line-height: 18px;
 }
-
+.main_yield{
+	padding-top: 52px;
+}
 .wrap {
 	margin: 0 20px;
 }
@@ -17,6 +19,11 @@ body {
 	float: left;
 }
 
+.alert {
+	position: fixed;
+	width:100%;
+
+}
 
 p, ol, ul, td {
 	font-family: verdana, arial, helvetica, sans-serif;
@@ -131,7 +138,7 @@ body {
 		color:#000;
 		font-size:12px;
 		-webkit-overflow-scrolling: touch;
-  overflow-scrolling: touch;
+		overflow-scrolling: touch;
 	}
 	.box_title{
 		border:1px solid #000;
@@ -144,11 +151,11 @@ body {
 	}
 
 	.btn-xxl {
-	  padding: 20px 26px;
-	  font-size: 30px;
-	  border-radius: 8px;
-  }
+		padding: 20px 26px;
+		font-size: 30px;
+		border-radius: 8px;
+	}
 
-  .navbar-brand{
-   color: #666;
-}
+	.navbar-brand{
+		color: #666;
+	}

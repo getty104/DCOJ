@@ -49,7 +49,7 @@ module Wandbox
 	def run compiler, code, stdin, output_file, time
 		data = nil
 		begin
-			timeout(time) do
+			Timeout.timeout(time) do
 				data = Web.compile({compiler: compiler, code: code, stdin: stdin})
 			end
 		rescue Timeout::Error => e
