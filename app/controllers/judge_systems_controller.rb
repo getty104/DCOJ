@@ -66,12 +66,15 @@ class JudgeSystemsController < ApplicationController
 			post = current_user.posts.build(category: 1)
 			@question.records << @record
 			@question.posts << post
+			flash.now[:notice] = "Accepted!"
 		elsif result == false
 			@record = current_user.records.build(result: "WA")
 			@question.records << @record
+			flash.now[:danger] = "Wrong Answer..."
 		else
 			@record = current_user.records.build(result: "TLE")
 			@question.records << @record
+			flash.now[:danger] = "Time Limit Exceed..."
 		end
 
 		respond_to do |format|
