@@ -10,27 +10,8 @@ class ApplicationController < ActionController::Base
 		end
 	end
 
-	def update_ranking
-		joins = @contest.joins.select(:id, :score, :amount_time).order("score DESC, amount_time")
-		rank = 0
-		number = 1
-		joins.size.times do |key|
-			if key == 0
-				rank += number
-			elsif key > 0
-				if joins[key].score == joins[key - 1].score && joins[key].amount_time == joins[key - 1].amount_time
-					number += 1
-				else
-					rank += number
-					number = 1
-				end
-			end
-			joins[key].update_columns(rank: rank)
-		end
-	end
-
 	def time_up contest
-		redirect_to contest if Time.now >= contest.finish_time
+		redirect_to contest_path(contest) if contest.end?
 	end
 
 	protected

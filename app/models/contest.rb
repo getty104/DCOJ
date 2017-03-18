@@ -21,4 +21,8 @@ class Contest < ApplicationRecord
 		end
 	end
 
+	def end?
+		 finish_time <= Time.now 
+	end
+
 end

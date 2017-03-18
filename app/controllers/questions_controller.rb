@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
 	before_action :set_question, only: [:show, :edit, :update, :destroy, :submission,:download_input, :contest_show]
+	before_action :set_contest, only: [:contest_show]
 	before_action :authenticate_user!
 	# GET /questions
 	# GET /questions.json
@@ -29,9 +30,11 @@ class QuestionsController < ApplicationController
 	end
 
 	def contest_show
-		render file: "#{Rails.root}/public/404.html", status: 404	unless @contest.users.include?(current_user)
-		time_up @contest
-		@contest = Contest.find(@contest_id)
+		if @contest.users.include?(current_user)
+			time_up @contest
+		else
+			render file: "#{Rails.root}/public/404.html", status: 404	
+		end
 		@records = current_user.records.where(question_id: @question.id).limit(20).order("created_at DESC")
 	end
 
@@ -94,6 +97,11 @@ class QuestionsController < ApplicationController
 		def set_question
 			@question = Question.find(params[:id])
 		end
+
+		def set_contest
+			@contest = Contest.find(params[:contest_id])
+		end
+
 
 		# Never trust parameters from the scary internet, only allow the white list through.
 		def question_params
