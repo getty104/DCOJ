@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170310103156) do
+ActiveRecord::Schema.define(version: 20170318070306) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,8 +83,8 @@ ActiveRecord::Schema.define(version: 20170310103156) do
     t.datetime "updated_at",      null: false
     t.string   "title"
     t.text     "content"
-    t.binary   "input"
-    t.binary   "output"
+    t.text     "input"
+    t.text     "output"
     t.integer  "created_user_id"
     t.decimal  "question_level"
     t.text     "input_text"

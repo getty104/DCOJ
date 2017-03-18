@@ -20,9 +20,12 @@ class JudgeSystemsController < ApplicationController
 		elsif result == false
 			update_record("WA")
 			flash.now[:danger] = "Wrong Answer..."
-		else
+		elsif result == 'TLE'
 			update_record("TLE")
 			flash.now[:danger] = "Time Limit Exceed..."
+		elsif result == 'RE'
+			update_record("RE")
+			flash.now[:danger] = "Run Time Error..."
 		end
 		respond_to do |format|
 			format.js
@@ -61,11 +64,13 @@ class JudgeSystemsController < ApplicationController
 		elsif result == false
 			update_record("WA")
 			flash.now[:danger] = "Wrong Answer..."
-		else
+		elsif result == 'TLE'
 			update_record("TLE")
 			flash.now[:danger] = "Time Limit Exceed..."
+		elsif result == 'RE'
+			update_record("RE")
+			flash.now[:danger] = "Run Time Error..."
 		end
-
 		respond_to do |format|
 			format.js
 		end
@@ -102,13 +107,9 @@ class JudgeSystemsController < ApplicationController
 		end
 
 		def answer_crrect?
-			ans_code = params[:ans].to_s
-			lang = params[:lang]
-			if Rails.env == "development"
-				root = "./tmp/judge"
-			else
-				root = "/tmp"
-			end
+			ans_code = params[:ans].to_s.gsub(/\R/, "\n") 
+			lang = params[:lang].to_s
+
 			case lang
 			when "ruby"
 				extension = "ruby-head"
@@ -119,25 +120,14 @@ class JudgeSystemsController < ApplicationController
 			when "java"
 				extension = "openjdk-head"
 			end
-			input_file = "#{root}/#{current_user.id}_input.txt"
-			out_file = "#{root}/#{current_user.id}_output.txt"
-			ans_file = "#{root}/#{current_user.id}_ans.txt"
 
-			File.open( input_file ,"wb") do |input|
-				input.write @question.input.gsub(/\R/, "\n") 
-				input.close
-			end
-			File.open( out_file ,"wb") do |out|
-				out.write @question.output.gsub(/\R/, "\n") 
-				out.close
-			end
-			error_check = Wandbox.run( extension, ans_code, File.open(input_file).read, ans_file, 10)
-			if error_check
-				out = File.open( out_file, "r" )
-				ans = File.open( ans_file, "r" )
-				return FileUtils.cmp(ans, out)
+			ans_out = Wandbox.run( extension, ans_code, @question.input, 10)
+			if ans_out == 'TLE'
+				return 'TLE'
+			elsif ans_out == 'RE'
+				return 'RE'
 			else
-				return error_check
+				return ans_out == @question.output
 			end
 		end
 	end

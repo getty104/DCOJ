@@ -46,22 +46,25 @@ end
 end
 
 module Wandbox
-	def run compiler, code, stdin, output_file, time
+	def run compiler, code, stdin, time
 		data = nil
 		begin
-			Timeout.timeout(time) do
+			Timeout::timeout(time) do
 				data = Web.compile({compiler: compiler, code: code, stdin: stdin})
 			end
 		rescue Timeout::Error => e
-			return  e
+			return 'TLE'
+		rescue => e
+			return 'RE'
 		end
-
-		File.open( output_file, "w") do |file|
-			file.write data["program_output"].gsub(/\R/, "\n") 
-			file.close
+		#binding.pry
+		if data["status"].to_i == 0
+			return data["program_output"].gsub(/\R/, "\n") 
+		else
+			return 'RE'
 		end
-		return true
 	end
+	
 	module_function :run
 end
 

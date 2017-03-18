@@ -103,7 +103,7 @@ class ContestsController < ApplicationController
 		end
 
 		def set_contest_joins
-			@joins = @contest.joins.order("score DESC, amount_time").includes(:user).page(params[:page]).per(20)
+			@joins = @contest.joins.order(rank: :asc).includes(:user).page(params[:page]).per(20)
 			@current_join = @contest.joins.find_by(user_id: current_user.id)
 		end
 

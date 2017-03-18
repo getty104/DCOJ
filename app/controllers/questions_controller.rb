@@ -51,8 +51,8 @@ class QuestionsController < ApplicationController
 	# POST /questions.json
 	def create
 		@question = current_user.create_questions.build(question_params)
-		@question.input = params[:question][:i_data].read if params[:question][:i_data]
-		@question.output = params[:question][:o_data].read if params[:question][:o_data]
+		@question.input = StringIO.new(params[:question][:i_data].read).read.gsub(/\R/, "\n")  if params[:question][:i_data]
+		@question.output = StringIO.new(params[:question][:o_data].read).read.gsub(/\R/, "\n")  if params[:question][:o_data]
 		@question.origin_level =  params[:question][:question_level].to_i
 		if @question.save
 			post = current_user.posts.build(category: 0)
