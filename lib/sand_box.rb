@@ -47,7 +47,7 @@ end
 
 module Wandbox
 	def run compiler, code, stdin, time
-		sys = File.open("./tmp/compile_systems/#{compiler}_system.cpp", "r").read.gsub(/\R/, "\n")
+		sys = File.open("#{Rails.root}/lib/compile_systems/#{compiler}_system.cpp", "r").read.gsub(/\R/, "\n")
 		data = nil
 		input = code + "\n<$><*><$><*><$><*><$><*><$><*><$><*><$>\n" + stdin
 		begin
