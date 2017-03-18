@@ -11,9 +11,19 @@
 	<tbody>
 		
 		<% questions.each do |question| %>
+			<% if @path.is("contests#show") %>
+			<% if @contest.end? %>
+			<% path = contest_question_path(@contest, question) %>
+			<% else %>
+			<% path = contest_show_contest_question_path(@contest, question) %>
+			<% end %>
+			<% else %>
+			<% path = question_path(question) %>
+			<% end %>
 		<tr>
 			<td><%=  question.id %></td>
-			<td><%= link_to question.title, question %></td>
+			<td><%= link_to question.title, path %></td>
+			
 			<td><%= link_to question.created_user.name, question.created_user  %></td>
 			<td><%= question.users.length %></td>
 			<% if question.created_user == current_user %>

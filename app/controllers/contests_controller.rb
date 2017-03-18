@@ -1,3 +1,4 @@
+require "#{Rails.root}/lib/rank_system.rb"
 class ContestsController < ApplicationController
 	before_action :set_contest, only: [:show, :edit, :join, :unjoin, :sync_ranking]
 	before_action :set_questions_by_origin_legel, only: [:show, :sync_ranking]
@@ -42,6 +43,7 @@ class ContestsController < ApplicationController
 
 	def show
 		set_questions_by_origin_legel
+		set_contest_joins
 		@questions = @contest.questions.order(:origin_level)
 		move_questions	if @contest.end? && @contest.contest_end != true
 	end
@@ -74,7 +76,7 @@ class ContestsController < ApplicationController
 		post = current_user.posts.build(category: 2)
 		@contest.posts << post
 		current_user.save
-		update_ranking
+		RankSystem.update_ranking(@contest)
 		redirect_to @contest
 	end
 
@@ -85,11 +87,11 @@ class ContestsController < ApplicationController
 		end
 
 		def set_questions_for_new
-			@level1_questions = current_user.create_questions.level_questoins(1).select(:id, :created_user_id, :title, :for_contest, :question_level)
-			@level2_questions = current_user.create_questions.level_questoins(2).select(:id, :created_user_id, :title, :for_contest, :question_level)
-			@level3_questions = current_user.create_questions.level_questoins(3).select(:id, :created_user_id, :title, :for_contest, :question_level)
-			@level4_questions = current_user.create_questions.level_questoins(4).select(:id, :created_user_id, :title, :for_contest, :question_level)
-			@level5_questions = current_user.create_questions.level_questoins(5).select(:id, :created_user_id, :title, :for_contest, :question_level)
+			@level1_questions = current_user.create_questions.for_contest.level_questoins(1).select(:id, :created_user_id, :title, :for_contest, :question_level)
+			@level2_questions = current_user.create_questions.for_contest.level_questoins(2).select(:id, :created_user_id, :title, :for_contest, :question_level)
+			@level3_questions = current_user.create_questions.for_contest.level_questoins(3).select(:id, :created_user_id, :title, :for_contest, :question_level)
+			@level4_questions = current_user.create_questions.for_contest.level_questoins(4).select(:id, :created_user_id, :title, :for_contest, :question_level)
+			@level5_questions = current_user.create_questions.for_contest.level_questoins(5).select(:id, :created_user_id, :title, :for_contest, :question_level)
 		end
 
 		def set_questions_by_origin_legel

@@ -26,14 +26,14 @@ class QuestionsController < ApplicationController
 	# GET /questions/1
 	# GET /questions/1.json
 	def show
-		render file: "#{Rails.root}/public/404.html", status: 404	unless @question.for_public?
+		not_found	unless for_public?
 	end
 
 	def contest_show
 		if @contest.users.include?(current_user)
 			time_up @contest
 		else
-			render file: "#{Rails.root}/public/404.html", status: 404	
+			not_found
 		end
 	end
 
@@ -44,7 +44,7 @@ class QuestionsController < ApplicationController
 
 	# GET /questions/1/edit
 	def edit
-		render file: "#{Rails.root}/public/404.html", status: 404	if current_user != @question.created_user
+		not_found	if current_user != @question.created_user
 	end
 
 	# POST /questions
@@ -100,6 +100,10 @@ class QuestionsController < ApplicationController
 
 		def set_record
 			@records = current_user.records.where(question_id: @question.id).limit(20).order(created_at: :desc)
+		end
+
+		def for_public?
+			@question.for_contest == 0 || current_user == @question.created_user && @question.for_contest == 1
 		end
 
 

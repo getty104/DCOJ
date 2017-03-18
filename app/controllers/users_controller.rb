@@ -4,10 +4,10 @@ class UsersController < ApplicationController
 	# GET /users/1
 	# GET /users/1.json
 	def show
-		redirect_to main_menu_path , flash: { danger: "You can't access" } if @user.blocking?(current_user)
-		@records = @user.records.page(params[:records_page]).per(5).order("created_at DESC")
-		@create_questions = @user.create_questions.where(for_contest: 0).includes(:created_user).includes(:users).page(params[:create_questions_page]).select(:id, :title, :created_user_id, :question_level).per(5).order(:id)
-		@solve_questions = @user.questions.where(for_contest: 0).includes(:created_user).includes(:users).page(params[:solve_questions_page]).select(:id, :title, :created_user_id, :question_level).per(5).order(:id)
+		not_found if @user.blocking?(current_user)
+		@records = @user.records.order(created_at: :desc).page(params[:records_page]).per(5)
+		@create_questions = @user.create_questions.for_public.includes(:created_user).includes(:users).select(:id, :title, :created_user_id, :question_level).order(:id).page(params[:create_questions_page]).per(5)
+		@solve_questions = @user.questions.for_public.includes(:created_user).includes(:users).select(:id, :title, :created_user_id, :question_level).order(:id).page(params[:solve_questions_page]).per(5)
 		respond_to do |format|
 			format.html
 			format.js

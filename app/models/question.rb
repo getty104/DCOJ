@@ -23,7 +23,5 @@ class Question < ApplicationRecord
 	scope :for_public,					-> (){ where( for_contest: 0 ) }
 	scope :for_contest,					-> (){ where( for_contest: 1 ) }
 
-	def for_public?
-		@question.for_contest == 0 || current_user == @question.created_user && @question.for_contest == 1
-	end
+	
 end
