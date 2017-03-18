@@ -69,8 +69,8 @@ class QuestionsController < ApplicationController
 	# PATCH/PUT /questions/1
 	# PATCH/PUT /questions/1.json
 	def update
-		@question.input = params[:question][:i_data].read if params[:question][:i_data]
-		@question.output = params[:question][:o_data].read if params[:question][:o_data]
+		@question.input = StringIO.new(params[:question][:i_data].read).read.gsub(/\R/, "\n") if params[:question][:i_data]
+		@question.output = StringIO.new(params[:question][:o_data].read).read.gsub(/\R/, "\n") if params[:question][:o_data]
 
 		if @question.update(question_params)
 			redirect_to @question, flash: {notice: 'Question was successfully updated.' }
