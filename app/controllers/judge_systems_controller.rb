@@ -110,18 +110,7 @@ class JudgeSystemsController < ApplicationController
 			ans_code = params[:ans].to_s.gsub(/\R/, "\n") 
 			lang = params[:lang].to_s
 
-			case lang
-			when "ruby"
-				extension = "ruby-head"
-			when "c"
-				extension = "gcc-head"
-			when "c++"
-				extension = "gcc-head"
-			when "java"
-				extension = "openjdk-head"
-			end
-
-			ans_out = Wandbox.run( extension, ans_code, @question.input, 10)
+			ans_out = Wandbox.run( lang, ans_code, @question.input, 0.1)
 			if ans_out == 'TLE'
 				return 'TLE'
 			elsif ans_out == 'RE'
