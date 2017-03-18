@@ -49,19 +49,23 @@ module Wandbox
 	def run compiler, code, stdin, time
 		sys = File.open("./tmp/compile_systems/#{compiler}_system.cpp", "r").read.gsub(/\R/, "\n")
 		data = nil
-		input = code + "\n<><><><><><><><><><><><><><><><><><><><><><><><><><><><><>\n" + stdin
+		input = code + "\n<$><*><$><*><$><*><$><*><$><*><$><*><$>\n" + stdin
 		begin
+			Timeout::timeout 10 do
 				data = Web.compile({compiler: "gcc-head", code: sys, stdin: input})
+			end
+		rescue Timeout::Error
+			return 'TLE'
 		rescue
 			return 'RE'
 		end
-		binding.pry
-		if data["program_error"].to_i * (10 ** -3) > time 
-			return "TLE"
-		elsif data["status"].to_i == 0
-			return data["program_output"].gsub(/\R/, "\n") 
-		else
+		
+		if data["program_output"] == nil
 			return 'RE'
+		elsif data["program_error"].to_f > time
+			return "TLE"
+		else
+			return data["program_output"].gsub(/\R/, "\n") 
 		end
 	end
 	
