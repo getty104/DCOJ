@@ -1,14 +1,11 @@
 class ContestsController < ApplicationController
 	before_action :set_contest, only: [:show, :edit, :join, :unjoin, :sync_ranking]
+	before_action :set_questions_by_origin_legel, only: [:show, :sync_ranking]
 	before_action :authenticate_user!
 	
 	def new
 		@contest = Contest.new
-		@level1_questions = current_user.create_questions.where(question_level: 1.0...1.5, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
-		@level2_questions = current_user.create_questions.where(question_level: 1.5...2.5, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
-		@level3_questions = current_user.create_questions.where(question_level: 2.5...3.5, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
-		@level4_questions = current_user.create_questions.where(question_level: 3.5...4.5, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
-		@level5_questions = current_user.create_questions.where(question_level: 4.5...5.0, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
+		set_questions_for_new
 	end
 
 	def create
@@ -36,11 +33,7 @@ class ContestsController < ApplicationController
 			@contest.save
 			redirect_to @contest, flash: { notice: 'Contest was successfully created.' }
 		else
-			@level1_questions = current_user.create_questions.where(question_level: 1.0...1.5, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
-			@level2_questions = current_user.create_questions.where(question_level: 1.5...2.5, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
-			@level3_questions = current_user.create_questions.where(question_level: 2.5...3.5, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
-			@level4_questions = current_user.create_questions.where(question_level: 3.5...4.5, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
-			@level5_questions = current_user.create_questions.where(question_level: 4.5...5.1, for_contest: 1).select(:id, :created_user_id, :title, :for_contest, :question_level)
+			set_questions_for_new
 			render :new 
 		end
 	end
@@ -48,42 +41,22 @@ class ContestsController < ApplicationController
 
 
 	def show
+		set_questions_by_origin_legel
 		@questions = @contest.questions.order(:origin_level)
-		@question1 = @contest.questions.select(:id).find_by(origin_level: 1)
-		@question2 = @contest.questions.select(:id).find_by(origin_level: 2)
-		@question3 = @contest.questions.select(:id).find_by(origin_level: 3)
-		@question4 = @contest.questions.select(:id).find_by(origin_level: 4)
-		@question5 = @contest.questions.select(:id).find_by(origin_level: 5)
-		@joins = @contest.joins
-		.select(:id,:user_id,:rank,:score, :updated_at, :level1_solve_time, :level2_solve_time, :level3_solve_time, :level4_solve_time, :level5_solve_time, :amount_time)
-		.order("score DESC, amount_time").includes(:user).page(params[:page]).per(20)
-		@current_join = @contest.joins
-		.select(:id,:user_id,:rank,:score, :updated_at, :level1_solve_time, :level2_solve_time, :level3_solve_time, :level4_solve_time, :level5_solve_time, :amount_time)
-		.find_by(user_id: current_user.id)
-		move_questions	if @contest.finish_time <= Time.now && @contest.contest_end == false
+		move_questions	if @contest.end? && @contest.contest_end != true
 	end
 
 	def sync_ranking
-		@question1 = @contest.questions.select(:id).find_by(origin_level: 1)
-		@question2 = @contest.questions.select(:id).find_by(origin_level: 2)
-		@question3 = @contest.questions.select(:id).find_by(origin_level: 3)
-		@question4 = @contest.questions.select(:id).find_by(origin_level: 4)
-		@question5 = @contest.questions.select(:id).find_by(origin_level: 5)
-		@joins = @contest.joins
-		.select(:id,:user_id,:rank,:score, :level1_solve_time, :level2_solve_time, :level3_solve_time, :level4_solve_time, :level5_solve_time, :amount_time)
-		.order("score DESC, amount_time").includes(:user).page(params[:page]).per(20)
-		@current_join = @contest.joins
-		.select(:id,:user_id,:rank,:score, :level1_solve_time, :level2_solve_time, :level3_solve_time, :level4_solve_time, :level5_solve_time, :amount_time)
-		.find_by(user_id: current_user.id)
+		set_questions_by_origin_legel
 		respond_to do |format|
 			format.js
 		end
 	end
 
 	def index
-		@now_contests = Contest.now_contests.order("start_time DESC").select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:now_contest_page]).per(8)
-		@end_contests = Contest.end_contests.order("start_time DESC").select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:end_contest_page]).per(8)
-		@future_contests =  Contest.future_contests.order("start_time DESC").select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:future_contest_page]).per(8)
+		@now_contests = Contest.now_contests.select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:now_contest_page]).per(8)
+		@end_contests = Contest.end_contests.select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:end_contest_page]).per(8)
+		@future_contests =  Contest.future_contests.select(:id, :start_time, :finish_time, :title, :description, :created_user_id ).includes(:created_user).page(params[:future_contest_page]).per(8)
 	end
 
 	def edit
@@ -109,6 +82,27 @@ class ContestsController < ApplicationController
 		# Use callbacks to share common setup or constraints between actions.
 		def set_contest
 			@contest = Contest.find(params[:id])
+		end
+
+		def set_questions_for_new
+			@level1_questions = current_user.create_questions.level_questoins(1).select(:id, :created_user_id, :title, :for_contest, :question_level)
+			@level2_questions = current_user.create_questions.level_questoins(2).select(:id, :created_user_id, :title, :for_contest, :question_level)
+			@level3_questions = current_user.create_questions.level_questoins(3).select(:id, :created_user_id, :title, :for_contest, :question_level)
+			@level4_questions = current_user.create_questions.level_questoins(4).select(:id, :created_user_id, :title, :for_contest, :question_level)
+			@level5_questions = current_user.create_questions.level_questoins(5).select(:id, :created_user_id, :title, :for_contest, :question_level)
+		end
+
+		def set_questions_by_origin_legel
+			@question1 = @contest.questions.select(:id).find_by(origin_level: 1)
+			@question2 = @contest.questions.select(:id).find_by(origin_level: 2)
+			@question3 = @contest.questions.select(:id).find_by(origin_level: 3)
+			@question4 = @contest.questions.select(:id).find_by(origin_level: 4)
+			@question5 = @contest.questions.select(:id).find_by(origin_level: 5)
+		end
+
+		def set_contest_joins
+			@joins = @contest.joins.order("score DESC, amount_time").includes(:user).page(params[:page]).per(20)
+			@current_join = @contest.joins.find_by(user_id: current_user.id)
 		end
 
 		# Never trust parameters from the scary internet, only allow the white list through.

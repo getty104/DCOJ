@@ -9,10 +9,10 @@ class Contest < ApplicationRecord
 	validates :title, presence: true
 	validates :description, presence: true
 
-	scope :future_contests, -> (){ where("start_time > ?", Time.now) }
-	scope :now_contests, -> (){ where("start_time <= ?", Time.now).where("finish_time > ?", Time.now) }
-	scope :end_contests, -> (){ where("finish_time < ?", Time.now) }
-	scope :not_change_to_end_contests, ->(){ end_contests.where( contest_end: false ).order( start_time: :asc ) }
+	scope :future_contests,							-> (){ where("start_time > ?", Time.now).order(start_time: :desc) }
+	scope :now_contests,								-> (){ where("start_time <= ?", Time.now).where("finish_time > ?", Time.now).order(start_time: :desc) }
+	scope :end_contests,								-> (){ where("finish_time <= ?", Time.now).order(start_time: :desc) }
+	scope :not_change_to_end_contests,	-> (){ end_contests.where( contest_end: false ).order( start_time: :asc ) }
 
 	def self.update_info
 		Contest.not_change_to_end_contests.each do |contest|

@@ -15,5 +15,15 @@ class Question < ApplicationRecord
 	validates :sample_input, presence: true
 	validates :sample_output, presence: true
 
-	scope :search, -> (search){ where("title LIKE ?", "%" + search + "%" ).where(for_contest: 0)  }
+	scope :search,							-> (search){ where("title LIKE ?", "%" + search + "%" ).where(for_contest: 0)  }
+	scope :include_users,				-> (){ includes(:created_user).includes(:users) }
+	scope :for_index_set,				-> (){ select(:id, :created_user_id, :title).includes(:created_user).includes(:users) }
+	scope :select_contest_set,	-> (){  }
+	scope :level_questoins,			-> (level){ where(question_level: (level - 0.5)...(level + 0.5 )) }
+	scope :for_public,					-> (){ where( for_contest: 0 ) }
+	scope :for_contest,					-> (){ where( for_contest: 1 ) }
+
+	def for_public?
+		@question.for_contest == 0 || current_user == @question.created_user && @question.for_contest == 1
+	end
 end

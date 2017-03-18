@@ -1,21 +1,22 @@
 class QuestionsController < ApplicationController
 	before_action :set_question, only: [:show, :edit, :update, :destroy, :submission,:download_input, :contest_show]
 	before_action :set_contest, only: [:contest_show]
+	before_action :set_record, only: [:show, :contest_show]
 	before_action :authenticate_user!
 	# GET /questions
 	# GET /questions.json
 
 	def search_result
-		@questions = Question.search(params[:search]).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:page]).per(10).order(:id)
+		@questions = Question.search(params[:search]).for_index_set.page(params[:page]).per(10).order(:id)
 	end
 
 	def index
-		@level1_questions = Question.where(question_level: 1.0...1.5, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level1_page]).per(8).order(:id)
-		@level2_questions = Question.where(question_level: 1.5...2.5, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level2_page]).per(8).order(:id)
-		@level3_questions = Question.where(question_level: 2.5...3.5, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level3_page]).per(8).order(:id)
-		@level4_questions = Question.where(question_level: 3.5...4.5, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level4_page]).per(8).order(:id)
-		@level5_questions = Question.where(question_level: 4.5...5.1, for_contest: 0).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:level5_page]).per(8).order(:id)
-		@for_contest_questions = current_user.create_questions.where(for_contest: 1).select(:id, :created_user_id, :title).includes(:created_user).includes(:users).page(params[:for_contest_page]).per(8).order(:id)
+		@level1_questions = Question.for_public.level_questoins(1).for_index_set.page(params[:level1_page]).per(8).order(:id)
+		@level2_questions = Question.for_public.level_questoins(2).for_index_set.page(params[:level2_page]).per(8).order(:id)
+		@level3_questions = Question.for_public.level_questoins(3).for_index_set.page(params[:level3_page]).per(8).order(:id)
+		@level4_questions = Question.for_public.level_questoins(4).for_index_set.page(params[:level4_page]).per(8).order(:id)
+		@level5_questions = Question.for_public.level_questoins(5).for_index_set.page(params[:level5_page]).per(8).order(:id)
+		@for_contest_questions = current_user.create_questions.for_contest.for_index_set.page(params[:for_contest_page]).per(8).order(:id)
 		respond_to do |format|
 			format.html
 			format.js
@@ -25,8 +26,7 @@ class QuestionsController < ApplicationController
 	# GET /questions/1
 	# GET /questions/1.json
 	def show
-		render file: "#{Rails.root}/public/404.html", status: 404	unless @question.for_contest == 0 || current_user == @question.created_user
-		@records = current_user.records.where(question_id: @question.id).limit(20).order("created_at DESC")
+		render file: "#{Rails.root}/public/404.html", status: 404	unless @question.for_public?
 	end
 
 	def contest_show
@@ -35,7 +35,6 @@ class QuestionsController < ApplicationController
 		else
 			render file: "#{Rails.root}/public/404.html", status: 404	
 		end
-		@records = current_user.records.where(question_id: @question.id).limit(20).order("created_at DESC")
 	end
 
 	# GET /questions/new
@@ -45,9 +44,7 @@ class QuestionsController < ApplicationController
 
 	# GET /questions/1/edit
 	def edit
-		if current_user != @question.created_user
-			redirect_to @question
-		end
+		render file: "#{Rails.root}/public/404.html", status: 404	if current_user != @question.created_user
 	end
 
 	# POST /questions
@@ -84,12 +81,11 @@ class QuestionsController < ApplicationController
 
 
 	# DELETE /questions/1
-	# DELETE /questions/1.json
 	def destroy
 		@question.destroy
 		num =  current_user.created_question_number - 1
 		current_user.update_attribute(:created_question_number, num)
-		redirect_to questions_url, flash: {notice: 'Question was successfully destroyed.' }
+		redirect_to questions_path, flash: {notice: 'Question was successfully destroyed.' }
 	end
 
 	private
@@ -100,6 +96,10 @@ class QuestionsController < ApplicationController
 
 		def set_contest
 			@contest = Contest.find(params[:contest_id])
+		end
+
+		def set_record
+			@records = current_user.records.where(question_id: @question.id).limit(20).order(created_at: :desc)
 		end
 
 
