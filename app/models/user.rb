@@ -6,6 +6,7 @@ class User < ApplicationRecord
 	:recoverable, :rememberable, :trackable, :validatable,
 	:recoverable, :lockable, :timeoutable, :authentication_keys => [:login]
 
+	attr_accessor :login
 	mount_uploader :image, ImageUploader
 	has_many :create_questions, class_name: "Question", foreign_key: 'created_user_id', dependent: :destroy
 	has_and_belongs_to_many :questions
@@ -16,19 +17,14 @@ class User < ApplicationRecord
 	has_many :contests, through: :joins
 	validates :account, presence: true, uniqueness: { case_sensitive: false }
 	validates :name, presence: true
-	attr_accessor :login
-#to_paramを名前にオーバーライド
-def to_param
-	name
-end
 
-	def self.search(search) #self.でクラスメソッドとしている
-		if search && search != "" # Controllerから渡されたパラメータが!= nilの場合は、titleカラムを部分一致検索
-			User.where("name LIKE ? ", "%" + search + "%" ) 
-		else
-			User.where(name: search)
-		end
+	scope :search, -> (search){ where("name LIKE ? ", "%" + search + "%" ) }
+
+
+	def to_param
+		name
 	end
+
 
 	def self.find_first_by_auth_conditions(warden_conditions)
 		conditions = warden_conditions.dup
@@ -40,7 +36,7 @@ end
 	end
 
 	def self.update_rate_rank
-		users = User.select(:id, :rate).all.order("rate DESC")
+		users = User.select(:id, :rate).all.order(rate: :desc)
 		rank = 0
 		number = 1
 		users.size.times do |key|

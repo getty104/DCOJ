@@ -1,7 +1,8 @@
 require "#{Rails.root}/lib/sand_box.rb"
 class JudgeSystemsController < ApplicationController
 	before_action :authenticate_user!
-	before_action :set_question, only: [:judge, :contest_judge, :accept, :evaluate, :wrong_answer]
+	before_action :set_question, only: [:judge, :contest_judge ]
+	before_action :set_contest, only: [:contest_judge]
 	# GET /judge_systems
 	# GET /judge_systems.json
 
@@ -34,7 +35,6 @@ class JudgeSystemsController < ApplicationController
 	end
 
 	def contest_judge
-		@contest = Contest.find(params[:contest_id])
 		time_up @contest
 
 		result = answer_crrect?
@@ -44,19 +44,20 @@ class JudgeSystemsController < ApplicationController
 				num =  current_user.solved_question_number + 1
 				current_user.update_attribute( :solved_question_number, num )
 				join = Join.find_by( contest_id: @contest.id, user_id: current_user.id )
-				if @question.question_level.to_i == 1
+				case @question.question_level.to_i
+				when 1
 					join.update_columns( score: join.score + 100, amount_time: join.amount_time +
 						(Time.now - @contest.start_time).to_i, level1_solve_time: (Time.now - @contest.start_time).to_i )
-				elsif @question.question_level.to_i == 2
+				when 2
 					join.update_columns( score: join.score + 200, amount_time: join.amount_time + 
 						(Time.now - @contest.start_time).to_i, level2_solve_time: (Time.now - @contest.start_time).to_i )
-				elsif @question.question_level.to_i == 3
+				when 3
 					join.update_columns( score: join.score + 300, amount_time: join.amount_time + 
 						(Time.now - @contest.start_time).to_i, level3_solve_time: (Time.now - @contest.start_time).to_i )
-				elsif @question.question_level.to_i == 4
+				when 4
 					join.update_columns( score: join.score + 400, amount_time: join.amount_time + 
 						(Time.now - @contest.start_time).to_i, level4_solve_time: (Time.now - @contest.start_time).to_i )
-				elsif @question.question_level.to_i == 5
+				when 5
 					join.update_columns( score: join.score + 500, amount_time: join.amount_time + 
 						(Time.now - @contest.start_time).to_i, level5_solve_time: (Time.now - @contest.start_time).to_i )
 				end
@@ -86,6 +87,10 @@ class JudgeSystemsController < ApplicationController
 		# Use callbacks to share common setup or constraints between actions.
 		def set_question
 			@question = Question.find(params[:id])
+		end
+
+		def set_contest
+			@contest = Contest.find(params[:contest_id])
 		end
 
 		def answer_crrect?
