@@ -60,9 +60,10 @@ module Wandbox
 			return 'RE'
 		end
 		
+		runtime = data["program_error"].split("\n")[-1].to_f
 		if data["program_output"] == nil
 			return 'RE'
-		elsif data["program_error"].to_f > time
+		elsif runtime > time
 			return "TLE"
 		else
 			return data["program_output"].gsub(/\R/, "\n") 
