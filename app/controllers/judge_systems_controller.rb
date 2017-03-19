@@ -9,21 +9,24 @@ class JudgeSystemsController < ApplicationController
 
 
 	def judge
-		result = answer_crrect?
-		if result == true
+		submitted_code = params[:ans].to_s.gsub(/\R/, "\n") 
+		lang = params[:lang].to_s
+		result = Judge.judge_result @question, lang, submitted_code, 5
+		case result
+		when 'AC'
 			if first_time?
 				update_solved_data
 			end
 			update_record("AC")
 			update_post
 			flash.now[:notice] = "Accepted!"
-		elsif result == false
+		when 'WA'
 			update_record("WA")
 			flash.now[:danger] = "Wrong Answer..."
-		elsif result == 'TLE'
+		when 'TLE'
 			update_record("TLE")
 			flash.now[:danger] = "Time Limit Exceed..."
-		elsif result == 'RE'
+		when 'RE'
 			update_record("RE")
 			flash.now[:danger] = "Run Time Error..."
 		end
@@ -34,40 +37,38 @@ class JudgeSystemsController < ApplicationController
 
 	def contest_judge
 		time_up @contest
-		result = answer_crrect?
-		if result == true
+		submitted_code = params[:ans].to_s.gsub(/\R/, "\n") 
+		lang = params[:lang].to_s
+		result = Judge.judge_result @question, lang, submitted_code, 5
+		case result
+		when 'AC'
 			if first_time?
 				update_solved_data
 				join = Join.find_by( contest_id: @contest.id, user_id: current_user.id )
-				case @question.question_level.to_i
+				case @question.original_level.to_i
 				when 1
-					join.update_columns( score: join.score + 100, amount_time: join.amount_time +
-						(Time.now - @contest.start_time).to_i, level1_solve_time: (Time.now - @contest.start_time).to_i )
+					join.update_status 1
 				when 2
-					join.update_columns( score: join.score + 200, amount_time: join.amount_time + 
-						(Time.now - @contest.start_time).to_i, level2_solve_time: (Time.now - @contest.start_time).to_i )
+					join.update_status 2
 				when 3
-					join.update_columns( score: join.score + 300, amount_time: join.amount_time + 
-						(Time.now - @contest.start_time).to_i, level3_solve_time: (Time.now - @contest.start_time).to_i )
+					join.update_status 3
 				when 4
-					join.update_columns( score: join.score + 400, amount_time: join.amount_time + 
-						(Time.now - @contest.start_time).to_i, level4_solve_time: (Time.now - @contest.start_time).to_i )
+					join.update_status 4
 				when 5
-					join.update_columns( score: join.score + 500, amount_time: join.amount_time + 
-						(Time.now - @contest.start_time).to_i, level5_solve_time: (Time.now - @contest.start_time).to_i )
+					join.update_status 5
 				end
 				RankSystem.update_ranking(@contest)
 			end
 			update_record("AC")
 			update_post
 			flash.now[:notice] = "Accepted!"
-		elsif result == false
+		when 'WA'
 			update_record("WA")
 			flash.now[:danger] = "Wrong Answer..."
-		elsif result == 'TLE'
+		when 'TLE'
 			update_record("TLE")
 			flash.now[:danger] = "Time Limit Exceed..."
-		elsif result == 'RE'
+		when 'RE'
 			update_record("RE")
 			flash.now[:danger] = "Run Time Error..."
 		end
@@ -106,17 +107,5 @@ class JudgeSystemsController < ApplicationController
 			current_user != @question.created_user && !current_user.questions.include?(@question)
 		end
 
-		def answer_crrect?
-			ans_code = params[:ans].to_s.gsub(/\R/, "\n") 
-			lang = params[:lang].to_s
-
-			ans_out = Wandbox.run( lang, ans_code, @question.input, 5)
-			if ans_out == 'TLE'
-				return 'TLE'
-			elsif ans_out == 'RE'
-				return 'RE'
-			else
-				return ans_out == @question.output
-			end
-		end
+		
 	end

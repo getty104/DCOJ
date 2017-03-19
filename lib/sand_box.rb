@@ -73,6 +73,27 @@ module Wandbox
 	module_function :run
 end
 
+module Judge 
+	def judge_result question, lang, code, time
+		
+		ans_out = Wandbox.run( lang, code, question.input, time)
+		if ans_out == 'TLE'
+			return 'TLE'
+		elsif ans_out == 'RE'
+			return 'RE'
+		else
+			result = ans_out == question.output
+			if result 
+				return 'AC'
+			else
+				return 'WA'
+			end
+		end
+	end
+
+	module_function :judge_result
+end
+
 
 
 
