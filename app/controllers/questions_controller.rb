@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
 	before_action :set_question, only: [:show, :edit, :update, :destroy, :submission,:download_input, :contest_show]
 	before_action :set_contest, only: [:contest_show]
-	before_action :set_record, only: [:show, :contest_show]
+	before_action :set_records, only: [:show, :contest_show]
 	before_action :authenticate_user!
 	# GET /questions
 	# GET /questions.json
@@ -98,7 +98,7 @@ class QuestionsController < ApplicationController
 			@contest = Contest.find(params[:contest_id])
 		end
 
-		def set_record
+		def set_records
 			@records = current_user.records.where(question_id: @question.id).limit(20).order(created_at: :desc)
 		end
 

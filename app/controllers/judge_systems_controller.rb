@@ -9,6 +9,9 @@ class JudgeSystemsController < ApplicationController
 
 
 	def judge
+		respond_to do |format|
+		format.html{ not_found }
+
 		submitted_code = params[:ans].to_s.gsub(/\R/, "\n") 
 		lang = params[:lang].to_s
 		result = Judge.judge_result @question, lang, submitted_code, 5
@@ -30,13 +33,14 @@ class JudgeSystemsController < ApplicationController
 			update_record("RE")
 			flash.now[:danger] = "Run Time Error..."
 		end
-		respond_to do |format|
 			format.js
 		end
 	end
 
 	def contest_judge
-		time_up @contest
+		respond_to do |format|
+		format.html{ not_found }
+
 		submitted_code = params[:ans].to_s.gsub(/\R/, "\n") 
 		lang = params[:lang].to_s
 		result = Judge.judge_result @question, lang, submitted_code, 5
@@ -72,7 +76,6 @@ class JudgeSystemsController < ApplicationController
 			update_record("RE")
 			flash.now[:danger] = "Run Time Error..."
 		end
-		respond_to do |format|
 			format.js
 		end
 	end
@@ -107,5 +110,4 @@ class JudgeSystemsController < ApplicationController
 			current_user != @question.created_user && !current_user.questions.include?(@question)
 		end
 
-		
 	end

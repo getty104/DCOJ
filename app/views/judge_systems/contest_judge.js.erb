@@ -1,3 +1,6 @@
 $('.update_record').prepend("<%= j( render 'recent_result' ) %>");
 $('#ans').val("");
 $('#alert').html("<%= j( render 'layouts/alert' ) %>");
+$("#alert:not(:animated)").fadeIn("slow",function(){
+	$(this).delay(3000).fadeOut("slow");
+});
