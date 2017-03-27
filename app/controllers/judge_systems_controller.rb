@@ -1,5 +1,6 @@
 require "#{Rails.root}/lib/sand_box.rb"
 require "#{Rails.root}/lib/rank_system.rb"
+require "judge_system"
 class JudgeSystemsController < ApplicationController
 	before_action :authenticate_user!
 	before_action :set_question, only: [:judge, :contest_judge ]
@@ -14,7 +15,7 @@ class JudgeSystemsController < ApplicationController
 
 		submitted_code = params[:ans].to_s.gsub(/\R/, "\n") 
 		lang = params[:lang].to_s
-		result = Judge.judge_result @question, lang, submitted_code, 5
+		result = JudgeSystem.judge_result lang: lang, code: submitted_code, answer: @question.output, stdin: @question.input, time: 5
 		case result
 		when 'AC'
 			if first_time?
@@ -43,7 +44,7 @@ class JudgeSystemsController < ApplicationController
 
 		submitted_code = params[:ans].to_s.gsub(/\R/, "\n") 
 		lang = params[:lang].to_s
-		result = Judge.judge_result @question, lang, submitted_code, 5
+		result = JudgeSystem.judge_result lang: lang, code: submitted_code, answer: @question.output, stdin: @question.input, time: 5
 		case result
 		when 'AC'
 			if first_time?

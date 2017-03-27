@@ -38,6 +38,7 @@ gem 'less-rails' # Railsでlessを使えるようにする。Bootstrapがlessで
 gem 'twitter-bootstrap-rails' # Bootstrapの本体
 gem 'resonance'
 #オンライン実行環境
+gem 'judge_system'
 gem 'remotipart'
 #無限スクロール
 gem 'jquery-turbolinks'

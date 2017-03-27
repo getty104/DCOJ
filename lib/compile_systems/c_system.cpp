@@ -5,7 +5,7 @@ using namespace std;
 int main(int argc, char const *argv[])
 {
   ofstream ofs;
-  ofs.open("test.c",ios::binary);
+  ofs.open("main.c",ios::binary);
   string buf;
   while(getline(cin,buf)){
     if(buf=="<$><*><$><*><$><*><$><*><$><*><$><*><$>")break;
@@ -17,7 +17,7 @@ int main(int argc, char const *argv[])
     ofs<<buf<<endl;
   }
   ofs.close();
-  system("/opt/wandbox/gcc-head/bin/gcc test.c -o test -O2");
-  system("/usr/bin/time -f '%U' ./test < test.in");
+  system("/opt/wandbox/gcc-head/bin/gcc main.c -o main -O2");
+  system("/usr/bin/time -f '%U' ./main < test.in");
   return 0;
 }
