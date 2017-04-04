@@ -50,7 +50,6 @@ class ContestsController < ApplicationController
 
 	def sync_ranking
 		set_contest_joins
-		set_questions_by_origin_legel
 		respond_to do |format|
 			format.js
 		end
