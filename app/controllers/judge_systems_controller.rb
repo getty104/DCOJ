@@ -50,7 +50,7 @@ class JudgeSystemsController < ApplicationController
 				if first_time?
 					@join = Join.find_by( contest_id: @contest.id, user_id: current_user.id )
 					update_solved_data
-					case @question.original_level.to_i
+					case @question.question_level.to_i
 					when 1
 						@join.update_columns( score: @join.score + 100 * 1, amount_time: @join.amount_time + (Time.now - @contest.start_time).to_i, level1_solve_time: (Time.now - @contest.start_time).to_i )
 					when 2
