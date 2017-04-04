@@ -52,15 +52,15 @@ class JudgeSystemsController < ApplicationController
 					update_solved_data
 					case @question.original_level.to_i
 					when 1
-						@join.update_columns( score: @join.score + 100 * 1, amount_time: @join.amount_time + (Time.now - contest.start_time).to_i, level1_solve_time: (Time.now - contest.start_time).to_i )
+						@join.update_columns( score: @join.score + 100 * 1, amount_time: @join.amount_time + (Time.now - @contest.start_time).to_i, level1_solve_time: (Time.now - @contest.start_time).to_i )
 					when 2
-						@join.update_columns( score: @join.score + 100 * 2, amount_time: @join.amount_time + (Time.now - contest.start_time).to_i, level2_solve_time: (Time.now - contest.start_time).to_i )
+						@join.update_columns( score: @join.score + 100 * 2, amount_time: @join.amount_time + (Time.now - @contest.start_time).to_i, level2_solve_time: (Time.now - @contest.start_time).to_i )
 					when 3
-						@join.update_columns( score: @join.score + 100 * 3, amount_time: @join.amount_time + (Time.now - contest.start_time).to_i, level3_solve_time: (Time.now - contest.start_time).to_i )
+						@join.update_columns( score: @join.score + 100 * 3, amount_time: @join.amount_time + (Time.now - @contest.start_time).to_i, level3_solve_time: (Time.now - @contest.start_time).to_i )
 					when 4
-						@join.update_columns( score: @join.score + 100 * 4, amount_time: @join.amount_time + (Time.now - contest.start_time).to_i, level4_solve_time: (Time.now - contest.start_time).to_i )
+						@join.update_columns( score: @join.score + 100 * 4, amount_time: @join.amount_time + (Time.now - @contest.start_time).to_i, level4_solve_time: (Time.now - @contest.start_time).to_i )
 					when 5
-						@join.update_colmuns( score: @join.score + 100 * 5, amount_time: @join.amount_time + (Time.now - contest.start_time).to_i, level5_solve_time: (Time.now - contest.start_time).to_i )
+						@join.update_colmuns( score: @join.score + 100 * 5, amount_time: @join.amount_time + (Time.now - @contest.start_time).to_i, level5_solve_time: (Time.now - @contest.start_time).to_i )
 					end
 					RankSystem.update_ranking(@contest)
 				end
