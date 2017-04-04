@@ -48,18 +48,19 @@ class JudgeSystemsController < ApplicationController
 			case result
 			when 'AC'
 				if first_time?
+					@join = Join.find_by( contest_id: @contest.id, user_id: current_user.id )
 					update_solved_data
 					case @question.original_level.to_i
 					when 1
-						update_status 1
+						@join.update_attributes( score: score + 100 * question_level, amount_time: amount_time + (Time.now - contest.start_time).to_i, level1_solve_time: (Time.now - contest.start_time).to_i )
 					when 2
-						update_status 2
+						@join.update_attributes( score: score + 100 * question_level, amount_time: amount_time + (Time.now - contest.start_time).to_i, level2_solve_time: (Time.now - contest.start_time).to_i )
 					when 3
-						update_status 3
+						@join.update_attributes( score: score + 100 * question_level, amount_time: amount_time + (Time.now - contest.start_time).to_i, level3_solve_time: (Time.now - contest.start_time).to_i )
 					when 4
-						update_status 4
+						@join.update_attributes( score: score + 100 * question_level, amount_time: amount_time + (Time.now - contest.start_time).to_i, level4_solve_time: (Time.now - contest.start_time).to_i )
 					when 5
-						update_status 5
+						@join.update_attributes( score: score + 100 * question_level, amount_time: amount_time + (Time.now - contest.start_time).to_i, level5_solve_time: (Time.now - contest.start_time).to_i )
 					end
 					RankSystem.update_ranking(@contest)
 				end
