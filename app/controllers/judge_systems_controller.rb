@@ -11,71 +11,71 @@ class JudgeSystemsController < ApplicationController
 
 	def judge
 		respond_to do |format|
-		format.html{ not_found }
+			format.html{ not_found }
 
-		submitted_code = params[:ans].to_s.gsub(/\R/, "\n") 
-		lang = params[:lang].to_s
-		result = JudgeSystem.judge_result lang: lang, code: submitted_code, answer: @question.output, stdin: @question.input, time: 20
-		case result
-		when 'AC'
-			if first_time?
-				update_solved_data
+			submitted_code = params[:ans].to_s.gsub(/\R/, "\n") 
+			lang = params[:lang].to_s
+			result = JudgeSystem.judge_result lang: lang, code: submitted_code, answer: @question.output, stdin: @question.input, time: 20
+			case result
+			when 'AC'
+				if first_time?
+					update_solved_data
+				end
+				update_record("AC")
+				update_post
+				flash.now[:notice] = "Accepted!"
+			when 'WA'
+				update_record("WA")
+				flash.now[:danger] = "Wrong Answer..."
+			when 'TLE'
+				update_record("TLE")
+				flash.now[:danger] = "Time Limit Exceed..."
+			when 'RE'
+				update_record("RE")
+				flash.now[:danger] = "Run Time Error..."
 			end
-			update_record("AC")
-			update_post
-			flash.now[:notice] = "Accepted!"
-		when 'WA'
-			update_record("WA")
-			flash.now[:danger] = "Wrong Answer..."
-		when 'TLE'
-			update_record("TLE")
-			flash.now[:danger] = "Time Limit Exceed..."
-		when 'RE'
-			update_record("RE")
-			flash.now[:danger] = "Run Time Error..."
-		end
 			format.js
 		end
 	end
 
 	def contest_judge
 		respond_to do |format|
-		format.html{ not_found }
+			format.html{ not_found }
 
-		submitted_code = params[:ans].to_s.gsub(/\R/, "\n") 
-		lang = params[:lang].to_s
-		result = JudgeSystem.judge_result lang: lang, code: submitted_code, answer: @question.output, stdin: @question.input, time: 20
-		case result
-		when 'AC'
-			if first_time?
-				update_solved_data
-				case @question.original_level.to_i
-				when 1
-					update_status 1
-				when 2
-					update_status 2
-				when 3
-					update_status 3
-				when 4
-					update_status 4
-				when 5
-					update_status 5
+			submitted_code = params[:ans].to_s.gsub(/\R/, "\n") 
+			lang = params[:lang].to_s
+			result = JudgeSystem.judge_result lang: lang, code: submitted_code, answer: @question.output, stdin: @question.input, time: 20
+			case result
+			when 'AC'
+				if first_time?
+					update_solved_data
+					case @question.original_level.to_i
+					when 1
+						update_status 1
+					when 2
+						update_status 2
+					when 3
+						update_status 3
+					when 4
+						update_status 4
+					when 5
+						update_status 5
+					end
+					RankSystem.update_ranking(@contest)
 				end
-				RankSystem.update_ranking(@contest)
+				update_record("AC")
+				update_post
+				flash.now[:notice] = "Accepted!"
+			when 'WA'
+				update_record("WA")
+				flash.now[:danger] = "Wrong Answer..."
+			when 'TLE'
+				update_record("TLE")
+				flash.now[:danger] = "Time Limit Exceed..."
+			when 'RE'
+				update_record("RE")
+				flash.now[:danger] = "Run Time Error..."
 			end
-			update_record("AC")
-			update_post
-			flash.now[:notice] = "Accepted!"
-		when 'WA'
-			update_record("WA")
-			flash.now[:danger] = "Wrong Answer..."
-		when 'TLE'
-			update_record("TLE")
-			flash.now[:danger] = "Time Limit Exceed..."
-		when 'RE'
-			update_record("RE")
-			flash.now[:danger] = "Run Time Error..."
-		end
 			format.js
 		end
 	end
@@ -111,10 +111,20 @@ class JudgeSystemsController < ApplicationController
 		end
 
 		def update_status question_level
-		solve_time = "level#{question_level}_solve_time"
-		@join = Join.find_by( contest_id: @contest.id, user_id: current_user.id )
-		@join.update_attributes( score: score + 100 * question_level, amount_time: amount_time +
-			(Time.now - contest.start_time).to_i, solve_time => (Time.now - contest.start_time).to_i )
-	  end
+			@join = Join.find_by( contest_id: @contest.id, user_id: current_user.id )
+			case question_level
+			when 1
+				@join.update_attributes( score: score + 100 * question_level, amount_time: amount_time + (Time.now - contest.start_time).to_i, level1_solve_time: (Time.now - contest.start_time).to_i )
+			when 2
+				@join.update_attributes( score: score + 100 * question_level, amount_time: amount_time + (Time.now - contest.start_time).to_i, level2_solve_time: (Time.now - contest.start_time).to_i )
+			when 3
+				@join.update_attributes( score: score + 100 * question_level, amount_time: amount_time + (Time.now - contest.start_time).to_i, level3_solve_time: (Time.now - contest.start_time).to_i )
+			when 4
+				@join.update_attributes( score: score + 100 * question_level, amount_time: amount_time + (Time.now - contest.start_time).to_i, level4_solve_time: (Time.now - contest.start_time).to_i )
+			when 5
+				@join.update_attributes( score: score + 100 * question_level, amount_time: amount_time + (Time.now - contest.start_time).to_i, level5_solve_time: (Time.now - contest.start_time).to_i )
+			end
+
+		end
 
 	end
