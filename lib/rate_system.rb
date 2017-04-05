@@ -45,5 +45,5 @@ module RateSystem
 		end
 	end
 	
-	module_function :change_rating
+	module_function :change_rating, :arc_gauss
 end
