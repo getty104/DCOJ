@@ -1,24 +1,4 @@
-# README
+# DCOJ
+趣味で作成したオンラインジャッジアプリ。2017/1月~3月ごろ作成
+[本番環境](https://dcoj.herokuapp.com/)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
