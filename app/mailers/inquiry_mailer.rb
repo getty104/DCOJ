@@ -1,10 +1,10 @@
 class InquiryMailer < ActionMailer::Base
-	default from: "hayabusatoshihumi@gmail.com"   # 送信元アドレス
+	default from: ENV['EMAIL']  # 送信元アドレス
 
 	def received_email(inquiry)
 		@inquiry = inquiry
 		mail(
-			to:      'hayabusatoshihumi@gmail.com',
+			to:      ENV['EMAIL'],
 			subject: 'お問い合わせを承りました'
 			) do |format|
 			format.html

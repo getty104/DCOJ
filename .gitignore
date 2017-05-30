@@ -21,3 +21,15 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+#ignore newrelic.yml
+/config/newrelic.yml
+
+#ignore secrets.yml
+/config/secrets.yml
+
+#ignore cloudinary.yml
+/config/cloudinary.yml
+
+#ignore database.yml
+/config/database.yml

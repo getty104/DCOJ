@@ -14,10 +14,10 @@ config.action_mailer.default_url_options = { host: 'onlinejudge-app.dev' }
 config.action_mailer.raise_delivery_errors = true
 config.action_mailer.delivery_method = :smtp
 config.action_mailer.smtp_settings = {
-	:address => "smtp.gmail.com",
+	:address => ENV['EMAIL_ADDRESS'],
 	:port => 587,
-	:user_name => "hayabusatoshihumi@gmail.com",
-	:password => "yvtfwbpfgptbqfpx",
+	:user_name => ENV["EMAIL"],
+	:password => ENV['EMAIL_PASS'],
 	:authentication => :plain,
 	:enable_starttls_auto => true
 }

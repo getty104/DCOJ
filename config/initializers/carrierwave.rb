@@ -16,9 +16,9 @@ CarrierWave.configure do |config|
 	config.fog_provider = 'fog/aws'
 	config.fog_credentials = {
 		:provider               => 'AWS',
-		:aws_access_key_id      => ENV['ACCESS'],
-		:aws_secret_access_key  => ENV['SECRET'],
-		:region                 => 'ap-northeast-1',
+		:aws_access_key_id      => ENV['AWS_ACCESS'],
+		:aws_secret_access_key  => ENV['AWS_SECRET'],
+		:region                 => ENV['REGEON'],
 		:path_style             => true
 	}
 
@@ -31,15 +31,15 @@ CarrierWave.configure do |config|
 	config.fog_authenticated_url_expiration = 60
 	case Rails.env
 	when 'production'
-		config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/dcoj'
+		config.asset_host = ENV['PRODUCTION_S3_URL']
 
 	when 'development'
 		config.fog_directory = 'dcoj-dev'
-		config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/dcoj-dev'
+		config.asset_host = ENV['DEV_S3_URL']
 
 		#when 'test'
 		config.fog_directory = 'test.dummy'
-		config.asset_host = 'https://s3-ap-northeast-1.amazonaws.com/test.dummy'
+		config.asset_host = ENV['TEST_S3_URL']
 	end
 
 end
